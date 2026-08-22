@@ -138,9 +138,9 @@ export function Navbar() {
 
           <div className="flex items-center gap-1">
             <div className="hidden sm:block">
-              <LanguageSwitcher />
+              <LanguageSwitcher light={transparent} />
             </div>
-            <ThemeToggle />
+            <ThemeToggle light={transparent} />
             <Button
               to="/contact"
               variant="gold"
@@ -217,8 +217,8 @@ export function Navbar() {
                   </motion.div>
                 ))}
               </nav>
-              <div className="mt-4 flex items-center justify-between gap-2 border-t border-navy-100 px-5 py-4 dark:border-white/10">
-                <LanguageSwitcher />
+              <div className="sticky bottom-0 z-10 mt-4 flex items-center justify-between gap-2 border-t border-navy-100 bg-white/95 px-5 py-4 backdrop-blur-sm dark:border-white/10 dark:bg-navy-900/95">
+                <LanguageSwitcher dropUp />
                 <ThemeToggle />
               </div>
               <div className="px-5 pb-8 pt-2">

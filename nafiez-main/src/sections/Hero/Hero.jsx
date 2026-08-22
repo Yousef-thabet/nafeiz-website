@@ -12,26 +12,6 @@ import heroBackground from '@/assets/hero-bg.jpg';
 
 const HERO_IMAGE = heroBackground;
 
-function WorldMap() {
-  return (
-    <svg
-      viewBox="0 0 1000 500"
-      className="absolute inset-0 h-full w-full opacity-[0.12] dark:opacity-[0.08]"
-      preserveAspectRatio="xMidYMid slice"
-      aria-hidden="true"
-    >
-      <defs>
-        <pattern id="dots" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-          <circle cx="5" cy="5" r="1.2" fill="currentColor" />
-        </pattern>
-      </defs>
-      <rect width="1000" height="500" fill="url(#dots)" />
-    </svg>
-  );
-}
-
-
-
 export function Hero() {
   const { t, i18n } = useTranslation();
   const { settings = {} } = useSettings() || {};
@@ -57,11 +37,6 @@ export function Hero() {
           onError={() => setHeroImage(HERO_IMAGE)}
         />
         <div className="absolute inset-0 bg-hero-overlay" />
-      </div>
-
-      <div className="absolute inset-0 text-white">
-        <WorldMap />
-        
       </div>
 
       <div className="container-base relative z-10 w-full py-16 sm:py-20">
