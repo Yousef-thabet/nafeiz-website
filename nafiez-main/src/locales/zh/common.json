@@ -1,0 +1,410 @@
+{
+  "meta": {
+    "home": {
+      "title": "NAFEIZ贸易有限公司 — 您通向中国贸易的窗口",
+      "description": "NAFEIZ是一家中国贸易、采购和物流公司，连接中国与阿拉伯市场。"
+    },
+    "about": {
+      "title": "关于NAFEIZ — 我们的故事与愿景",
+      "description": "了解NAFEIZ贸易有限公司，我们的故事、使命、愿景和连接中国与阿拉伯市场的战略定位。"
+    },
+    "services": {
+      "title": "我们的服务 — NAFEIZ贸易有限公司",
+      "description": "探索从采购、物流到质检和运输的14项全方位贸易服务。"
+    },
+    "products": {
+      "title": "产品目录 — NAFEIZ贸易有限公司",
+      "description": "浏览我们从值得信赖的中国制造商采购的精选产品目录。"
+    },
+    "countries": {
+      "title": "我们服务的市场 — NAFEIZ贸易有限公司",
+      "description": "了解NAFEIZ连接中国与阿拉伯市场的国家：埃及、利比亚、沙特阿拉伯和阿尔及利亚。"
+    },
+    "testimonials": {
+      "title": "客户评价 — NAFEIZ贸易有限公司",
+      "description": "阅读阿拉伯世界客户对与NAFEIZ合作的评价。"
+    },
+    "contact": {
+      "title": "联系NAFEIZ — 开始与中国贸易",
+      "description": "联系NAFEIZ贸易有限公司，开启您的中国采购和物流之旅。"
+    }
+  },
+  "header": {
+    "information": "NAFEIZ贸易有限公司"
+  },
+  "social": {
+    "connect": "联系我们",
+    "tiktok": "NAFEIZ TikTok",
+    "instagram": "NAFEIZ Instagram",
+    "facebook": "NAFEIZ Facebook",
+    "youtube": "NAFEIZ YouTube",
+    "whatsapp": "通过WhatsApp联系NAFEIZ",
+    "wechat": "通过微信联系NAFEIZ"
+  },
+  "nav": {
+    "home": "首页",
+    "about": "关于我们",
+    "services": "服务",
+    "products": "产品",
+    "countries": "国家",
+    "testimonials": "客户评价",
+    "contact": "联系我们",
+    "cta": "获取报价"
+  },
+  "hero": {
+    "headline": "NAFEIZ不仅仅是一家运输和采购公司。我们是您的商业伙伴，也是您与中国贸易的窗口。",
+    "subheadline": "从寻找可靠的供应商到将货物送到您家门口——NAFEIZ负责您与中国贸易旅程的每一步。",
+    "primaryCta": "请求报价",
+    "secondaryCta": "浏览服务",
+    "badge": "中国 ↔ 阿拉伯市场",
+    "imageAlt": "集装箱船驶离繁忙的国际港口",
+    "quickLabel": "直接联系",
+    "stat1": "服务国家",
+    "stat2": "认证供应商",
+    "stat3": "管理订单"
+  },
+  "about": {
+    "label": "关于NAFEIZ",
+    "title": "您连接中国与阿拉伯世界的可信桥梁",
+    "story": "NAFEIZ贸易有限公司是一家总部位于中国的贸易、采购和物流公司，致力于将中国制造商与阿拉伯世界的企业连接起来。我们建立NAFEIZ基于一个简单的信念：贸易应该是透明、可靠、建立在真正的合作关系之上——而非单纯的交易。",
+    "story2": "从我们在中国的基地出发，我们与工厂、市场和供应商紧密合作，以合适的价格找到合适的产品。然后我们负责物流、质量控制、文件和交付，让我们的客户能够专注于在本土发展业务。",
+    "whoWeAre": "我们是一支由贸易专业人士、检验员和物流专家组成的团队，既了解中国市场，也理解阿拉伯买家的需求。我们说您的语言——无论是字面上还是实际上。",
+    "positioning": "战略定位",
+    "positioningText": "位于全球制造业的心脏地带，NAFEIZ让阿拉伯企业直接接触中国庞大的供应商网络，无需距离、语言或信任的障碍。",
+    "visionTitle": "我们的愿景",
+    "visionText": "成为中国与阿拉伯世界之间最受信赖的贸易门户，让跨境贸易变得简单、透明，并为每家企业所触及。",
+    "missionTitle": "我们的使命",
+    "missionText": "通过从中国采购优质产品、管理供应链的每一步、并交付卓越——从工厂车间到客户门口——来赋能阿拉伯企业。",
+    "statsTitle": "NAFEIZ数据",
+    "statsSubtitle": "演示数据——上线前请替换为经核实的企业数据。",
+    "ctaTitle": "准备好开始与中国贸易了吗？",
+    "ctaText": "让NAFEIZ成为您在中国的合作伙伴。告诉我们您的需求，我们负责其余一切。",
+    "ctaButton": "联系我们"
+  },
+  "services": {
+    "label": "我们的服务",
+    "title": "14项服务。一个完整的贸易解决方案。",
+    "subtitle": "从第一次询价到最终交付，NAFEIZ管理您与中国贸易的每个细节。",
+    "learnMore": "了解更多",
+    "all": "所有服务",
+    "1": {
+      "title": "快速客户响应",
+      "description": "用您的语言快速、清晰地沟通。我们迅速回复询价，并在每个阶段让您知情。"
+    },
+    "2": {
+      "title": "寻找可靠供应商",
+      "description": "我们在中国庞大的市场中寻找符合您质量、预算和时间要求的可信赖制造商。"
+    },
+    "3": {
+      "title": "物流服务",
+      "description": "端到端运输、清关和交付——海运、空运或陆运——送到您的目的地。"
+    },
+    "4": {
+      "title": "工厂和市场访问",
+      "description": "我们代表您访问工厂和批发市场，验证供应商并检查生产能力。"
+    },
+    "5": {
+      "title": "供应商谈判",
+      "description": "我们与供应商谈判价格、条款和条件，为您争取最佳交易。"
+    },
+    "6": {
+      "title": "工厂签约",
+      "description": "我们处理与工厂的合同，确保条款、时间表和质量标准明确锁定。"
+    },
+    "7": {
+      "title": "样品请求",
+      "description": "我们请求并评估产品样品，让您在承诺大批量订单前验证质量。"
+    },
+    "8": {
+      "title": "设计团队支持",
+      "description": "我们的设计团队协助产品定制、包装和品牌塑造，以适应您的市场。"
+    },
+    "9": {
+      "title": "采购订单跟进",
+      "description": "我们跟踪您的订单生产进度，保持时间表正常，及早标记问题。"
+    },
+    "10": {
+      "title": "质量检验",
+      "description": "出货前检验验证产品质量、数量和包装，确保货物离开中国前符合要求。"
+    },
+    "11": {
+      "title": "数字平台",
+      "description": "我们利用数字平台和工具，为客户简化采购、订购和跟踪流程。"
+    },
+    "12": {
+      "title": "付款安排",
+      "description": "我们与供应商安排安全的付款条款，保护您的资金并确保交易顺畅。"
+    },
+    "13": {
+      "title": "证书准备",
+      "description": "我们准备并验证贵国海关和合规所需的证书和文件。"
+    },
+    "14": {
+      "title": "客户状态更新",
+      "description": "我们定期向您报告订单状态、运输进展和任何最新动态。"
+    }
+  },
+  "products": {
+    "label": "产品目录",
+    "title": "来自中国最佳的产品",
+    "subtitle": "我们采购和交付的精选产品。对任何产品请求报价，我们将负责其余。",
+    "searchPlaceholder": "搜索产品...",
+    "allCategories": "所有类别",
+    "featured": "精选",
+    "featuredTitle": "精选产品",
+    "featuredSubtitle": "客户最信赖的精选产品。",
+    "viewDetails": "查看详情",
+    "requestQuote": "请求报价",
+    "contactUs": "联系NAFEIZ",
+    "noResults": "未找到产品",
+    "noImage": "暂无图片",
+    "noResultsText": "尝试调整搜索或筛选以找到您要的产品。",
+    "loadMore": "加载更多",
+    "showing": "显示 {{count}} / {{total}} 个产品",
+    "relatedProducts": "相关产品",
+    "specifications": "规格",
+    "category": "类别",
+    "description": "描述",
+    "backToProducts": "返回产品",
+    "breadcrumb": "产品",
+    "requestQuoteText": "对此产品感兴趣？向我们发送请求，我们的团队将回复您报价和详情。",
+    "error": "无法加载产品。请稍后重试。",
+    "retry": "重试"
+  },
+  "countries": {
+    "label": "我们服务的市场",
+    "title": "连接中国与阿拉伯世界",
+    "subtitle": "NAFEIZ服务于阿拉伯地区的企业，架起文化、语言和市场之间的桥梁。",
+    "tradeInfo": "贸易信息",
+    "viewMore": "了解更多",
+    "egypt": {
+      "name": "埃及",
+      "description": "阿拉伯世界最大的市场之一，对中国纺织品、电子产品和工业用品的需求不断增长。",
+      "trade": "主要进口类别包括机械、纺织品和消费品。开罗和亚历山大是主要分销中心。"
+    },
+    "libya": {
+      "name": "利比亚",
+      "description": "一个重建中的市场，对建材、设备和消费品需求强劲。",
+      "trade": "主要进口需求包括建筑材料、车辆和工业设备，以支持重建。"
+    },
+    "saudi": {
+      "name": "沙特阿拉伯",
+      "description": "该地区最大经济体，由2030愿景和大型开发项目驱动的多元化进口需求。",
+      "trade": "主要进口包括电子产品、机械、建材和消费品。吉达和利雅得是主要枢纽。"
+    },
+    "algeria": {
+      "name": "阿尔及利亚",
+      "description": "一个不断增长的北非市场，对工业设备、消费品和农产品有需求。",
+      "trade": "主要进口包括机械、车辆和消费品，阿尔及尔和奥兰为主要港口。"
+    }
+  },
+  "whyNafeiz": {
+    "label": "为什么选择NAFEIZ",
+    "title": "您在中国地面上可以信赖的合作伙伴",
+    "subtitle": "我们不是中间商。我们是您在中国的团队——管理每个细节，让您无需操心。",
+    "stat1": "服务国家",
+    "stat2": "认证供应商",
+    "stat3": "管理订单",
+    "stat4": "年经验",
+    "visualEyebrow": "从中国到您的市场",
+    "visualTitle": "从工厂到目的地的清晰路线。",
+    "visualText": "由一个合作伙伴负责采购、质检和交付。",
+    "feature1Title": "地面存在",
+    "feature1Text": "我们亲自访问工厂、参加市场、验证供应商——让您无需出差。",
+    "feature2Title": "阿拉伯语支持",
+    "feature2Text": "我们用阿拉伯语、英语和中文沟通，消除您贸易中的语言障碍。",
+    "feature3Title": "端到端管理",
+    "feature3Text": "从采购到交付，我们在一个屋檐下管理供应链的每一步。",
+    "feature4Title": "可验证的质量",
+    "feature4Text": "出货前检验和样品评估确保您获得与订购完全一致的产品。"
+  },
+  "howItWorks": {
+    "label": "工作流程",
+    "title": "从询价到交付的7个步骤",
+    "subtitle": "清晰透明的流程，在每个阶段让您知情。",
+    "step1": {
+      "title": "了解您的需求",
+      "description": "我们首先了解您的产品需求、预算、时间表和质量标准。"
+    },
+    "step2": {
+      "title": "寻找可靠供应商",
+      "description": "我们在中国市场寻找符合您要求的可信赖制造商。"
+    },
+    "step3": {
+      "title": "谈判与选择",
+      "description": "我们谈判价格和条款，然后帮助您为订单选择最佳供应商。"
+    },
+    "step4": {
+      "title": "请求样品",
+      "description": "我们请求并评估样品，让您在承诺前验证质量。"
+    },
+    "step5": {
+      "title": "质量检验",
+      "description": "我们在出货前检验货物，验证质量、数量和包装。"
+    },
+    "step6": {
+      "title": "生产跟进",
+      "description": "我们跟踪生产进度，及早标记任何问题以保持您的时间表。"
+    },
+    "step7": {
+      "title": "运输与交付",
+      "description": "我们负责运输、海关、文件和交付到您的目的地。"
+    }
+  },
+  "testimonials": {
+    "label": "客户评价",
+    "title": "客户怎么说",
+    "subtitle": "阿拉伯世界各地的企业信任NAFEIZ管理他们与中国的贸易。",
+    "previous": "上一个",
+    "next": "下一个",
+    "empty": "暂无评价。"
+  },
+  "contact": {
+    "label": "联系我们",
+    "title": "开启您的中国贸易之旅",
+    "subtitle": "告诉我们您的需求，我们的团队将在24小时内回复您。",
+    "home": {
+      "eyebrow": "与中国现场团队沟通",
+      "title": "自信地推进您的下一批货物。",
+      "text": "告诉我们您的采购需求、目标市场或交付难题。我们在中国的团队将帮助您明确下一步。",
+      "cta": "开始沟通",
+      "whatsapp": "通过WhatsApp联系",
+      "phone": "电话",
+      "email": "邮箱",
+      "location": "所在地"
+    },
+    "name": "全名",
+    "namePlaceholder": "您的姓名",
+    "companyName": "公司名称",
+    "companyNamePlaceholder": "您的公司名称（可选）",
+    "email": "电子邮箱",
+    "emailPlaceholder": "you@example.com",
+    "country": "国家",
+    "countryPlaceholder": "选择您的国家",
+    "phone": {
+      "title": "电话号码",
+      "countryPlaceholder": "选择您的国家",
+      "searchCountry": "搜索国家",
+      "countryCode": "国家代码",
+      "phoneNumber": "电话号码",
+      "phonePlaceholder": "输入电话号码",
+      "noCountriesFound": "未找到国家"
+    },
+    "qualify": {
+      "visitedChina": "您是否去过中国？",
+      "yes": "是",
+      "no": "否",
+      "interestsLabel": "您对什么感兴趣？",
+      "interestsOptions": {
+        "sourcing": "产品采购",
+        "qualityInspection": "质量检验",
+        "logistics": "物流 / 运输",
+        "findingSuppliers": "寻找供应商",
+        "other": "其他"
+      },
+      "estimatedOrderQuantity": "预计订单数量",
+      "startTimeline": {
+        "label": "您计划何时开始？",
+        "options": {
+          "immediately": "立即",
+          "within1Month": "1个月内",
+          "within3Months": "3个月内",
+          "justExploring": "只是了解中"
+        }
+      },
+      "productReadiness": {
+        "label": "您是否已经知道想要的产品？",
+        "options": {
+          "exactlyKnow": "是的，我确切知道我需要什么",
+          "needsHelp": "我有想法，但需要帮助",
+          "stillExploring": "我还在探索"
+        }
+      },
+      "selectPlaceholder": "请选择",
+      "estimatedOrder": {
+        "options": {
+          "small": "小规模 / 试单",
+          "medium": "中等订单",
+          "large": "大订单",
+          "notSure": "还不确定"
+        }
+      },
+      "interests": {
+        "options": {
+          "sourcing": "产品采购",
+          "qualityInspection": "质量检验",
+          "logistics": "物流 / 运输",
+          "findingSuppliers": "寻找供应商",
+          "other": "其他"
+        }
+      }
+    },
+    "message": "留言",
+    "messagePlaceholder": "告诉我们您的产品需求、数量或任何问题...",
+    "submit": "发送留言",
+    "sending": "发送中...",
+    "successTitle": "留言已发送！",
+    "successText": "感谢您联系我们。我们的团队将在24小时内回复您。",
+    "sendAnother": "发送另一条留言",
+    "errorTitle": "出错了",
+    "errorText": "我们无法发送您的留言。请重试或直接联系我们。",
+    "validation": {
+      "nameRequired": "请输入您的姓名",
+      "emailRequired": "请输入您的邮箱",
+      "emailInvalid": "请输入有效的邮箱地址",
+      "countryRequired": "请选择您的国家",
+      "phoneRequired": "请输入您的电话号码",
+      "phoneInvalid": "请输入有效的电话号码",
+      "visitedChinaRequired": "请回答您是否去过中国",
+      "interestsRequired": "请至少选择一个兴趣方向",
+      "estimatedOrderQuantityRequired": "请选择预计订单数量",
+      "startTimelineRequired": "请选择计划开始时间",
+      "productReadinessRequired": "请告诉我们您对产品的了解程度",
+      "messageRequired": "请输入留言",
+      "messageShort": "留言至少需要10个字符"
+    },
+    "info": {
+      "title": "联系信息",
+      "phone": "电话",
+      "email": "邮箱",
+      "location": "位置",
+      "locationValue": "中国",
+      "hours": "响应时间",
+      "hoursValue": "24小时内",
+      "phoneUnavailable": "暂无信息",
+      "emailUnavailable": "暂无信息"
+    },
+    "countryOptions": {
+      "egypt": "埃及",
+      "libya": "利比亚",
+      "saudi": "沙特阿拉伯",
+      "algeria": "阿尔及利亚",
+      "other": "其他"
+    }
+  },
+  "footer": {
+    "tagline": "您通向中国贸易的窗口。",
+    "quickLinks": "快速链接",
+    "ourServices": "我们的服务",
+    "contact": "联系",
+    "rights": "版权所有。",
+    "madeWith": "NAFEIZ贸易有限公司"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "出错了",
+    "retry": "重试",
+    "back": "返回",
+    "readMore": "阅读更多",
+    "viewAll": "查看全部",
+    "pageNotFound": "页面未找到",
+    "pageNotFoundText": "您寻找的页面不存在或已被移动。",
+    "goHome": "返回首页",
+    "language": "语言",
+    "openMenu": "打开菜单",
+    "closeMenu": "关闭菜单",
+    "theme": "主题",
+    "lightMode": "浅色模式",
+    "darkMode": "深色模式"
+  }
+}

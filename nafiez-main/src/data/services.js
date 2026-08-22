@@ -1,0 +1,33 @@
+import {
+  Headphones,
+  Search,
+  Truck,
+  Factory,
+  Handshake,
+  FileSignature,
+  PackageSearch,
+  Palette,
+  ClipboardList,
+  ShieldCheck,
+  MonitorSmartphone,
+  Wallet,
+  FileBadge,
+  BellRing,
+} from 'lucide-react';
+
+export const services = [
+  { id: 1, icon: Headphones, key: '1' },
+  { id: 2, icon: Search, key: '2' },
+  { id: 3, icon: Truck, key: '3' },
+  { id: 4, icon: Factory, key: '4' },
+  { id: 5, icon: Handshake, key: '5' },
+  { id: 6, icon: FileSignature, key: '6' },
+  { id: 7, icon: PackageSearch, key: '7' },
+  { id: 8, icon: Palette, key: '8' },
+  { id: 9, icon: ClipboardList, key: '9' },
+  { id: 10, icon: ShieldCheck, key: '10' },
+  { id: 11, icon: MonitorSmartphone, key: '11' },
+  { id: 12, icon: Wallet, key: '12' },
+  { id: 13, icon: FileBadge, key: '13' },
+  { id: 14, icon: BellRing, key: '14' },
+];

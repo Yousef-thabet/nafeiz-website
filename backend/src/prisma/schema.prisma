@@ -1,0 +1,142 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String   @id @default(cuid())
+  name              String
+  email             String   @unique
+  password          String
+  role              String   @default("employee")
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  assignedContacts  Contact[] @relation("AssignedContact")
+  authoredNotes     ContactNote[] @relation("EmployeeNote")
+
+  @@map("users")
+}
+
+model Contact {
+  id                     String        @id @default(cuid())
+  name                   String
+  companyName            String?
+  email                  String?
+  phone                  String?
+  country                String?
+  countryCode            String?
+  dialCode               String?
+  phoneNumber            String?
+  visitedChina           Boolean?
+  interests              String[]      @default([])
+  estimatedOrderQuantity String?
+  startTimeline          String?
+  productReadiness       String?
+  message                String
+  status                 String        @default("new")
+  assignedEmployeeId     String?
+  assignedEmployee       User?         @relation("AssignedContact", fields: [assignedEmployeeId], references: [id])
+  notes                  ContactNote[]
+  createdAt              DateTime      @default(now())
+  updatedAt              DateTime      @updatedAt
+
+  @@map("contacts")
+}
+
+model ContactNote {
+  id          String   @id @default(cuid())
+  contactId   String
+  contact     Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  employeeId  String
+  employee    User     @relation("EmployeeNote", fields: [employeeId], references: [id])
+  note        String
+  createdAt   DateTime @default(now())
+
+  @@map("contact_notes")
+}
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  name        String
+  jobTitle    String
+  comment     String
+  rating      Int      @default(5)
+  isVisible   Boolean  @default(true)
+  // Multilingual fields (JSON stored as text)
+  nameL10n    String?  // JSON object with language keys: {ar: '', en: '', zh: ''}
+  positionL10n String? // JSON object with language keys
+  reviewL10n  String?  // JSON object with language keys
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("testimonials")
+}
+
+model Product {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  category        String   // electronics, textiles, machinery, construction, home, packaging
+  featured        Boolean  @default(false)
+  published       Boolean  @default(true) // visibility control
+  // Multilingual fields (JSON stored as text)
+  nameL10n        String   // JSON object with language keys: {ar: '', en: '', zh: ''}
+  shortDescL10n   String?  // JSON object with language keys
+  descriptionL10n String   // JSON object with language keys
+  images          ProductImage[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("products")
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@map("product_images")
+}
+
+model Country {
+  id              String   @id @default(cuid())
+  code            String   @unique // e.g., EG, LY, SA, DZ
+  slug            String   @unique
+  imageUrl        String?
+  published       Boolean  @default(true) // visibility control
+  // Multilingual fields (JSON stored as text)
+  nameL10n        String   // JSON object with language keys: {ar: '', en: '', zh: ''}
+  descriptionL10n String?  // JSON object with language keys
+  detailsL10n     String?  // JSON object with language keys
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("countries")
+}
+
+model Setting {
+  id            String   @id @default(cuid())
+  key           String   @unique
+  value         String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("settings")
+}
+
+model RefreshToken {
+  id            String   @id @default(cuid())
+  token         String   @unique
+  userId        String
+  expiresAt     DateTime
+  createdAt     DateTime @default(now())
+
+  @@map("refresh_tokens")
+}

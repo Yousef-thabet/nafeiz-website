@@ -1,0 +1,410 @@
+{
+  "meta": {
+    "home": {
+      "title": "NAFEIZ Trade Co.. — Gateway to Trade with China",
+      "description": "NAFEIZ is a China-based trading, sourcing, and logistics company connecting China with Arab markets."
+    },
+    "about": {
+      "title": "About NAFEIZ — Our Story & Vision",
+      "description": "Learn about NAFEIZ Trade Co.., our story, mission, vision, and strategic positioning connecting China with Arab markets."
+    },
+    "services": {
+      "title": "Our Services — NAFEIZ Trade Co..",
+      "description": "Explore 14 comprehensive trade services from sourcing and logistics to quality inspection and shipping."
+    },
+    "products": {
+      "title": "Product Catalog — NAFEIZ Trade Co..",
+      "description": "Browse our curated catalog of products sourced from trusted Chinese manufacturers."
+    },
+    "countries": {
+      "title": "Markets We Serve — NAFEIZ Trade Co..",
+      "description": "Discover the Arab markets NAFEIZ connects with China: Egypt, Libya, Saudi Arabia, and Algeria."
+    },
+    "testimonials": {
+      "title": "Client Testimonials — NAFEIZ Trade Co..",
+      "description": "Read what our clients across the Arab world say about working with NAFEIZ."
+    },
+    "contact": {
+      "title": "Contact NAFEIZ — Start Trading with China",
+      "description": "Get in touch with NAFEIZ Trade Co.. to start your sourcing and logistics journey with China."
+    }
+  },
+  "header": {
+    "information": "NAFEIZ Trade Co.."
+  },
+  "social": {
+    "connect": "Connect with us",
+    "tiktok": "NAFEIZ on TikTok",
+    "instagram": "NAFEIZ on Instagram",
+    "facebook": "NAFEIZ on Facebook",
+    "youtube": "NAFEIZ on YouTube",
+    "whatsapp": "Contact NAFEIZ on WhatsApp",
+    "wechat": "Contact NAFEIZ on WeChat"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "products": "Products",
+    "countries": "Countries",
+    "testimonials": "Testimonials",
+    "contact": "Contact",
+    "cta": "Get a Quote"
+  },
+  "hero": {
+    "headline": "NAFEIZ is your trusted partner and gateway to trading with China.",
+    "subheadline": "From sourcing reliable suppliers to delivering goods to your doorstep — NAFEIZ handles every step of your trade journey with China.",
+    "primaryCta": "Request a Quote",
+    "secondaryCta": "Explore Services",
+    "badge": "China ↔ worldwide",
+    "imageAlt": "Container ship leaving a busy international port",
+    "quickLabel": "Direct contact",
+    "stat1": "Countries Served",
+    "stat2": "Verified Suppliers",
+    "stat3": "Orders Managed"
+  },
+  "about": {
+    "label": "About NAFEIZ",
+    "title": "Your Trusted Bridge Between China and the Arab World",
+    "story": "NAFEIZ Trade Co.,  is a China-based trading, sourcing, and logistics company dedicated to connecting Chinese manufacturers with businesses across the Arab world. We built NAFEIZ on a simple belief: trade should be transparent, reliable, and built on real partnerships — not transactions.",
+    "story2": "From our base in China, we work closely with factories, markets, and suppliers to find the right products at the right prices. Then we handle the logistics, quality control, documentation, and delivery so our clients can focus on growing their businesses back home.",
+    "whoWeAre": "We are a team of trade professionals, inspectors, and logistics specialists who understand both the Chinese market and the needs of Arab buyers. We speak your language — literally and figuratively.",
+    "positioning": "Strategic Positioning",
+    "positioningText": "Located at the heart of global manufacturing, NAFEIZ gives Arab businesses direct access to China's vast supplier network without the barriers of distance, language, or trust.",
+    "visionTitle": "Our Vision",
+    "visionText": "To become the most trusted gateway for trade between China and the Arab world, making cross-border commerce simple, transparent, and accessible to every business.",
+    "missionTitle": "Our Mission",
+    "missionText": "To empower Arab businesses by sourcing quality products from China, managing every step of the supply chain, and delivering excellence — from the factory floor to the customer's door.",
+    "statsTitle": "NAFEIZ in Numbers",
+    "statsSubtitle": "A clear view of the markets and trade work we support.",
+    "ctaTitle": "Ready to start trading with China?",
+    "ctaText": "Let NAFEIZ be your partner on the ground. Tell us what you need and we'll handle the rest.",
+    "ctaButton": "Contact Us"
+  },
+  "services": {
+    "label": "What We Do",
+    "title": "14 Services. One Complete Trade Solution.",
+    "subtitle": "From the first inquiry to the final delivery, NAFEIZ manages every detail of your trade with China.",
+    "learnMore": "Learn more",
+    "all": "All Services",
+    "1": {
+      "title": "Rapid Client Response",
+      "description": "Fast, clear communication in your language. We respond to inquiries quickly and keep you informed at every stage."
+    },
+    "2": {
+      "title": "Sourcing Reliable Suppliers",
+      "description": "We search China's vast market to find trusted manufacturers that match your quality, budget, and timeline."
+    },
+    "3": {
+      "title": "Logistics Services",
+      "description": "End-to-end shipping, customs clearance, and delivery — by sea, air, or land — to your destination."
+    },
+    "4": {
+      "title": "Factory & Market Visits",
+      "description": "We visit factories and wholesale markets on your behalf to verify suppliers and inspect production capacity."
+    },
+    "5": {
+      "title": "Supplier Negotiation",
+      "description": "We negotiate prices, terms, and conditions with suppliers to get you the best possible deal."
+    },
+    "6": {
+      "title": "Factory Contracting",
+      "description": "We handle contracts with factories, ensuring clear terms, timelines, and quality standards are locked in."
+    },
+    "7": {
+      "title": "Sample Requests",
+      "description": "We request and evaluate product samples so you can verify quality before committing to bulk orders."
+    },
+    "8": {
+      "title": "Design Team Support",
+      "description": "Our design team helps with product customization, packaging, and branding to fit your market."
+    },
+    "9": {
+      "title": "Purchase Order Follow-up",
+      "description": "We track your orders through production, keeping schedules on track and issues flagged early."
+    },
+    "10": {
+      "title": "Quality Inspection",
+      "description": "Pre-shipment inspections verify product quality, quantity, and packaging before goods leave China."
+    },
+    "11": {
+      "title": "Digital Platforms",
+      "description": "We leverage digital platforms and tools to streamline sourcing, ordering, and tracking for our clients."
+    },
+    "12": {
+      "title": "Payment Arrangements",
+      "description": "We arrange secure payment terms with suppliers, protecting your funds and ensuring smooth transactions."
+    },
+    "13": {
+      "title": "Certificate Preparation",
+      "description": "We prepare and verify the certificates and documents required for customs and compliance in your country."
+    },
+    "14": {
+      "title": "Client Status Updates",
+      "description": "We keep you updated with regular reports on order status, shipping progress, and any developments."
+    }
+  },
+  "products": {
+    "label": "Product Catalog",
+    "title": "Products Sourced from China's Best",
+    "subtitle": "A curated selection of products we source and deliver. Request a quote for any product and we'll handle the rest.",
+    "searchPlaceholder": "Search products...",
+    "allCategories": "All Categories",
+    "featured": "Featured",
+    "featuredTitle": "Featured Products",
+    "featuredSubtitle": "Hand-picked products our clients trust most.",
+    "viewDetails": "View details",
+    "requestQuote": "Request Quote",
+    "contactUs": "Contact NAFEIZ",
+    "noResults": "No products found",
+    "noImage": "No image available",
+    "noResultsText": "Try adjusting your search or filter to find what you're looking for.",
+    "loadMore": "Load more",
+    "showing": "Showing {{count}} of {{total}} products",
+    "relatedProducts": "Related Products",
+    "specifications": "Specifications",
+    "category": "Category",
+    "description": "Description",
+    "backToProducts": "Back to products",
+    "breadcrumb": "Products",
+    "requestQuoteText": "Interested in this product? Send us a request and our team will get back to you with pricing and details.",
+    "error": "Failed to load products. Please try again later.",
+    "retry": "Retry"
+  },
+  "countries": {
+    "label": "Markets We Serve",
+    "title": "Connecting China with the Arab World",
+    "subtitle": "NAFEIZ serves businesses across the Arab region, bridging cultures, languages, and markets.",
+    "tradeInfo": "Trade Information",
+    "viewMore": "Learn more",
+    "egypt": {
+      "name": "Egypt",
+      "description": "One of the largest markets in the Arab world, with growing demand for Chinese goods across textiles, electronics, and industrial supplies.",
+      "trade": "Major import categories include machinery, textiles, and consumer goods. Cairo and Alexandria serve as key distribution hubs."
+    },
+    "libya": {
+      "name": "Libya",
+      "description": "A rebuilding market with strong demand for construction materials, equipment, and consumer products.",
+      "trade": "Key import needs include building materials, vehicles, and industrial equipment to support reconstruction."
+    },
+    "saudi": {
+      "name": "Saudi Arabia",
+      "description": "The largest economy in the region, with diversified import needs driven by Vision 2030 and large-scale development projects.",
+      "trade": "Major imports include electronics, machinery, construction materials, and consumer goods. Jeddah and Riyadh are primary hubs."
+    },
+    "algeria": {
+      "name": "Algeria",
+      "description": "A growing North African market with demand for industrial equipment, consumer goods, and agricultural products.",
+      "trade": "Key imports include machinery, vehicles, and consumer products, with Algiers and Oran as main ports."
+    }
+  },
+  "whyNafeiz": {
+    "label": "Why NAFEIZ",
+    "title": "A Partner You Can Trust on the Ground in China",
+    "subtitle": "We are not intermediaries. We are your team in China — managing every detail so you don't have to.",
+    "stat1": "Countries Served",
+    "stat2": "Verified Suppliers",
+    "stat3": "Orders Managed",
+    "stat4": "Years of Experience",
+    "visualEyebrow": "From China to your market",
+    "visualTitle": "A clear route from factory to destination.",
+    "visualText": "Sourcing, quality control, and delivery under one partner.",
+    "feature1Title": "On-the-Ground Presence",
+    "feature1Text": "We visit factories, attend markets, and verify suppliers in person — so you don't have to travel.",
+    "feature2Title": "Arabic-Language Support",
+    "feature2Text": "We communicate in Arabic, English, and Chinese, removing the language barrier from your trade.",
+    "feature3Title": "End-to-End Management",
+    "feature3Text": "From sourcing to delivery, we handle every step of the supply chain under one roof.",
+    "feature4Title": "Quality You Can Verify",
+    "feature4Text": "Pre-shipment inspections and sample evaluations ensure you get exactly what you ordered."
+  },
+  "howItWorks": {
+    "label": "How It Works",
+    "title": "7 Steps from Inquiry to Delivery",
+    "subtitle": "A clear, transparent process that keeps you informed at every stage.",
+    "step1": {
+      "title": "Understand Your Requirements",
+      "description": "We start by understanding your product needs, budget, timeline, and quality standards."
+    },
+    "step2": {
+      "title": "Source Reliable Suppliers",
+      "description": "We search China's market to find trusted manufacturers that match your requirements."
+    },
+    "step3": {
+      "title": "Negotiate & Select",
+      "description": "We negotiate prices and terms, then help you select the best supplier for your order."
+    },
+    "step4": {
+      "title": "Request Samples",
+      "description": "We request and evaluate samples so you can verify quality before committing."
+    },
+    "step5": {
+      "title": "Quality Inspection",
+      "description": "We inspect goods before shipment to verify quality, quantity, and packaging."
+    },
+    "step6": {
+      "title": "Production Follow-up",
+      "description": "We track production progress and flag any issues early to keep your schedule on track."
+    },
+    "step7": {
+      "title": "Shipping & Delivery",
+      "description": "We handle shipping, customs, documentation, and delivery to your destination."
+    }
+  },
+  "testimonials": {
+    "label": "Client Testimonials",
+    "title": "What Our Clients Say",
+    "subtitle": "Businesses across the Arab world trust NAFEIZ to manage their trade with China.",
+    "previous": "Previous",
+    "next": "Next",
+    "empty": "No testimonials available yet."
+  },
+  "contact": {
+    "label": "Get in Touch",
+    "title": "Start Your Trade Journey with China",
+    "subtitle": "Tell us what you need and our team will get back to you within 24 hours.",
+    "home": {
+      "eyebrow": "Talk to the team on the ground",
+      "title": "Move your next shipment with confidence.",
+      "text": "Bring us your sourcing brief, target market, or delivery challenge. Our China-based team will help you find the clearest next step.",
+      "cta": "Start a conversation",
+      "whatsapp": "WhatsApp us",
+      "phone": "Phone",
+      "email": "Email",
+      "location": "Based in"
+    },
+    "name": "Full Name",
+    "namePlaceholder": "Your name",
+    "companyName": "Company Name",
+    "companyNamePlaceholder": "Your company name (optional)",
+    "email": "Email Address",
+    "emailPlaceholder": "you@example.com",
+    "country": "Country",
+    "countryPlaceholder": "Select your country",
+    "phone": {
+      "title": "Phone Number",
+      "countryPlaceholder": "Select your country",
+      "searchCountry": "Search country",
+      "countryCode": "Country Code",
+      "phoneNumber": "Phone Number",
+      "phonePlaceholder": "Enter phone number",
+      "noCountriesFound": "No countries found"
+    },
+    "qualify": {
+      "visitedChina": "Have you visited China before?",
+      "yes": "Yes",
+      "no": "No",
+      "interestsLabel": "What are you interested in?",
+      "interestsOptions": {
+        "sourcing": "Product Sourcing",
+        "qualityInspection": "Quality Inspection",
+        "logistics": "Logistics / Shipping",
+        "findingSuppliers": "Finding Suppliers",
+        "other": "Other"
+      },
+      "estimatedOrderQuantity": "Estimated Order Quantity",
+      "startTimeline": {
+        "label": "When are you planning to start?",
+        "options": {
+          "immediately": "Immediately",
+          "within1Month": "Within 1 Month",
+          "within3Months": "Within 3 Months",
+          "justExploring": "Just Exploring"
+        }
+      },
+      "productReadiness": {
+        "label": "Do you already know the products you want?",
+        "options": {
+          "exactlyKnow": "Yes, I know exactly what I need",
+          "needsHelp": "I have an idea but need help",
+          "stillExploring": "I am still exploring"
+        }
+      },
+      "selectPlaceholder": "Select an option",
+      "estimatedOrder": {
+        "options": {
+          "small": "Small / Trial Order",
+          "medium": "Medium Order",
+          "large": "Large Order",
+          "notSure": "Not Sure Yet"
+        }
+      },
+      "interests": {
+        "options": {
+          "sourcing": "Product Sourcing",
+          "qualityInspection": "Quality Inspection",
+          "logistics": "Logistics / Shipping",
+          "findingSuppliers": "Finding Suppliers",
+          "other": "Other"
+        }
+      }
+    },
+    "message": "Message",
+    "messagePlaceholder": "Tell us about your product needs, quantities, or any questions...",
+    "submit": "Send Message",
+    "sending": "Sending...",
+    "successTitle": "Message Sent!",
+    "successText": "Thank you for reaching out. Our team will get back to you within 24 hours.",
+    "sendAnother": "Send another message",
+    "errorTitle": "Something went wrong",
+    "errorText": "We couldn't send your message. Please try again or contact us directly.",
+    "validation": {
+      "nameRequired": "Please enter your name",
+      "emailRequired": "Please enter your email",
+      "emailInvalid": "Please enter a valid email address",
+      "countryRequired": "Please select your country",
+      "phoneRequired": "Please enter your phone number",
+      "phoneInvalid": "Please enter a valid phone number",
+      "visitedChinaRequired": "Please answer whether you have visited China before",
+      "interestsRequired": "Please select at least one interest",
+      "estimatedOrderQuantityRequired": "Please select your estimated order quantity",
+      "startTimelineRequired": "Please select your planned start time",
+      "productReadinessRequired": "Please tell us how well you know the products",
+      "messageRequired": "Please enter a message",
+      "messageShort": "Message should be at least 10 characters"
+    },
+    "info": {
+      "title": "Contact Information",
+      "phone": "Phone",
+      "email": "Email",
+      "location": "Location",
+      "locationValue": "China",
+      "hours": "Response Time",
+      "hoursValue": "Within 24 hours",
+      "phoneUnavailable": "Not available",
+      "emailUnavailable": "Not available"
+    },
+    "countryOptions": {
+      "egypt": "Egypt",
+      "libya": "Libya",
+      "saudi": "Saudi Arabia",
+      "algeria": "Algeria",
+      "other": "Other"
+    }
+  },
+  "footer": {
+    "tagline": "Your gateway to trade with China.",
+    "quickLinks": "Quick Links",
+    "ourServices": "Our Services",
+    "contact": "Contact",
+    "rights": "All rights reserved.",
+    "madeWith": "NAFEIZ Trade Co., "
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try again",
+    "back": "Back",
+    "readMore": "Read more",
+    "viewAll": "View all",
+    "pageNotFound": "Page not found",
+    "pageNotFoundText": "The page you're looking for doesn't exist or has been moved.",
+    "goHome": "Go to homepage",
+    "language": "Language",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "theme": "Theme",
+    "lightMode": "Light mode",
+    "darkMode": "Dark mode"
+  }
+}
