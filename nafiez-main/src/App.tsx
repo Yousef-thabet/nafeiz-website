@@ -1,5 +1,5 @@
-import { Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { Suspense, lazy, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Outlet, useLocation, useParams } from 'react-router-dom';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { ScrollToTop } from '@/components/common/ScrollToTop';
@@ -16,7 +16,7 @@ import CountriesPage from '@/pages/CountriesPage';
 import TestimonialsPage from '@/pages/TestimonialsPage';
 import SettingsPage from '@/pages/SettingsPage';
 import ProfilePage from '@/pages/ProfilePage';
-import '@/lib/i18n';
+import i18n, { getLanguageFromPath, SUPPORTED_LANGUAGES } from '@/lib/i18n';
 
 const Home = lazy(() => import('@/pages/Home'));
 const About = lazy(() => import('@/pages/About'));
@@ -34,6 +34,23 @@ function PageFallback() {
       <LoadingSpinner size={32} />
     </div>
   );
+}
+
+function LocaleLayout() {
+  const { locale } = useParams();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (SUPPORTED_LANGUAGES.some((language) => language.code === locale) && getLanguageFromPath(location.pathname) !== locale) {
+      i18n.changeLanguage(locale);
+    }
+  }, [locale, location.pathname]);
+
+  if (!SUPPORTED_LANGUAGES.some((language) => language.code === locale)) {
+    return <NotFound />;
+  }
+
+  return <Outlet />;
 }
 
 function AppShell() {
@@ -54,6 +71,17 @@ function AppShell() {
             <Route path="/countries" element={<Countries />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/contact" element={<Contact />} />
+
+            <Route path="/:locale" element={<LocaleLayout />}>
+              <Route index element={<Home />} />
+              <Route path="about" element={<About />} />
+              <Route path="services" element={<Services />} />
+              <Route path="products" element={<Products />} />
+              <Route path="products/:slug" element={<ProductDetails />} />
+              <Route path="countries" element={<Countries />} />
+              <Route path="testimonials" element={<Testimonials />} />
+              <Route path="contact" element={<Contact />} />
+            </Route>
 
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route element={<ProtectedRoute allowedRoles={['admin', 'employee']} />}>

@@ -10,6 +10,7 @@ import { ThemeToggle } from '@/components/common/ThemeToggle';
 import { SocialLinks } from '@/components/common/SocialLinks';
 import { useSettings } from '@/context/SettingsContext';
 import { Logo } from '@/components/common/Logo';
+import { getLocalizedPath } from '@/lib/i18n';
 
 const NAV_LINKS = [
   { to: '/', key: 'nav.home' },
@@ -111,7 +112,7 @@ export function Navbar() {
             {NAV_LINKS.map((link) => (
               <NavLink
                 key={link.to}
-                to={link.to}
+                to={getLocalizedPath(link.to, i18n.language)}
                 className={({ isActive }) =>
                   `relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-200 ${
                     transparent
@@ -203,7 +204,7 @@ export function Navbar() {
                     transition={{ delay: index * 0.05, duration: 0.25 }}
                   >
                     <NavLink
-                      to={link.to}
+                          to={getLocalizedPath(link.to, i18n.language)}
                       className={({ isActive }) =>
                         `block rounded-xl px-4 py-3 text-base font-medium transition-colors duration-200 ${
                           isActive

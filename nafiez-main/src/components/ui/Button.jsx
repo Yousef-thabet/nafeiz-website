@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
+import { getLocalizedPath } from '@/lib/i18n';
 
 const variants = {
   primary: 'btn-primary',
@@ -24,11 +26,12 @@ export function Button({
   className = '',
   ...props
 }) {
+  const { i18n } = useTranslation();
   const classes = cn(variants[variant], sizes[size], className);
 
   if (to) {
     return (
-      <Link to={to} className={classes} {...props}>
+      <Link to={getLocalizedPath(to, i18n.language)} className={classes} {...props}>
         {children}
       </Link>
     );

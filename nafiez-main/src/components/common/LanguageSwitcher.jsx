@@ -1,10 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Globe, Check, ChevronDown } from 'lucide-react';
 import { SUPPORTED_LANGUAGES } from '@/lib/i18n';
 
 export function LanguageSwitcher({ compact = false, light = false, dropUp = false }) {
   const { t, i18n } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   const current = SUPPORTED_LANGUAGES.find((l) => l.code === i18n.language) || SUPPORTED_LANGUAGES[1];
@@ -27,6 +30,12 @@ export function LanguageSwitcher({ compact = false, light = false, dropUp = fals
   function selectLang(code) {
     i18n.changeLanguage(code);
     setOpen(false);
+
+    const segments = location.pathname.split('/').filter(Boolean);
+    const hasLocalePrefix = SUPPORTED_LANGUAGES.some((language) => language.code === segments[0]);
+    const pageSegments = hasLocalePrefix ? segments.slice(1) : segments;
+    const nextPath = `/${[code, ...pageSegments].join('/')}`;
+    navigate(`${nextPath}${location.search}${location.hash}`);
   }
 
   return (

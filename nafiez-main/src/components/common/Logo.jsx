@@ -1,15 +1,18 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/hooks/useTheme';
 import lightLogo from '@/assets/Nafeiz Logo_Nafeiz Mark Light.png';
 import darkLogo from '@/assets/Nafeiz Logo_Nafeiz Mark Dark.png';
+import { getLocalizedPath } from '@/lib/i18n';
 
 export function Logo({ light = false }) {
+  const { i18n } = useTranslation();
   const { theme } = useTheme();
   const useDarkSurfaceLogo = light || theme === 'dark';
   const logo = useDarkSurfaceLogo ? lightLogo : darkLogo;
 
   return (
-    <Link to="/" className="flex items-center gap-2.5" aria-label="NAFEIZ">
+    <Link to={getLocalizedPath('/', i18n.language)} className="flex items-center gap-2.5" aria-label="NAFEIZ">
       <img
         src={logo}
         alt="NAFEIZ logo"

@@ -19,6 +19,27 @@ export function getLanguageDir(code) {
   return lang ? lang.dir : 'ltr';
 }
 
+export function getLanguageFromPath(pathname = window.location.pathname) {
+  const pathLocale = pathname.split('/').filter(Boolean)[0];
+  return SUPPORTED_LANGUAGES.some((language) => language.code === pathLocale) ? pathLocale : null;
+}
+
+export function getLocalizedPath(path, language) {
+  if (!path || !path.startsWith('/') || path.startsWith('/admin') || path.startsWith('/api')) {
+    return path;
+  }
+
+  const [pathname, suffix = ''] = path.split(/([?#].*)/, 2);
+  const segments = pathname.split('/').filter(Boolean);
+  const hasLocalePrefix = SUPPORTED_LANGUAGES.some((supportedLanguage) => supportedLanguage.code === segments[0]);
+  const pageSegments = hasLocalePrefix ? segments.slice(1) : segments;
+  const localizedPath = `/${[language, ...pageSegments].join('/')}`;
+
+  return `${localizedPath === `/${language}` ? localizedPath : localizedPath}${suffix}`;
+}
+
+const initialPathLanguage = getLanguageFromPath();
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -29,6 +50,7 @@ i18n
       zh: { translation: zh },
       ru: { translation: ru },
     },
+    lng: initialPathLanguage || undefined,
     fallbackLng: 'en',
     supportedLngs: ['ar', 'en', 'zh', 'ru'],
     interpolation: {

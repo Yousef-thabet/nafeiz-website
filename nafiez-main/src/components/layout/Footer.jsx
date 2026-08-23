@@ -6,6 +6,7 @@ import { SocialLinks } from '@/components/common/SocialLinks';
 import { Logo } from '@/components/common/Logo';
 import { useSettings } from '@/context/SettingsContext';
 import { getLocalizedSetting } from '@/lib/utils';
+import { getLocalizedPath } from '@/lib/i18n';
 
 const NAV_LINKS = [
   { to: '/', key: 'nav.home' },
@@ -48,7 +49,7 @@ export function Footer() {
               {NAV_LINKS.map((link) => (
                 <li key={link.to}>
                   <Link
-                    to={link.to}
+                    to={getLocalizedPath(link.to, i18n.language)}
                     className="group inline-flex items-center gap-1.5 text-sm text-navy-300 transition-colors hover:text-gold-300"
                   >
                     <ArrowRight

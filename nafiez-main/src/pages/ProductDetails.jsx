@@ -10,6 +10,7 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { Reveal } from '@/components/ui/Reveal';
 import { categoryNames } from '@/data/products';
+import { getLocalizedPath } from '@/lib/i18n';
 import { getProduct, getRelatedProducts } from '@/services/api';
 import { getLocalizedField } from '@/lib/utils';
 
@@ -87,7 +88,7 @@ export default function ProductDetails() {
               {t('nav.home')}
             </Link>
             <ChevronRight size={14} className="rtl:rotate-180" />
-            <Link to="/products" className="hover:text-navy-800 dark:hover:text-white">
+            <Link to={getLocalizedPath('/products', i18n.language)} className="hover:text-navy-800 dark:hover:text-white">
               {t('products.breadcrumb')}
             </Link>
             <ChevronRight size={14} className="rtl:rotate-180" />
@@ -192,7 +193,7 @@ export default function ProductDetails() {
                 {related.map((rp) => (
                   <Reveal key={rp.id}>
                     <Link
-                      to={`/products/${rp.slug}`}
+                      to={getLocalizedPath(`/products/${rp.slug}`, i18n.language)}
                       className="group block overflow-hidden rounded-2xl border border-navy-100 bg-white shadow-soft transition-all hover:-translate-y-1 hover:shadow-card dark:border-white/10 dark:bg-navy-900"
                     >
                       <div className="relative aspect-[4/3] overflow-hidden bg-navy-100 dark:bg-navy-800">
