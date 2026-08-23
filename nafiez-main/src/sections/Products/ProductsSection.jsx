@@ -17,15 +17,31 @@ function normalizeSearchText(value) {
   return String(value || '')
     .trim()
     .toLowerCase()
-    .replace(/[أإآ]/g, 'ا')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, '')
+    .replace(/ـ/g, '')
+    .replace(/[أإآٱ]/g, 'ا')
     .replace(/ى/g, 'ي')
     .replace(/ة/g, 'ه')
     .replace(/\s+/g, ' ');
 }
 
+function getLanguageCode(language) {
+  return String(language || 'en').split('-')[0].toLowerCase();
+}
+
+function getProductCategory(product) {
+  const category = product?.categoryId ?? product?.category;
+  if (typeof category === 'object' && category !== null) {
+    return category.id ?? category.key ?? category.slug ?? '';
+  }
+  return category ?? '';
+}
+
 export function ProductsSection({ featuredOnly = false, limit }) {
   const { t, i18n } = useTranslation();
-  const lang = i18n.language;
+  const lang = getLanguageCode(i18n.language);
   const { settings = {} } = useSettings() || {};
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('all');
@@ -65,9 +81,9 @@ export function ProductsSection({ featuredOnly = false, limit }) {
       list = list.filter((p) => p.featured);
     }
 
-    if (category !== 'all') {
-      const selectedCategory = category.trim().toLowerCase();
-      list = list.filter((p) => String(p.category || '').trim().toLowerCase() === selectedCategory);
+    const selectedCategory = String(category || '').trim().toLowerCase();
+    if (selectedCategory && selectedCategory !== 'all') {
+      list = list.filter((p) => String(getProductCategory(p)).trim().toLowerCase() === selectedCategory);
     }
 
     if (searchTerms.length > 0) {
@@ -76,6 +92,11 @@ export function ProductsSection({ featuredOnly = false, limit }) {
           const searchableText = normalizeSearchText([
             getLocalizedField(p.nameL10n, lang),
             getLocalizedField(p.shortDescL10n, lang),
+            getLocalizedField(p.descriptionL10n, lang),
+            getLocalizedField(p.name, lang),
+            getLocalizedField(p.shortDescription, lang),
+            getLocalizedField(p.description, lang),
+            p.slug,
           ].join(' '));
 
           return searchTerms.every((term) => searchableText.includes(term));

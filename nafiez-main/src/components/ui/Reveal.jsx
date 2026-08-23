@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Children } from 'react';
 
 const variants = {
   hidden: { opacity: 0, y: 24 },
@@ -20,8 +21,11 @@ export function Reveal({ children, delay = 0, duration = 0.5, y = 24, className 
 }
 
 export function Stagger({ children, stagger = 0.08, className = '' }) {
+  const childSetKey = Children.toArray(children).map((child) => child?.key || '').join('|');
+
   return (
     <motion.div
+      key={childSetKey}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-60px' }}

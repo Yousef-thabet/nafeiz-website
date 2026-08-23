@@ -1,0 +1,82 @@
+1txR3wFipgSux40Z9CUSOX
+abdu@nafeiz.com
+ebV?s48#p-l6
+Username:abdu@nafeiz.com
+Password:ebV?s48#p-l6
+
+Username: hisham@nafeiz.com
+Password: W.165417251880us
+
+Username: ahmed@nafeiz.com
+Password: D$980018258824uc
+
+Username: info@nafeiz.com
+Password: H$238248512845uv
+
+Username: support@nafeiz.com
+Password: Q(908524123310ax
+
+cd backend
+$env:SEED_ADMIN_EMAIL="admin@example.com"
+$env:SEED_ADMIN_PASSWORD="StrongPassword123!"
+npm run migrate
+npm run seed
+npm run dev
+
+admin password 
+Eltawwa#8/22/2026
+
+nafeiz_user
+Eltawwa8222026
+ openssl rand -hex 32
+eef31c2f5bd9420c8b5425ec13fb9c1e71fd58e859a5538f080d933999aff508
+
+openssl rand -hex 32
+8699b60d102b9dc737cff4dc08b82cee6156b82c1d9a8f63f3022d91fbe1edb2
+
+NODE_ENV=production
+PORT=5000
+
+DATABASE_URL="postgresql://nafeiz_user:Eltawwa8222026@localhost:5432/nafeiz?schema=public"
+
+JWT_ACCESS_SECRET="eef31c2f5bd9420c8b5425ec13fb9c1e71fd58e859a5538f080d933999aff508"
+JWT_REFRESH_SECRET="8699b60d102b9dc737cff4dc08b82cee6156b82c1d9a8f63f3022d91fbe1edb2"
+
+JWT_ACCESS_EXPIRES_IN="15m"
+JWT_REFRESH_EXPIRES_IN="7d"
+
+FRONTEND_URL="https://nafeiz.com"
+CORS_ORIGINS="https://nafeiz.com,https://www.nafeiz.com"
+
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=120
+
+const bcrypt = require('bcrypt');
+const prisma = require('./src/config/db');
+
+const email = 'abdu@nafeiz.com';
+const password = 'ebV?s48#p-l6';
+
+bcrypt.hash(password, 10).then(async (hash) => {
+  const user = await prisma.user.upsert({
+    where: { email },
+    update: {
+      password: hash,
+      role: 'admin',
+      isActive: true
+    },
+    create: {
+      name: 'abdu',
+      email,
+      password: hash,
+      role: 'admin',
+      isActive: true
+    }
+  });
+
+  console.log('Admin created/updated:', user.email);
+  await prisma.$disconnect();
+}).catch(async (error) => {
+  console.error(error);
+  await prisma.$disconnect();
+});
