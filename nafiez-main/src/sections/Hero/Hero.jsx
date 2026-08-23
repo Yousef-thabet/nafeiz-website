@@ -141,20 +141,21 @@ export function Hero() {
         </div>
       </div>
 
-      <motion.div
+      <motion.button
+        type="button"
+        aria-label={t('common.scrollDown', 'Scroll to About section')}
+        onClick={() => document.getElementById('home-about')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2"
+        className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 cursor-pointer items-start justify-center rounded-full border-2 border-white/30 p-1.5 transition-colors hover:border-gold-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400"
       >
-        <div className="flex h-10 w-6 items-start justify-center rounded-full border-2 border-white/30 p-1.5">
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-            className="h-2 w-1 rounded-full bg-gold-400"
-          />
-        </div>
-      </motion.div>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          className="h-2 w-1 rounded-full bg-gold-400"
+        />
+      </motion.button>
     </section>
   );
 }

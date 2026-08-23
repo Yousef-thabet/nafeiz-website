@@ -20,7 +20,7 @@ export function About() {
   const description = getLocalizedSetting(settings, 'aboutDescription', i18n.language, t('about.story'));
 
   return (
-    <section className="section-pad bg-brand-bg dark:bg-navy-950">
+    <section id="home-about" className="section-pad bg-brand-bg dark:bg-navy-950">
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>

@@ -48,7 +48,10 @@ export function ProductsSection({ featuredOnly = false, limit }) {
 
   const filtered = useMemo(() => {
     let list = featuredOnly ? products.filter((p) => p.featured) : [...products];
-    if (category !== 'all') list = list.filter((p) => p.category === category);
+    if (category !== 'all') {
+      const selectedCategory = category.trim().toLowerCase();
+      list = list.filter((p) => String(p.category || '').trim().toLowerCase() === selectedCategory);
+    }
     if (search.trim()) {
       const q = search.toLowerCase();
       list = list.filter(

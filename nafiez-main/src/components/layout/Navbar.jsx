@@ -58,7 +58,8 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
-  const isHome = location.pathname === '/';
+  const pathSegments = location.pathname.split('/').filter(Boolean);
+  const isHome = pathSegments.length === 0 || (pathSegments.length === 1 && ['ar', 'en', 'zh', 'ru'].includes(pathSegments[0]));
   const drawerStart = i18n.language === 'ar' ? '-100%' : '100%';
 
   useEffect(() => {
@@ -113,6 +114,7 @@ export function Navbar() {
               <NavLink
                 key={link.to}
                 to={getLocalizedPath(link.to, i18n.language)}
+                end={link.to === '/'}
                 className={({ isActive }) =>
                   `relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-200 ${
                     transparent
@@ -205,6 +207,7 @@ export function Navbar() {
                   >
                     <NavLink
                           to={getLocalizedPath(link.to, i18n.language)}
+                      end={link.to === '/'}
                       className={({ isActive }) =>
                         `block rounded-xl px-4 py-3 text-base font-medium transition-colors duration-200 ${
                           isActive
