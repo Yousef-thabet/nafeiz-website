@@ -13,6 +13,16 @@ import { getLocalizedField } from '@/lib/utils';
 import { getLocalizedSetting } from '@/lib/utils';
 import { useSettings } from '@/context/SettingsContext';
 
+function normalizeSearchText(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[أإآ]/g, 'ا')
+    .replace(/ى/g, 'ي')
+    .replace(/ة/g, 'ه')
+    .replace(/\s+/g, ' ');
+}
+
 export function ProductsSection({ featuredOnly = false, limit }) {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
@@ -47,17 +57,29 @@ export function ProductsSection({ featuredOnly = false, limit }) {
   }, []);
 
   const filtered = useMemo(() => {
-    let list = featuredOnly ? products.filter((p) => p.featured) : [...products];
+    const normalizedQuery = normalizeSearchText(search);
+    const searchTerms = normalizedQuery ? normalizedQuery.split(' ') : [];
+    let list = [...products];
+
+    if (featuredOnly) {
+      list = list.filter((p) => p.featured);
+    }
+
     if (category !== 'all') {
       const selectedCategory = category.trim().toLowerCase();
       list = list.filter((p) => String(p.category || '').trim().toLowerCase() === selectedCategory);
     }
-    if (search.trim()) {
-      const q = search.toLowerCase();
+
+    if (searchTerms.length > 0) {
       list = list.filter(
-        (p) =>
-          getLocalizedField(p.nameL10n, lang).toLowerCase().includes(q) ||
-          getLocalizedField(p.shortDescL10n, lang).toLowerCase().includes(q)
+        (p) => {
+          const searchableText = normalizeSearchText([
+            getLocalizedField(p.nameL10n, lang),
+            getLocalizedField(p.shortDescL10n, lang),
+          ].join(' '));
+
+          return searchTerms.every((term) => searchableText.includes(term));
+        }
       );
     }
     if (limit) list = list.slice(0, limit);
