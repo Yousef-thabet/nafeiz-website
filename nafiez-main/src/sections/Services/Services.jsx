@@ -36,10 +36,10 @@ export function Services({ showAll = false }) {
                     </span>
                   </div>
                   <h3 className="mb-2 text-base font-bold text-navy-800 dark:text-white">
-                    {t(`services.${service.key}.title`)}
+                    {getLocalizedSetting(settings, `service${service.id}Title`, i18n.language, t(`services.${service.key}.title`))}
                   </h3>
                   <p className="text-sm leading-relaxed text-navy-500 dark:text-navy-300">
-                    {t(`services.${service.key}.description`)}
+                    {getLocalizedSetting(settings, `service${service.id}Description`, i18n.language, t(`services.${service.key}.description`))}
                   </p>
                 </div>
               </StaggerItem>

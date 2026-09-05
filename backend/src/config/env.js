@@ -19,10 +19,13 @@ const getRequiredEnv = (key) => {
   return value || '';
 };
 
-const frontendUrls = (process.env.CORS_ORIGINS || process.env.FRONTEND_URL || '')
+const configuredFrontendUrls = (process.env.CORS_ORIGINS || process.env.FRONTEND_URL || '')
   .split(',')
   .map((value) => value.trim())
   .filter(Boolean);
+const frontendUrls = isProduction
+  ? configuredFrontendUrls
+  : [...new Set([...configuredFrontendUrls, 'http://localhost:5173', 'http://127.0.0.1:5173'])];
 
 module.exports = {
   port: Number(process.env.PORT || 5000),
@@ -36,4 +39,10 @@ module.exports = {
   corsOrigins: frontendUrls,
   rateLimitWindowMs: Number(process.env.RATE_LIMIT_WINDOW_MS || 900000),
   rateLimitMaxRequests: Number(process.env.RATE_LIMIT_MAX_REQUESTS || 120),
+  r2AccountId: process.env.R2_ACCOUNT_ID || '',
+  r2AccessKeyId: process.env.R2_ACCESS_KEY_ID || '',
+  r2SecretAccessKey: process.env.R2_SECRET_ACCESS_KEY || '',
+  r2Bucket: process.env.R2_BUCKET || '',
+  r2PublicUrl: (process.env.R2_PUBLIC_URL || '').replace(/\/$/, ''),
+  publicSiteUrl: (process.env.PUBLIC_SITE_URL || 'https://nafeiz.com').replace(/\/$/, ''),
 };

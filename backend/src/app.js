@@ -10,6 +10,10 @@ const settingsRoutes = require('./routes/settings.routes');
 const testimonialRoutes = require('./routes/testimonial.routes');
 const productRoutes = require('./routes/product.routes');
 const countryRoutes = require('./routes/country.routes');
+const articleRoutes = require('./routes/article.routes');
+const articleAssetRoutes = require('./routes/article-asset.routes');
+const sitemapRoutes = require('./routes/sitemap.routes');
+const assetRoutes = require('./routes/asset.routes');
 const { errorHandler } = require('./middlewares/error.middleware');
 const prisma = require('./config/db');
 
@@ -107,6 +111,10 @@ app.use('/api/settings', settingsRoutes);
 app.use('/api/testimonials', testimonialRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/countries', countryRoutes);
+app.use('/api/articles', articleRoutes);
+app.use('/api/article-assets', articleAssetRoutes);
+app.use('/api/assets', assetRoutes);
+app.use('/sitemap.xml', sitemapRoutes);
 
 app.use((req, res) => {
   return res.status(404).json({ success: false, message: 'Route not found' });

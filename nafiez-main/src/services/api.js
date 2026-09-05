@@ -121,6 +121,42 @@ export function apiPatch(path, body) {
   });
 }
 
+export async function getArticles(params = '') {
+  return apiGet(`/articles${params ? `?${params}` : ''}`);
+}
+
+export async function getArticle(slug) {
+  return apiGet(`/articles/${encodeURIComponent(slug)}`);
+}
+
+export async function getAdminArticles() {
+  return apiGet('/articles/admin');
+}
+
+export async function uploadImage(file, entity, onProgress, relatedId) {
+  const dimensions = await new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => { URL.revokeObjectURL(image.src); resolve({ width: image.naturalWidth, height: image.naturalHeight }); };
+    image.onerror = () => reject(new Error('Unable to read image dimensions'));
+    image.src = URL.createObjectURL(file);
+  });
+  if (dimensions.width > 8000 || dimensions.height > 8000) throw new Error('Image dimensions must not exceed 8000 pixels');
+  const uploadResponse = await apiPost('/assets/upload-url', { filename: file.name, contentType: file.type, size: file.size, ...dimensions, entity });
+  const upload = uploadResponse?.data;
+  if (!upload?.uploadUrl) throw new Error('Image storage is not configured');
+  await new Promise((resolve, reject) => {
+    const request = new XMLHttpRequest();
+    request.open('PUT', upload.uploadUrl);
+    request.setRequestHeader('Content-Type', file.type);
+    request.upload.onprogress = (event) => { if (event.lengthComputable) onProgress?.(Math.round((event.loaded / event.total) * 100)); };
+    request.onload = () => request.status >= 200 && request.status < 300 ? resolve() : reject(new Error('Image upload failed'));
+    request.onerror = () => reject(new Error('Image upload failed'));
+    request.send(file);
+  });
+  return upload.publicUrl;
+}
+
+
 function getErrorMessageKey(status) {
   switch (status) {
     case 400: return 'error.400';

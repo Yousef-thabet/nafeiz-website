@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, LogOut, MessageSquareText, Settings, Star, Users, UserCircle, Menu, X, Package, Globe } from 'lucide-react';
+import { LayoutDashboard, LogOut, MessageSquareText, Settings, Star, Users, UserCircle, Menu, X, Package, Globe, Newspaper, Wrench } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
 const adminLinks = [
   { to: '/admin', label: 'Overview', icon: LayoutDashboard },
   { to: '/admin/messages', label: 'Messages', icon: MessageSquareText },
   { to: '/admin/products', label: 'Products', icon: Package },
+  { to: '/admin/articles', label: 'Articles', icon: Newspaper },
+  { to: '/admin/services', label: 'Services', icon: Wrench },
   { to: '/admin/countries', label: 'Countries', icon: Globe },
   { to: '/admin/testimonials', label: 'Testimonials', icon: Star },
   { to: '/admin/employees', label: 'Employees', icon: Users },

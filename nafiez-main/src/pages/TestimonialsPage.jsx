@@ -13,6 +13,7 @@ export default function TestimonialsPage() {
   const [loading, setLoading] = useState(false);
   const [actionLoading, setActionLoading] = useState(null);
   const [fieldErrors, setFieldErrors] = useState({});
+  const [language, setLanguage] = useState('en');
 
   const [form, setForm] = useState({
     nameL10n: Object.fromEntries(SUPPORTED_LANGUAGES.map(l => [l.code, ''])),
@@ -221,45 +222,17 @@ export default function TestimonialsPage() {
             </label>
 
             {/* Multilingual Fields */}
-            {SUPPORTED_LANGUAGES.map(lang => (
-              <div key={lang.code} className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800/50">
-                <h3 className="font-semibold">{lang.name}</h3>
-                <input
-                  type="text"
-                  value={form.nameL10n[lang.code] || ''}
-                  onChange={(e) => setForm({
-                    ...form,
-                    nameL10n: { ...form.nameL10n, [lang.code]: e.target.value }
-                  })}
-                  placeholder="Customer name"
-                  className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800"
-                  required
-                />
-                {fieldErrors[`nameL10n.${lang.code}`] && <p className="text-xs text-rose-600">{fieldErrors[`nameL10n.${lang.code}`]}</p>}
-                <input
-                  type="text"
-                  value={form.positionL10n[lang.code] || ''}
-                  onChange={(e) => setForm({
-                    ...form,
-                    positionL10n: { ...form.positionL10n, [lang.code]: e.target.value }
-                  })}
-                  placeholder="Position/Company"
-                  className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800"
-                />
-                <textarea
-                  value={form.reviewL10n[lang.code] || ''}
-                  onChange={(e) => setForm({
-                    ...form,
-                    reviewL10n: { ...form.reviewL10n, [lang.code]: e.target.value }
-                  })}
-                  placeholder="Review text"
-                  rows="4"
-                  className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800"
-                  required
-                />
-                {fieldErrors[`reviewL10n.${lang.code}`] && <p className="text-xs text-rose-600">{fieldErrors[`reviewL10n.${lang.code}`]}</p>}
-              </div>
-            ))}
+            <div className="flex flex-wrap gap-2 border-b border-slate-200 pb-3 dark:border-slate-700" role="tablist" aria-label="Testimonial language">
+              {SUPPORTED_LANGUAGES.map((item) => <button key={item.code} type="button" role="tab" aria-selected={language === item.code} onClick={() => setLanguage(item.code)} className={`rounded-full px-3 py-2 text-sm font-semibold ${language === item.code ? 'bg-gold-400 text-slate-900' : 'bg-slate-100 dark:bg-slate-800'}`}>{item.flag} {item.name}</button>)}
+            </div>
+            <div className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800/50">
+              <h3 className="font-semibold">{SUPPORTED_LANGUAGES.find((item) => item.code === language)?.name}</h3>
+              <input type="text" dir={language === 'ar' ? 'rtl' : 'ltr'} value={form.nameL10n[language] || ''} onChange={(e) => setForm({ ...form, nameL10n: { ...form.nameL10n, [language]: e.target.value } })} placeholder="Customer name" className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800" required />
+              {fieldErrors[`nameL10n.${language}`] && <p className="text-xs text-rose-600">{fieldErrors[`nameL10n.${language}`]}</p>}
+              <input type="text" dir={language === 'ar' ? 'rtl' : 'ltr'} value={form.positionL10n[language] || ''} onChange={(e) => setForm({ ...form, positionL10n: { ...form.positionL10n, [language]: e.target.value } })} placeholder="Position/Company" className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800" />
+              <textarea dir={language === 'ar' ? 'rtl' : 'ltr'} value={form.reviewL10n[language] || ''} onChange={(e) => setForm({ ...form, reviewL10n: { ...form.reviewL10n, [language]: e.target.value } })} placeholder="Review text" rows="4" className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800" required />
+              {fieldErrors[`reviewL10n.${language}`] && <p className="text-xs text-rose-600">{fieldErrors[`reviewL10n.${language}`]}</p>}
+            </div>
 
             <div className="flex gap-3">
               <button

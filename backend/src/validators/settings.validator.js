@@ -9,6 +9,9 @@ const LOCALIZED_SETTING_KEYS = [
   'contactTitle', 'contactDescription', 'footerDescription',
 ].map((key) => `${key}L10n`);
 
+const SERVICE_SETTING_KEYS = Array.from({ length: 14 }, (_, index) => index + 1)
+  .flatMap((id) => [`service${id}TitleL10n`, `service${id}DescriptionL10n`]);
+
 const PUBLIC_SETTINGS_KEYS = [
   'phone',
   'email',
@@ -55,6 +58,7 @@ const PUBLIC_SETTINGS_KEYS = [
   'workingHours',
   'googleMapsUrl',
   ...LOCALIZED_SETTING_KEYS,
+  ...SERVICE_SETTING_KEYS,
 ];
 
 const URL_SETTING_KEYS = new Set(['facebook', 'instagram', 'tiktok', 'wechat', 'logoUrl', 'faviconUrl', 'heroImageUrl', 'heroVideoUrl', 'ctaUrl', 'googleMapsUrl']);
@@ -106,7 +110,7 @@ const settingsSchema = z.object({
   googleMapsUrl: z.string().trim().max(500).optional().or(z.literal('')),
 }).extend(
   Object.fromEntries(
-    LOCALIZED_SETTING_KEYS.map((key) => [key, z.string().max(20000).optional().or(z.literal(''))])
+    [...LOCALIZED_SETTING_KEYS, ...SERVICE_SETTING_KEYS].map((key) => [key, z.string().max(20000).optional().or(z.literal(''))])
   )
 ).passthrough();
 

@@ -3,6 +3,7 @@ import { apiPut } from '@/services/api';
 import { useSettings } from '@/context/SettingsContext';
 import i18n, { SUPPORTED_LANGUAGES } from '@/lib/i18n';
 import { getApiErrorMessage, getApiFieldErrors } from '@/lib/formErrors';
+import ImageUploader from '@/components/common/ImageUploader';
 
 const LOCALIZED_KEYS = [
   'heroTitle', 'heroDescription', 'aboutTitle', 'aboutDescription',
@@ -41,7 +42,7 @@ const LOCALE_PATHS = {
 
 const groups = [
   { title: 'Contact & company', fields: [['companyName', 'Company name'], ['phone', 'Phone'], ['email', 'Email'], ['whatsapp', 'WhatsApp'], ['address', 'Address'], ['workingHours', 'Working hours']] },
-  { title: 'Hero', fields: [['heroTitle', 'Title', true], ['heroDescription', 'Description', true], ['heroImageUrl', 'Image URL']] },
+  { title: 'Hero', fields: [['heroTitle', 'Title', true], ['heroDescription', 'Description', true], ['heroImageUrl', 'Hero image'], ['logoUrl', 'Logo'], ['faviconUrl', 'Favicon']] },
   { title: 'About & vision', fields: [['aboutTitle', 'About title', true], ['aboutDescription', 'About description', true], ['visionTitle', 'Vision title', true], ['visionDescription', 'Vision description', true], ['missionTitle', 'Mission title', true], ['missionDescription', 'Mission description', true]] },
   { title: 'Home sections', fields: [['servicesTitle', 'Services title', true], ['servicesDescription', 'Services description', true], ['productsTitle', 'Products title', true], ['productsDescription', 'Products description', true], ['countriesTitle', 'Countries title', true], ['countriesDescription', 'Countries description', true], ['whyTitle', 'Why NAFEIZ title', true], ['whyDescription', 'Why NAFEIZ description', true], ['howTitle', 'How it works title', true], ['howDescription', 'How it works description', true], ['testimonialsTitle', 'Testimonials title', true], ['testimonialsDescription', 'Testimonials description', true], ['contactTitle', 'Contact title', true], ['contactDescription', 'Contact description', true]] },
   { title: 'Statistics', fields: [['statisticsClients', 'Clients'], ['statisticsCountries', 'Countries'], ['statisticsFactories', 'Suppliers / factories'], ['statisticsShipments', 'Shipments / orders'], ['statisticsYears', 'Years of experience']] },
@@ -49,6 +50,8 @@ const groups = [
 ];
 
 const socialFields = [['instagram', 'Instagram'], ['facebook', 'Facebook'], ['tiktok', 'TikTok'], ['wechat', 'WeChat']];
+const sharedGroups = groups.map((group) => ({ ...group, fields: group.fields.filter((field) => !LOCALIZED_KEYS.includes(field[0])) })).filter((group) => group.fields.length);
+const localizedGroups = groups.map((group) => ({ ...group, fields: group.fields.filter((field) => LOCALIZED_KEYS.includes(field[0])) })).filter((group) => group.fields.length);
 
 function parseLocalizedValue(value) {
   if (value && typeof value === 'object' && !Array.isArray(value)) return value;
@@ -92,11 +95,14 @@ function Field({ field, values, language, onChange }) {
     ? values[`${key}L10n`]?.[language] || (language === 'en' ? values[key] || '' : '')
     : values[key] || '';
   const update = (nextValue) => onChange(key, nextValue, localized);
+  const imageSetting = ['heroImageUrl', 'logoUrl', 'faviconUrl'].includes(key);
 
   return (
     <label className="block text-sm font-medium text-slate-700 dark:text-slate-200">
       <span className="mb-2 block">{label}{localized ? ` (${language})` : ''}</span>
-      {multiline ? (
+      {imageSetting ? (
+        <ImageUploader entity="settings" value={value} onChange={update} />
+      ) : multiline ? (
         <textarea dir={fieldDirection} value={value} onChange={(event) => update(event.target.value)} rows={3} className="w-full resize-y rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none focus:border-gold-500 dark:border-slate-700 dark:bg-slate-800" />
       ) : (
         <input dir={fieldDirection} value={value} onChange={(event) => update(event.target.value)} className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none focus:border-gold-500 dark:border-slate-700 dark:bg-slate-800" />
@@ -167,19 +173,30 @@ export default function SettingsPage() {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
       <h2 className="text-xl font-semibold">Website Settings</h2>
-      <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Choose a language, edit its content, and save it independently from the other languages.</p>
-
-      <div className="mt-6 flex flex-wrap gap-2 border-b border-slate-200 pb-4 dark:border-slate-700" role="tablist" aria-label="Settings language">
-        {SUPPORTED_LANGUAGES.map((item) => (
-          <button key={item.code} type="button" role="tab" aria-selected={language === item.code} onClick={() => setLanguage(item.code)} className={`rounded-full px-4 py-2 text-sm font-semibold transition ${language === item.code ? 'bg-gold-400 text-slate-900' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300'}`}>
-            {item.flag} {item.name}
-          </button>
-        ))}
-      </div>
+      <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Shared settings are shown once. Choose a language below for translated content.</p>
 
       {loading ? <p className="mt-6 text-sm text-slate-500">Loading settings...</p> : (
         <form onSubmit={save} className="mt-6 space-y-6">
-          {groups.map((group) => (
+          <div className="space-y-6">
+            {sharedGroups.map((group) => (
+              <section key={group.title} className="rounded-2xl border border-slate-200 p-5 dark:border-slate-700">
+                <h3 className="text-base font-semibold text-slate-900 dark:text-white">{group.title}</h3>
+                <div className="mt-4 grid gap-4 md:grid-cols-2">
+                  {group.fields.map((field) => <div key={field[0]}><Field field={field} values={values} language={language} onChange={updateValue} />{fieldErrors[field[0]] && <p className="mt-1 text-xs text-rose-600">{fieldErrors[field[0]]}</p>}</div>)}
+                </div>
+              </section>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap gap-2 border-b border-slate-200 pb-4 dark:border-slate-700" role="tablist" aria-label="Settings language">
+            {SUPPORTED_LANGUAGES.map((item) => (
+              <button key={item.code} type="button" role="tab" aria-selected={language === item.code} onClick={() => setLanguage(item.code)} className={`rounded-full px-4 py-2 text-sm font-semibold transition ${language === item.code ? 'bg-gold-400 text-slate-900' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300'}`}>
+                {item.flag} {item.name}
+              </button>
+            ))}
+          </div>
+
+          {localizedGroups.map((group) => (
             <section key={group.title} className="rounded-2xl border border-slate-200 p-5 dark:border-slate-700">
               <h3 className="text-base font-semibold text-slate-900 dark:text-white">{group.title}</h3>
               <div className="mt-4 grid gap-4 md:grid-cols-2">

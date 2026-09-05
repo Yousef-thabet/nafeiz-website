@@ -15,19 +15,21 @@ function setMeta(name, content, attr = 'name') {
   el.setAttribute('content', content);
 }
 
-export function useSEO(pageKey) {
+export function useSEO(pageKey, override = null) {
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (!pageKey) return;
-    const title = t(`meta.${pageKey}.title`);
-    const description = t(`meta.${pageKey}.description`);
+    if (!pageKey && !override) return;
+    const title = override?.title || t(`meta.${pageKey}.title`);
+    const description = override?.description || t(`meta.${pageKey}.description`);
 
     document.title = title;
     setMeta('description', description);
     setMeta('og:title', title, 'property');
     setMeta('og:description', description, 'property');
-    setMeta('og:type', 'website', 'property');
+    setMeta('og:type', override?.type || 'website', 'property');
+    setMeta('og:image', override?.image, 'property');
+    setMeta('article:published_time', override?.publishedAt, 'property');
     setMeta('twitter:card', 'summary_large_image');
     setMeta('twitter:title', title);
     setMeta('twitter:description', description);
@@ -39,5 +41,5 @@ export function useSEO(pageKey) {
       document.head.appendChild(canonical);
     }
     canonical.setAttribute('href', window.location.href);
-  }, [pageKey, t]);
+  }, [pageKey, override, t]);
 }

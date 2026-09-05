@@ -16,6 +16,8 @@ import CountriesPage from '@/pages/CountriesPage';
 import TestimonialsPage from '@/pages/TestimonialsPage';
 import SettingsPage from '@/pages/SettingsPage';
 import ProfilePage from '@/pages/ProfilePage';
+import ArticlesPage from '@/pages/ArticlesPage';
+import ServicesPage from '@/pages/ServicesPage';
 import i18n, { getLanguageFromPath, SUPPORTED_LANGUAGES } from '@/lib/i18n';
 
 const Home = lazy(() => import('@/pages/Home'));
@@ -27,6 +29,8 @@ const Countries = lazy(() => import('@/pages/Countries'));
 const Testimonials = lazy(() => import('@/pages/Testimonials'));
 const Contact = lazy(() => import('@/pages/Contact'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
+const Articles = lazy(() => import('@/pages/Articles'));
+const ArticleDetails = lazy(() => import('@/pages/ArticleDetails'));
 
 function PageFallback() {
   return (
@@ -71,6 +75,8 @@ function AppShell() {
             <Route path="/countries" element={<Countries />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/articles" element={<Articles />} />
+            <Route path="/articles/:slug" element={<ArticleDetails />} />
 
             <Route path="/:locale" element={<LocaleLayout />}>
               <Route index element={<Home />} />
@@ -81,6 +87,8 @@ function AppShell() {
               <Route path="countries" element={<Countries />} />
               <Route path="testimonials" element={<Testimonials />} />
               <Route path="contact" element={<Contact />} />
+              <Route path="articles" element={<Articles />} />
+              <Route path="articles/:slug" element={<ArticleDetails />} />
             </Route>
 
             <Route path="/admin/login" element={<AdminLogin />} />
@@ -89,6 +97,8 @@ function AppShell() {
                 <Route path="/admin" element={<DashboardPage />} />
                 <Route path="/admin/messages" element={<MessagesPage />} />
                 <Route path="/admin/profile" element={<ProfilePage />} />
+                <Route path="/admin/articles" element={<ArticlesPage />} />
+                <Route path="/admin/services" element={<ServicesPage />} />
                 <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
                   <Route path="/admin/products" element={<ProductsPage />} />
                   <Route path="/admin/countries" element={<CountriesPage />} />

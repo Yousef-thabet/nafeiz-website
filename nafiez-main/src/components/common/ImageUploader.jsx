@@ -1,0 +1,14 @@
+import { useEffect, useRef, useState } from 'react';
+import { ImagePlus, X } from 'lucide-react';
+import { uploadImage } from '@/services/api';
+
+const MAX_SIZE = 5 * 1024 * 1024;
+const TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
+
+export default function ImageUploader({ value = '', entity, onChange, multiple = false, className = '' }) {
+  const input = useRef(null); const [items, setItems] = useState(() => multiple ? (Array.isArray(value) ? value : []) : (value ? [value] : [])); const [progress, setProgress] = useState(0); const [busy, setBusy] = useState(false); const [error, setError] = useState('');
+  useEffect(() => { setItems(multiple ? (Array.isArray(value) ? value : []) : (value ? [value] : [])); }, [value, multiple]);
+  const select = async (event) => { const files = Array.from(event.target.files || []); event.target.value = ''; if (!files.length) return; setError(''); setBusy(true); try { const urls = []; for (const file of files) { if (!TYPES.includes(file.type)) throw new Error('Only JPEG, PNG, WebP, and AVIF images are allowed'); if (file.size > MAX_SIZE) throw new Error('Image size must not exceed 5 MB'); urls.push(await uploadImage(file, entity, setProgress)); } const next = multiple ? [...items, ...urls] : [urls[0]]; setItems(next); onChange?.(multiple ? next : next[0]); } catch (err) { setError(err.message); } finally { setBusy(false); setProgress(0); } };
+  const remove = (index) => { const next = items.filter((_, itemIndex) => itemIndex !== index); setItems(next); onChange?.(multiple ? next : ''); };
+  return <div className={className}><div className="flex flex-wrap gap-3">{items.map((url, index) => <div key={`${url}-${index}`} className="relative"><img src={url} alt="" className="h-24 w-32 rounded-lg object-cover" /><button type="button" onClick={() => remove(index)} aria-label="Remove image" className="absolute -right-2 -top-2 rounded-full bg-rose-600 p-1 text-white"><X size={14} /></button></div>)}{(!items.length || multiple) && <button type="button" onClick={() => input.current?.click()} disabled={busy} className="flex h-24 w-32 flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-slate-400 text-sm hover:border-gold-500 disabled:opacity-60"><ImagePlus size={20} />{busy ? `${progress}%` : 'Choose image'}</button>}</div><input ref={input} type="file" accept={TYPES.join(',')} multiple={multiple} onChange={select} className="hidden" />{busy && <div className="mt-2 h-1.5 overflow-hidden rounded bg-slate-200"><div className="h-full bg-gold-400 transition-all" style={{ width: `${progress}%` }} /></div>}{error && <p className="mt-2 text-sm text-rose-600">{error}</p>}</div>;
+}

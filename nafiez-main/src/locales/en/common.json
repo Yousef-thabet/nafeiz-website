@@ -46,11 +46,13 @@
     "about": "About",
     "services": "Services",
     "products": "Products",
+    "articles": "Articles",
     "countries": "Countries",
     "testimonials": "Testimonials",
     "contact": "Contact",
     "cta": "Get a Quote"
   },
+  "articles": { "title": "Articles", "subtitle": "Insights for better trade with China.", "readMore": "Read more" },
   "hero": {
     "headline": "NAFEIZ is your trusted partner and gateway to trading with China.",
     "subheadline": "From sourcing reliable suppliers to delivering goods to your doorstep — NAFEIZ handles every step of your trade journey with China.",

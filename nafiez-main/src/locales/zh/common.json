@@ -46,11 +46,13 @@
     "about": "关于我们",
     "services": "服务",
     "products": "产品",
+    "articles": "文章",
     "countries": "国家",
     "testimonials": "客户评价",
     "contact": "联系我们",
     "cta": "获取报价"
   },
+  "articles": { "title": "文章", "subtitle": "帮助您更好地开展对华贸易。", "readMore": "阅读更多" },
   "hero": {
     "headline": "NAFEIZ不仅仅是一家运输和采购公司。我们是您的商业伙伴，也是您与中国贸易的窗口。",
     "subheadline": "从寻找可靠的供应商到将货物送到您家门口——NAFEIZ负责您与中国贸易旅程的每一步。",

@@ -33,7 +33,7 @@ export function getLocalizedSetting(settings, key, lang, fallback = '') {
 }
 
 export function formatDate(date, locale = 'en') {
-  const locales = { ar: 'ar-EG', en: 'en-US', zh: 'zh-CN' };
+  const locales = { ar: 'ar-EG', en: 'en-US', zh: 'zh-CN', ru: 'ru-RU' };
   return new Intl.DateTimeFormat(locales[locale] || 'en-US', {
     year: 'numeric',
     month: 'short',

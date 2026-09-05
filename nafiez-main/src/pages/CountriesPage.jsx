@@ -3,6 +3,7 @@ import { X, Plus, Eye, EyeOff } from 'lucide-react';
 import { apiGet, apiPost, apiPut, apiDelete, apiPatch } from '@/services/api';
 import { SUPPORTED_LANGUAGES } from '@/lib/i18n';
 import { getApiErrorMessage, getApiFieldErrors, getValidationErrors } from '@/lib/formErrors';
+import ImageUploader from '@/components/common/ImageUploader';
 
 export default function CountriesPage() {
   const [countries, setCountries] = useState([]);
@@ -13,6 +14,7 @@ export default function CountriesPage() {
   const [loading, setLoading] = useState(false);
   const [actionLoading, setActionLoading] = useState(null);
   const [fieldErrors, setFieldErrors] = useState({});
+  const [language, setLanguage] = useState('en');
 
   const [form, setForm] = useState({
     code: '',
@@ -201,19 +203,10 @@ export default function CountriesPage() {
               {fieldErrors.slug && <p className="mt-1 text-xs text-rose-600">{fieldErrors.slug}</p>}
             </div>
 
-            {/* Image URL */}
+            {/* Country image */}
             <div>
-              <label className="block text-sm font-medium">Image URL</label>
-              <input
-                type="url"
-                value={form.imageUrl}
-                onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
-                placeholder="https://example.com/image.jpg"
-                className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800"
-              />
-              {form.imageUrl && (
-                <img src={form.imageUrl} alt="Preview" className="mt-3 h-32 w-32 rounded-lg object-cover" />
-              )}
+              <label className="block text-sm font-medium">Country image</label>
+              <ImageUploader entity="countries" value={form.imageUrl} onChange={(imageUrl) => setForm({ ...form, imageUrl })} className="mt-2" />
             </div>
 
             {/* Published Checkbox */}
@@ -228,43 +221,16 @@ export default function CountriesPage() {
             </label>
 
             {/* Multilingual Fields */}
-            {SUPPORTED_LANGUAGES.map(lang => (
-              <div key={lang.code} className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800/50">
-                <h3 className="font-semibold">{lang.name}</h3>
-                <input
-                  type="text"
-                  value={form.nameL10n[lang.code] || ''}
-                  onChange={(e) => setForm({
-                    ...form,
-                    nameL10n: { ...form.nameL10n, [lang.code]: e.target.value }
-                  })}
-                  placeholder="Country name"
-                  className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800"
-                  required
-                />
-                {fieldErrors[`nameL10n.${lang.code}`] && <p className="text-xs text-rose-600">{fieldErrors[`nameL10n.${lang.code}`]}</p>}
-                <textarea
-                  value={form.descriptionL10n[lang.code] || ''}
-                  onChange={(e) => setForm({
-                    ...form,
-                    descriptionL10n: { ...form.descriptionL10n, [lang.code]: e.target.value }
-                  })}
-                  placeholder="Short description"
-                  rows="2"
-                  className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800"
-                />
-                <textarea
-                  value={form.detailsL10n[lang.code] || ''}
-                  onChange={(e) => setForm({
-                    ...form,
-                    detailsL10n: { ...form.detailsL10n, [lang.code]: e.target.value }
-                  })}
-                  placeholder="Detailed information / Trade info"
-                  rows="3"
-                  className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800"
-                />
-              </div>
-            ))}
+            <div className="flex flex-wrap gap-2 border-b border-slate-200 pb-3 dark:border-slate-700" role="tablist" aria-label="Country language">
+              {SUPPORTED_LANGUAGES.map((item) => <button key={item.code} type="button" role="tab" aria-selected={language === item.code} onClick={() => setLanguage(item.code)} className={`rounded-full px-3 py-2 text-sm font-semibold ${language === item.code ? 'bg-gold-400 text-slate-900' : 'bg-slate-100 dark:bg-slate-800'}`}>{item.flag} {item.name}</button>)}
+            </div>
+            <div className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800/50">
+              <h3 className="font-semibold">{SUPPORTED_LANGUAGES.find((item) => item.code === language)?.name}</h3>
+              <input type="text" dir={language === 'ar' ? 'rtl' : 'ltr'} value={form.nameL10n[language] || ''} onChange={(e) => setForm({ ...form, nameL10n: { ...form.nameL10n, [language]: e.target.value } })} placeholder="Country name" className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800" required />
+              {fieldErrors[`nameL10n.${language}`] && <p className="text-xs text-rose-600">{fieldErrors[`nameL10n.${language}`]}</p>}
+              <textarea dir={language === 'ar' ? 'rtl' : 'ltr'} value={form.descriptionL10n[language] || ''} onChange={(e) => setForm({ ...form, descriptionL10n: { ...form.descriptionL10n, [language]: e.target.value } })} placeholder="Short description" rows="2" className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800" />
+              <textarea dir={language === 'ar' ? 'rtl' : 'ltr'} value={form.detailsL10n[language] || ''} onChange={(e) => setForm({ ...form, detailsL10n: { ...form.detailsL10n, [language]: e.target.value } })} placeholder="Detailed information / Trade info" rows="3" className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800" />
+            </div>
 
             <div className="flex gap-3">
               <button

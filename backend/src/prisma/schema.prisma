@@ -18,6 +18,7 @@ model User {
   updatedAt         DateTime @updatedAt
   assignedContacts  Contact[] @relation("AssignedContact")
   authoredNotes     ContactNote[] @relation("EmployeeNote")
+  authoredArticles  Article[] @relation("ArticleAuthor")
 
   @@map("users")
 }
@@ -139,4 +140,44 @@ model RefreshToken {
   createdAt     DateTime @default(now())
 
   @@map("refresh_tokens")
+}
+
+model Article {
+  id                   String         @id @default(cuid())
+  slug                 String         @unique
+  status               String         @default("draft")
+  featured             Boolean        @default(false)
+  publishedAt          DateTime?
+  titleL10n            String
+  descriptionL10n      String
+  contentL10n          String
+  metaTitleL10n        String
+  metaDescriptionL10n  String
+  featuredImageUrl     String?
+  featuredImageAltL10n String
+  authorId             String?
+  author               User?          @relation("ArticleAuthor", fields: [authorId], references: [id])
+  assets               ArticleAsset[]
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+
+  @@index([status, publishedAt])
+  @@index([authorId])
+  @@map("articles")
+}
+
+model ArticleAsset {
+  id          String   @id @default(cuid())
+  articleId   String?
+  article     Article? @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  storageKey  String   @unique
+  publicUrl   String
+  mimeType    String
+  sizeBytes   Int
+  width       Int?
+  height      Int?
+  createdAt   DateTime @default(now())
+
+  @@index([articleId])
+  @@map("article_assets")
 }

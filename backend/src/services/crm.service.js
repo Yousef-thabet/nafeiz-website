@@ -1,45 +1,67 @@
 const axios = require('axios');
 
-async function sendLeadToHubSpot(contact) {
-  if (!process.env.HUBSPOT_API_KEY) {
-    return { ok: false, skipped: true, reason: 'HubSpot API key not configured' };
+async function sendLeadToEspoCRM(contact) {
+  if (!process.env.ESPOCRM_URL || !process.env.ESPOCRM_API_KEY) {
+    return {
+      ok: false,
+      skipped: true,
+      reason: 'EspoCRM configuration not configured',
+    };
   }
 
   try {
-    const properties = {
-      firstname: contact.name.split(' ')[0] || contact.name,
-      lastname: contact.name.split(' ').slice(1).join(' ') || 'Unknown',
-      email: contact.email,
-      phone: contact.phone || [contact.dialCode, contact.phoneNumber].filter(Boolean).join(' ').trim() || '',
-      country: contact.country || '',
-      message: contact.message,
+    const nameParts = String(contact.name || '').trim().split(/\s+/);
+
+    const firstName = nameParts.shift() || 'Unknown';
+    const lastName = nameParts.join(' ') || 'Unknown';
+
+    const payload = {
+      firstName,
+      lastName,
+      emailAddress: contact.email || '',
+      phoneNumber:
+        contact.phone ||
+        [contact.dialCode, contact.phoneNumber]
+          .filter(Boolean)
+          .join(' ')
+          .trim() ||
+        '',
+      description: contact.message || '',
     };
 
-    if (process.env.HUBSPOT_ENABLE_LEAD_QUALIFICATION === 'true') {
-      properties.visited_china = typeof contact.visitedChina === 'boolean' ? String(contact.visitedChina) : '';
-      properties.interests = Array.isArray(contact.interests) ? contact.interests.join(',') : '';
-      properties.estimated_order_quantity = contact.estimatedOrderQuantity || '';
-      properties.start_timeline = contact.startTimeline || '';
-      properties.product_readiness = contact.productReadiness || '';
-      properties.country_code = contact.countryCode || '';
-      properties.dial_code = contact.dialCode || '';
+    if (contact.country) {
+      payload.addressCountry = contact.country;
     }
 
-    await axios.post(
-      'https://api.hubapi.com/crm/v3/objects/contacts',
-      { properties },
+    const response = await axios.post(
+      `${process.env.ESPOCRM_URL}/api/v1/Lead`,
+      payload,
       {
         headers: {
-          Authorization: `Bearer ${process.env.HUBSPOT_API_KEY}`,
+          'X-Api-Key': process.env.ESPOCRM_API_KEY,
           'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
       }
     );
 
-    return { ok: true };
+    return {
+      ok: true,
+      id: response.data?.id,
+      data: response.data,
+    };
   } catch (error) {
-    return { ok: false, error: error.message };
+    console.error('EspoCRM ERROR STATUS:', error.response?.status);
+    console.error('EspoCRM ERROR DATA:', error.response?.data);
+
+    return {
+      ok: false,
+      error:
+        error.response?.data?.message ||
+        error.response?.data?.error ||
+        error.message,
+    };
   }
 }
 
-module.exports = { sendLeadToHubSpot };
+module.exports = { sendLeadToEspoCRM };

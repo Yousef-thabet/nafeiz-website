@@ -17,6 +17,7 @@ const NAV_LINKS = [
   { to: '/about', key: 'nav.about' },
   { to: '/services', key: 'nav.services' },
   { to: '/products', key: 'nav.products' },
+  { to: '/articles', key: 'nav.articles' },
   { to: '/countries', key: 'nav.countries' },
   { to: '/testimonials', key: 'nav.testimonials' },
   { to: '/contact', key: 'nav.contact' },
@@ -27,11 +28,17 @@ function settingValue(settings, key) {
   return typeof value === 'string' ? value.trim() : '';
 }
 
+function getCountryFromAddress(address) {
+  const parts = address.split(/[,،]/).map((part) => part.trim()).filter(Boolean);
+  return parts[parts.length - 1] || address;
+}
+
 function TopInfoBar({ settings, transparent }) {
   const { t } = useTranslation();
   const phone = settingValue(settings, 'phone');
   const email = settingValue(settings, 'email');
   const address = settingValue(settings, 'address');
+  const country = getCountryFromAddress(address);
   const workingHours = settingValue(settings, 'workingHours');
 
   return (
@@ -41,7 +48,7 @@ function TopInfoBar({ settings, transparent }) {
           {phone && <a dir="ltr" href={`tel:${phone.replace(/[^+\d]/g, '')}`} className="hidden items-center gap-1.5 whitespace-nowrap transition-colors hover:text-gold-300 md:inline-flex"><Phone size={13} /><span className="bidi-isolate">{phone}</span></a>}
           {email && <a dir="ltr" href={`mailto:${email}`} className="hidden items-center gap-1.5 truncate transition-colors hover:text-gold-300 lg:inline-flex"><Mail size={13} /><span className="bidi-isolate">{email}</span></a>}
           {workingHours && <span className="hidden items-center gap-1.5 whitespace-nowrap xl:inline-flex"><Clock3 size={13} />{workingHours}</span>}
-          {address && <span className="flex min-w-0 items-center gap-1.5 truncate"><MapPin size={13} className="shrink-0" />{address}</span>}
+          {country && <span className="flex min-w-0 items-center gap-1.5 truncate"><MapPin size={13} className="shrink-0" />{country}</span>}
         </div>
         <div className="flex shrink-0 items-center gap-3">
           <span className="hidden text-[0.68rem] font-semibold uppercase tracking-wider lg:inline">{t('header.information')}</span>
