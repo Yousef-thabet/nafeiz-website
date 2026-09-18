@@ -139,8 +139,7 @@ export function ProductsSection({ featuredOnly = false, limit }) {
   const categoryCards = useMemo(() => categories.map((item) => {
     const id = item.id;
     const Icon = categoryIcons[id] || Package;
-    const count = products.filter((product) => String(getProductCategory(product)).toLowerCase() === id).length;
-    return { ...item, Icon, count };
+    return { ...item, Icon };
   }).filter((item) => !search || normalizeSearchText(categoryNames[item.id]?.[lang] || categoryNames[item.id]?.en || item.id).includes(normalizeSearchText(search))), [categories, products, categoryNames, lang, search]);
 
   const activeCategoryName = selectedCategory ? (categoryNames[selectedCategory]?.[lang] || categoryNames[selectedCategory]?.en || selectedCategory) : '';
@@ -214,7 +213,6 @@ export function ProductsSection({ featuredOnly = false, limit }) {
                   <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-navy-800 text-gold-300 shadow-lg shadow-navy-900/15 transition-colors group-hover:bg-gold-400 group-hover:text-navy-900 dark:bg-navy-800">
                     <item.Icon size={27} strokeWidth={1.8} />
                   </span>
-                  <span className="rounded-full bg-navy-50 px-3 py-1 text-xs font-semibold text-navy-500 dark:bg-white/10 dark:text-navy-200">{item.count}</span>
                 </div>
                 <h3 className="relative mt-7 text-xl font-bold text-navy-800 dark:text-white">{categoryNames[item.id]?.[lang] || categoryNames[item.id]?.en || item.id}</h3>
                 <span className="relative mt-3 inline-flex items-center gap-2 text-sm font-semibold text-gold-600 transition-all group-hover:gap-3 dark:text-gold-300">

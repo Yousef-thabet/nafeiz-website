@@ -88,7 +88,7 @@ export default function RichTextEditor({ value, onChange, dir = 'ltr', onImageUp
       {toolbarButton('Image', () => fileInput.current?.click())}
       {toolbarButton('Undo', () => editor.chain().focus().undo().run())}
       {toolbarButton('Redo', () => editor.chain().focus().redo().run())}
-      <input ref={fileInput} type="file" accept="image/jpeg,image/png,image/webp,image/gif" onChange={addImage} className="hidden" />
+      <input ref={fileInput} type="file" accept="image/jpeg,image/png,image/webp,image/avif" onChange={addImage} className="hidden" />
     </div>
     <EditorContent editor={editor} />
   </div>;

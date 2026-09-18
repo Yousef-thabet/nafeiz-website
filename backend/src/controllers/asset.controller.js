@@ -1,13 +1,14 @@
 const { sendSuccess, sendError } = require('../utils/response');
-const { createUploadUrl } = require('../services/storage.service');
+const { saveImage } = require('../services/storage.service');
 
 const createAssetUpload = async (req, res, next) => {
   try {
-    const { filename, contentType, mimeType, size, sizeBytes, width, height, entity = 'articles' } = req.body || {};
-    const upload = await createUploadUrl({ filename, mimeType: contentType || mimeType, sizeBytes: size ?? sizeBytes, width, height, entity });
-    return sendSuccess(res, 'Upload URL created', { ...upload, key: upload.storageKey }, 201);
+    if (!req.file) return sendError(res, 'Image file is required', [], 400);
+    const { width, height, entity = 'articles' } = req.body || {};
+    const upload = await saveImage({ buffer: req.file.buffer, filename: req.file.originalname, mimeType: req.file.mimetype, sizeBytes: req.file.size, width: Number(width), height: Number(height), entity });
+    return sendSuccess(res, 'Image uploaded', { ...upload, key: upload.storageKey }, 201);
   } catch (error) {
-    if (/storage is not configured|Only |Image size|Image dimensions|Invalid image/.test(error.message)) return sendError(res, error.message, [], 400);
+    if (/Only |Image size|Image dimensions|Invalid image|Image data|filename|entity/.test(error.message)) return sendError(res, error.message, [], 400);
     next(error);
   }
 };

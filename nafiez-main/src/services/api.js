@@ -141,18 +141,31 @@ export async function uploadImage(file, entity, onProgress, relatedId) {
     image.src = URL.createObjectURL(file);
   });
   if (dimensions.width > 8000 || dimensions.height > 8000) throw new Error('Image dimensions must not exceed 8000 pixels');
-  const uploadResponse = await apiPost('/assets/upload-url', { filename: file.name, contentType: file.type, size: file.size, ...dimensions, entity });
-  const upload = uploadResponse?.data;
-  if (!upload?.uploadUrl) throw new Error('Image storage is not configured');
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('entity', entity);
+  formData.append('width', String(dimensions.width));
+  formData.append('height', String(dimensions.height));
+  let upload;
   await new Promise((resolve, reject) => {
     const request = new XMLHttpRequest();
-    request.open('PUT', upload.uploadUrl);
-    request.setRequestHeader('Content-Type', file.type);
+    request.open('POST', `${API_URL}/assets/upload-url`);
+    request.withCredentials = true;
+    request.setRequestHeader('Accept', 'application/json');
     request.upload.onprogress = (event) => { if (event.lengthComputable) onProgress?.(Math.round((event.loaded / event.total) * 100)); };
-    request.onload = () => request.status >= 200 && request.status < 300 ? resolve() : reject(new Error('Image upload failed'));
+    request.onload = () => {
+      if (request.status >= 200 && request.status < 300) {
+        try { upload = JSON.parse(request.responseText)?.data; } catch { return reject(new Error('Image upload failed')); }
+        return resolve();
+      }
+      let message = 'Image upload failed';
+      try { message = JSON.parse(request.responseText)?.message || message; } catch {}
+      reject(new Error(message));
+    };
     request.onerror = () => reject(new Error('Image upload failed'));
-    request.send(file);
+    request.send(formData);
   });
+  if (!upload?.publicUrl) throw new Error('Image upload failed');
   return upload.publicUrl;
 }
 

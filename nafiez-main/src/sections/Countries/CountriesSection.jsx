@@ -91,8 +91,6 @@ export function CountriesSection({ limit }) {
         <Stagger className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {list.map((country) => {
             const countryName = getLocalizedField(country.nameL10n, lang) || t(`countries.${country.key}.name`);
-            const countryDesc = getLocalizedField(country.descriptionL10n, lang) || t(`countries.${country.key}.description`);
-            const countryTrade = getLocalizedField(country.detailsL10n, lang) || t(`countries.${country.key}.trade`);
             const imageUrl = country.imageUrl || country.image || '';
 
             return (
@@ -113,19 +111,6 @@ export function CountriesSection({ limit }) {
                     <h3 className="absolute bottom-3 start-4 text-lg font-bold text-white">
                       {countryName}
                     </h3>
-                  </div>
-                  <div className="p-5">
-                    <p className="text-sm leading-relaxed text-navy-500 dark:text-navy-300 line-clamp-3">
-                      {countryDesc}
-                    </p>
-                    <div className="mt-4 border-t border-navy-50 pt-3 dark:border-white/5">
-                      <p className="text-xs font-semibold uppercase tracking-wider text-gold-500 dark:text-gold-300">
-                        {t('countries.tradeInfo')}
-                      </p>
-                      <p className="mt-1.5 text-xs leading-relaxed text-navy-400 dark:text-navy-400 line-clamp-2">
-                        {countryTrade}
-                      </p>
-                    </div>
                   </div>
                 </div>
               </StaggerItem>

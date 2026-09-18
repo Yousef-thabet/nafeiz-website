@@ -21,9 +21,16 @@ This backend powers the public website contact form, admin dashboard, website se
 
 ## Image storage
 
-Admin image uploads use the protected `POST /api/assets/upload-url` endpoint and upload directly to Cloudflare R2 through a signed URL. The backend never writes image files to local disk. Configure `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `R2_PUBLIC_URL`, and `PUBLIC_SITE_URL`; when R2 is not configured, uploads fail with `Image storage is not configured`.
+Admin image uploads use the protected `POST /api/assets/upload-url` endpoint with a multipart `file` field. The backend validates the image and stores it atomically under `UPLOAD_DIR`; public files are served at `/uploads`. Set `UPLOAD_DIR=/home/admin/nafeiz-website/uploads` in production (local development can use `./uploads`) and set `PUBLIC_SITE_URL` to the public site origin.
 
-Configure the R2 bucket CORS policy to allow only the deployed frontend origins and `PUT` requests with the `Content-Type` header. Do not use `*` for production origins.
+The production Nginx server must map the public path to the same directory without exposing any other filesystem paths:
+
+```nginx
+location /uploads/ {
+   alias /home/admin/nafeiz-website/uploads/;
+   try_files $uri =404;
+}
+```
 
 Provision the production admin account through a secure administrative process. This project does not run a seed script in production.
 

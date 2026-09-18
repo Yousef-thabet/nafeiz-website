@@ -26,7 +26,7 @@ export function SectionHeading({ label, title, subtitle, align = 'center', light
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.5, delay: 0.05 }}
-          className={`text-3xl font-bold leading-tight sm:text-4xl lg:text-[2.75rem] ${
+          className={`text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl ${
             light ? 'text-white' : 'text-navy-800 dark:text-white'
           }`}
         >

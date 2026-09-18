@@ -3,7 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
-const { port, frontendUrl, corsOrigins, rateLimitWindowMs, rateLimitMaxRequests, nodeEnv } = require('./config/env');
+const { port, frontendUrl, corsOrigins, rateLimitWindowMs, rateLimitMaxRequests, nodeEnv, uploadDir } = require('./config/env');
 const authRoutes = require('./routes/auth.routes');
 const contactRoutes = require('./routes/contact.routes');
 const settingsRoutes = require('./routes/settings.routes');
@@ -105,6 +105,7 @@ app.get('/health', async (req, res) => {
     return res.status(503).json({ success: false, status: 'unavailable' });
   }
 });
+app.use('/uploads', express.static(uploadDir, { fallthrough: false, index: false, maxAge: '1d' }));
 app.use('/api/auth', authRoutes);
 app.use('/api/messages', contactRoutes);
 app.use('/api/settings', settingsRoutes);

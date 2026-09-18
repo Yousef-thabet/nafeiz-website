@@ -1,36 +1,36 @@
 {
   "meta": {
     "home": {
-      "title": "NAFEIZ Trade Co.. — Gateway to Trade with China",
+      "title": "NAFEIZ Trade Co. — Gateway to Trade with China",
       "description": "NAFEIZ is a China-based trading, sourcing, and logistics company connecting China with Arab markets."
     },
     "about": {
       "title": "About NAFEIZ — Our Story & Vision",
-      "description": "Learn about NAFEIZ Trade Co.., our story, mission, vision, and strategic positioning connecting China with Arab markets."
+      "description": "Learn about NAFEIZ Trade Co., our story, mission, vision, and strategic positioning connecting China with Arab markets."
     },
     "services": {
-      "title": "Our Services — NAFEIZ Trade Co..",
+      "title": "Our Services — NAFEIZ Trade Co.",
       "description": "Explore 14 comprehensive trade services from sourcing and logistics to quality inspection and shipping."
     },
     "products": {
-      "title": "Product Catalog — NAFEIZ Trade Co..",
+      "title": "Product Catalog — NAFEIZ Trade Co.",
       "description": "Browse our curated catalog of products sourced from trusted Chinese manufacturers."
     },
     "countries": {
-      "title": "Markets We Serve — NAFEIZ Trade Co..",
+      "title": "Markets We Serve — NAFEIZ Trade Co.",
       "description": "Discover the Arab markets NAFEIZ connects with China: Egypt, Libya, Saudi Arabia, and Algeria."
     },
     "testimonials": {
-      "title": "Client Testimonials — NAFEIZ Trade Co..",
+      "title": "Client Testimonials — NAFEIZ Trade Co.",
       "description": "Read what our clients across the Arab world say about working with NAFEIZ."
     },
     "contact": {
       "title": "Contact NAFEIZ — Start Trading with China",
-      "description": "Get in touch with NAFEIZ Trade Co.. to start your sourcing and logistics journey with China."
+      "description": "Get in touch with NAFEIZ Trade Co. to start your sourcing and logistics journey with China."
     }
   },
   "header": {
-    "information": "NAFEIZ Trade Co.."
+    "information": "NAFEIZ Trade Co."
   },
   "social": {
     "connect": "Connect with us",
@@ -68,7 +68,7 @@
   "about": {
     "label": "About NAFEIZ",
     "title": "Your Trusted Bridge Between China and the Arab World",
-    "story": "NAFEIZ Trade Co.,  is a China-based trading, sourcing, and logistics company dedicated to connecting Chinese manufacturers with businesses across the Arab world. We built NAFEIZ on a simple belief: trade should be transparent, reliable, and built on real partnerships — not transactions.",
+    "story": "NAFEIZ Trade Co. is a China-based trading, sourcing, and logistics company dedicated to connecting Chinese manufacturers with businesses across the Arab world. We built NAFEIZ on a simple belief: trade should be transparent, reliable, and built on real partnerships — not transactions.",
     "story2": "From our base in China, we work closely with factories, markets, and suppliers to find the right products at the right prices. Then we handle the logistics, quality control, documentation, and delivery so our clients can focus on growing their businesses back home.",
     "whoWeAre": "We are a team of trade professionals, inspectors, and logistics specialists who understand both the Chinese market and the needs of Arab buyers. We speak your language — literally and figuratively.",
     "positioning": "Strategic Positioning",
@@ -390,7 +390,7 @@
     "ourServices": "Our Services",
     "contact": "Contact",
     "rights": "All rights reserved.",
-    "madeWith": "NAFEIZ Trade Co., "
+    "madeWith": "NAFEIZ Trade Co."
   },
   "common": {
     "loading": "Loading...",

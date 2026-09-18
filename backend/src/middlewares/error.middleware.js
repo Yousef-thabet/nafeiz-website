@@ -6,6 +6,11 @@ const errorHandler = (err, req, res, next) => {
   let message = 'Internal server error';
   let errors = {};
 
+  if (err?.name === 'MulterError') {
+    statusCode = err.code === 'LIMIT_FILE_SIZE' ? 400 : 400;
+    message = err.code === 'LIMIT_FILE_SIZE' ? 'Image size must be between 1 byte and 5 MB' : 'Invalid image upload';
+  }
+
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     if (err.code === 'P2002') {
       statusCode = 409;
