@@ -3,7 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
-const { port, frontendUrl, corsOrigins, rateLimitWindowMs, rateLimitMaxRequests, nodeEnv, uploadDir } = require('./config/env');
+const { port, frontendUrl, corsOrigins, rateLimitWindowMs, rateLimitMaxRequests, nodeEnv, uploadDir, trustProxy } = require('./config/env');
 const authRoutes = require('./routes/auth.routes');
 const contactRoutes = require('./routes/contact.routes');
 const settingsRoutes = require('./routes/settings.routes');
@@ -21,6 +21,7 @@ const app = express();
 const allowedOrigins = [...new Set([...corsOrigins, frontendUrl])].filter(Boolean);
 
 app.disable('x-powered-by');
+app.set('trust proxy', trustProxy);
 app.use(helmet({
   crossOriginResourcePolicy: false,
   contentSecurityPolicy: {
@@ -75,6 +76,14 @@ const limiter = rateLimit({
   },
 });
 
+const uploadLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 60,
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: (req, res) => res.status(429).json({ success: false, message: 'Too many image uploads. Please try again later.', errors: [] }),
+});
+
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 20,
@@ -113,8 +122,8 @@ app.use('/api/testimonials', testimonialRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/countries', countryRoutes);
 app.use('/api/articles', articleRoutes);
-app.use('/api/article-assets', articleAssetRoutes);
-app.use('/api/assets', assetRoutes);
+app.use('/api/article-assets', uploadLimiter, articleAssetRoutes);
+app.use('/api/assets', uploadLimiter, assetRoutes);
 app.use('/sitemap.xml', sitemapRoutes);
 
 app.use((req, res) => {

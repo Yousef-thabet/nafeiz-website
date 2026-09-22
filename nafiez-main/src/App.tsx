@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Outlet, useLocation, useParams } from 'react-router-dom';
+import { BrowserRouter, Navigate, Routes, Route, Outlet, useLocation, useParams } from 'react-router-dom';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { ScrollToTop } from '@/components/common/ScrollToTop';
@@ -25,7 +25,6 @@ const About = lazy(() => import('@/pages/About'));
 const Services = lazy(() => import('@/pages/Services'));
 const Products = lazy(() => import('@/pages/Products'));
 const ProductDetails = lazy(() => import('@/pages/ProductDetails'));
-const Countries = lazy(() => import('@/pages/Countries'));
 const Testimonials = lazy(() => import('@/pages/Testimonials'));
 const Contact = lazy(() => import('@/pages/Contact'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
@@ -57,6 +56,11 @@ function LocaleLayout() {
   return <Outlet />;
 }
 
+function LegacyCountriesRedirect() {
+  const { locale } = useParams();
+  return <Navigate to={`/${locale}#markets`} replace />;
+}
+
 function AppShell() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
@@ -72,7 +76,7 @@ function AppShell() {
             <Route path="/services" element={<Services />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/:slug" element={<ProductDetails />} />
-            <Route path="/countries" element={<Countries />} />
+            <Route path="/countries" element={<Navigate to="/#markets" replace />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/articles" element={<Articles />} />
@@ -84,7 +88,7 @@ function AppShell() {
               <Route path="services" element={<Services />} />
               <Route path="products" element={<Products />} />
               <Route path="products/:slug" element={<ProductDetails />} />
-              <Route path="countries" element={<Countries />} />
+              <Route path="countries" element={<LegacyCountriesRedirect />} />
               <Route path="testimonials" element={<Testimonials />} />
               <Route path="contact" element={<Contact />} />
               <Route path="articles" element={<Articles />} />

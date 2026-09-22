@@ -15,6 +15,7 @@ const SERVICE_SETTING_KEYS = Array.from({ length: 14 }, (_, index) => index + 1)
 const PUBLIC_SETTINGS_KEYS = [
   'phone',
   'email',
+  'whatsapp',
   'address',
   'facebook',
   'instagram',
@@ -61,11 +62,12 @@ const PUBLIC_SETTINGS_KEYS = [
   ...SERVICE_SETTING_KEYS,
 ];
 
-const URL_SETTING_KEYS = new Set(['facebook', 'instagram', 'tiktok', 'wechat', 'logoUrl', 'faviconUrl', 'heroImageUrl', 'heroVideoUrl', 'ctaUrl', 'googleMapsUrl']);
+const URL_SETTING_KEYS = new Set(['facebook', 'instagram', 'tiktok', 'wechat', 'whatsapp', 'logoUrl', 'faviconUrl', 'heroImageUrl', 'heroVideoUrl', 'ctaUrl', 'googleMapsUrl']);
 
 const settingsSchema = z.object({
   phone: z.string().trim().max(50).optional().or(z.literal('')),
   email: z.string().trim().email().optional().or(z.literal('')),
+  whatsapp: z.string().trim().max(255).optional().or(z.literal('')),
   address: z.string().trim().max(500).optional().or(z.literal('')),
   facebook: z.string().trim().max(255).optional().or(z.literal('')),
   instagram: z.string().trim().max(255).optional().or(z.literal('')),

@@ -84,6 +84,41 @@
 }
 
 @layer components {
+  .product-tile-mobile-caption {
+    display: flex;
+    min-height: 2.25rem;
+  }
+  .product-category-tile { min-width: 0; }
+  .product-tile-overlay {
+    opacity: 0;
+    transform: translateY(0.75rem);
+    transition: opacity 300ms ease, transform 300ms ease;
+  }
+  .product-tile-image {
+    transition: transform 400ms ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .product-tile:hover {
+      transform: translateY(-3px);
+    }
+    .product-tile:hover .product-tile-link,
+    .product-tile-link:focus-visible {
+      border-color: rgb(210 163 67 / 1);
+      box-shadow: 0 12px 24px rgb(13 33 68 / 0.14);
+    }
+    .product-tile:hover .product-tile-image,
+    .product-tile-link:focus-visible .product-tile-image {
+      transform: scale(1.05);
+    }
+    .product-tile:hover .product-tile-overlay,
+    .product-tile-link:focus-visible .product-tile-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .product-tile-mobile-caption {
+      display: none;
+    }
+  }
   .container-base {
     @apply mx-auto w-full max-w-container px-5 sm:px-8 lg:px-12;
   }

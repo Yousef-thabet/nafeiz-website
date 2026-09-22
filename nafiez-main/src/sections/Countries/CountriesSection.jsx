@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ArrowRight } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { Button } from '@/components/ui/Button';
 import { Stagger, StaggerItem } from '@/components/ui/Reveal';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { ErrorState } from '@/components/ui/ErrorState';
@@ -81,7 +79,7 @@ export function CountriesSection({ limit }) {
   }
 
   return (
-    <section className="section-pad bg-white dark:bg-navy-950">
+    <section id="markets" className="section-pad bg-white dark:bg-navy-950">
       <Container>
         <SectionHeading
           label={t('countries.label')}
@@ -118,14 +116,6 @@ export function CountriesSection({ limit }) {
           })}
         </Stagger>
 
-        {limit && (
-          <div className="mt-12 text-center">
-            <Button to="/countries" variant="outline">
-              {t('common.viewAll')}
-              <ArrowRight size={18} className="rtl:rotate-180" />
-            </Button>
-          </div>
-        )}
       </Container>
     </section>
   );

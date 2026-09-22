@@ -8,3 +8,15 @@ dist/
 **/.env.*
 *.log
 .DS_Store
+
+# Local runtime uploads
+backend/uploads/
+
+# Local CRM environment
+nafeiz_crm/
+
+# Local runtime uploads
+backend/uploads/
+
+# Local CRM environment
+nafeiz_crm/

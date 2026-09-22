@@ -234,4 +234,21 @@ const deleteEmployee = async (req, res, next) => {
   }
 };
 
-module.exports = { login, refresh, logout, createEmployee, listEmployees, updateEmployee, deleteEmployee };
+const updateProfile = async (req, res, next) => {
+  try {
+    const parsed = updateEmployeeSchema.pick({ name: true }).safeParse(req.body);
+    if (!parsed.success) return sendError(res, 'Invalid profile payload', formatValidationErrors(parsed.error.issues), 400);
+
+    const user = await prisma.user.update({
+      where: { id: req.user.id },
+      data: { name: parsed.data.name },
+      select: { id: true, name: true, email: true, role: true, isActive: true },
+    });
+
+    return sendSuccess(res, 'Profile updated', { user });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { login, refresh, logout, createEmployee, listEmployees, updateEmployee, deleteEmployee, updateProfile };

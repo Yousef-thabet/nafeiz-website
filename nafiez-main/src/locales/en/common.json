@@ -52,7 +52,7 @@
     "contact": "Contact",
     "cta": "Get a Quote"
   },
-  "articles": { "title": "Articles", "subtitle": "Insights for better trade with China.", "readMore": "Read more" },
+  "articles": { "title": "Articles", "subtitle": "Insights for better trade with China.", "readMore": "Read more", "label": "Trade Insights", "insightsTitle": "Ideas for Better Trade", "insightsSubtitle": "Practical perspectives from the world of sourcing and international trade.", "viewAll": "View all insights" },
   "hero": {
     "headline": "NAFEIZ is your trusted partner and gateway to trading with China.",
     "subheadline": "From sourcing reliable suppliers to delivering goods to your doorstep — NAFEIZ handles every step of your trade journey with China.",
@@ -171,7 +171,35 @@
     "breadcrumb": "Products",
     "requestQuoteText": "Interested in this product? Send us a request and our team will get back to you with pricing and details.",
     "error": "Failed to load products. Please try again later.",
-    "retry": "Retry"
+    "retry": "Retry",
+    "featuredLabel": "Curated Supply",
+    "showcaseTitle": "Products for International Trade",
+    "showcaseSubtitle": "Explore the categories NAFEIZ supplies and a focused gallery of featured products from trusted manufacturers.",
+    "featuredEmpty": "Featured products will appear here soon",
+    "featuredEmptyText": "Our team is preparing a curated selection for this catalog.",
+    "viewAllProducts": "View all products",
+    "categoriesLabel": "What We Supply",
+    "categoriesTitle": "Product Categories",
+    "categoriesSubtitle": "Explore the product areas NAFEIZ sources from trusted manufacturers in China.",
+    "categories": {
+      "electronics": "Electronics",
+      "production-lines": "Production Lines",
+      "food": "Food Products",
+      "medical-supplies": "Medical Supplies",
+      "health-supplies": "Health Supplies",
+      "stationery": "Stationery",
+      "toys": "Children's Toys",
+      "machinery-equipment": "Machinery & Equipment",
+      "clothing-textiles": "Clothing & Textiles",
+      "building-materials": "Building Materials",
+      "footwear": "Footwear",
+      "agricultural-fertilizers": "Agricultural Fertilizers",
+      "bags-accessories": "Bags & Accessories",
+      "home-supplies": "Home Supplies",
+      "lighting": "Lighting",
+      "household-tools": "Household Tools",
+      "decor": "Decor"
+    }
   },
   "countries": {
     "label": "Markets We Serve",

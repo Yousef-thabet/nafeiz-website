@@ -26,7 +26,6 @@ export default function ProductsPage() {
     nameL10n: Object.fromEntries(SUPPORTED_LANGUAGES.map(l => [l.code, ''])),
     shortDescL10n: Object.fromEntries(SUPPORTED_LANGUAGES.map(l => [l.code, ''])),
     descriptionL10n: Object.fromEntries(SUPPORTED_LANGUAGES.map(l => [l.code, ''])),
-    images: [],
   });
 
   const [imageInputs, setImageInputs] = useState(['']);
@@ -90,24 +89,9 @@ export default function ProductsPage() {
       nameL10n: Object.fromEntries(SUPPORTED_LANGUAGES.map(l => [l.code, ''])),
       shortDescL10n: Object.fromEntries(SUPPORTED_LANGUAGES.map(l => [l.code, ''])),
       descriptionL10n: Object.fromEntries(SUPPORTED_LANGUAGES.map(l => [l.code, ''])),
-      images: [],
     });
     setImageInputs(['']);
     setEditingId(null);
-  };
-
-  const handleImageUrlChange = (index, value) => {
-    const newInputs = [...imageInputs];
-    newInputs[index] = value;
-    setImageInputs(newInputs);
-  };
-
-  const addImageInput = () => {
-    setImageInputs([...imageInputs, '']);
-  };
-
-  const removeImageInput = (index) => {
-    setImageInputs(imageInputs.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e) => {
@@ -166,7 +150,6 @@ export default function ProductsPage() {
       nameL10n,
       shortDescL10n,
       descriptionL10n,
-      images: product.images || [],
     });
     setImageInputs((product.images || []).map(img => img.url));
     setEditingId(product.id);

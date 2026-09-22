@@ -19,7 +19,7 @@ test('sanitizes settings to only public keys', () => {
     heroTitle: 'Welcome',
   });
 
-  assert.deepEqual(Object.keys(sanitized).sort(), ['email', 'heroTitle', 'logoUrl', 'phone'].sort());
+  assert.deepEqual(Object.keys(sanitized).sort(), ['email', 'heroTitle', 'logoUrl', 'phone', 'whatsapp'].sort());
   assert.equal(sanitized.heroTitle, 'Welcome');
 });
 

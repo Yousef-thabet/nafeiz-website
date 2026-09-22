@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/Badge';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { Reveal } from '@/components/ui/Reveal';
-import { categoryNames } from '@/data/products';
+import { categoryNames, normalizeProductCategory } from '@/data/products';
 import { getLocalizedPath } from '@/lib/i18n';
 import { getProduct, getRelatedProducts } from '@/services/api';
 import { getLocalizedField } from '@/lib/utils';
@@ -74,7 +74,10 @@ export default function ProductDetails() {
 
   const name = getLocalizedField(product.name, lang);
   const description = getLocalizedField(product.description, lang);
-  const categoryName = categoryNames[product.category]?.[lang] || categoryNames[product.category]?.en;
+  const categoryId = normalizeProductCategory(product.category);
+  const categoryName = t(`products.categories.${categoryId}`) !== `products.categories.${categoryId}`
+    ? t(`products.categories.${categoryId}`)
+    : categoryNames[categoryId]?.[lang] || categoryNames[categoryId]?.en;
   const images = product.images || [];
 
   return (

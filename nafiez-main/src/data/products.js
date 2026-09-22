@@ -18,6 +18,21 @@ export const productCategories = [
   { id: 'decor', key: 'decor' },
 ];
 
+const legacyCategoryAliases = {
+  textiles: 'clothing-textiles',
+  machinery: 'machinery-equipment',
+  construction: 'building-materials',
+  home: 'home-supplies',
+  packaging: 'bags-accessories',
+};
+
+export function normalizeProductCategory(value) {
+  const category = typeof value === 'object' && value !== null
+    ? value.id ?? value.key ?? value.slug ?? ''
+    : value;
+  return legacyCategoryAliases[category] || category || '';
+}
+
 export const categoryNames = {
   electronics: { ar: 'الإلكترونيات', en: 'Electronics', zh: '电子产品', ru: 'Электроника' },
   'production-lines': { ar: 'خطوط الإنتاج', en: 'Production Lines', zh: '生产线', ru: 'Производственные линии' },

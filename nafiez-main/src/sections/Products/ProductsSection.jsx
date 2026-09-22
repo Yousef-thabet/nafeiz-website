@@ -13,6 +13,7 @@ import { getProducts } from '@/services/api';
 import { getLocalizedField } from '@/lib/utils';
 import { getLocalizedSetting } from '@/lib/utils';
 import { useSettings } from '@/context/SettingsContext';
+import { normalizeProductCategory } from '@/data/products';
 
 function normalizeSearchText(value) {
   return String(value || '')
@@ -33,18 +34,7 @@ function getLanguageCode(language) {
 }
 
 function getProductCategory(product) {
-  const category = product?.categoryId ?? product?.category;
-  if (typeof category === 'object' && category !== null) {
-    return category.id ?? category.key ?? category.slug ?? '';
-  }
-  const legacyCategories = {
-    textiles: 'clothing-textiles',
-    machinery: 'machinery-equipment',
-    construction: 'building-materials',
-    home: 'home-supplies',
-    packaging: 'bags-accessories',
-  };
-  return legacyCategories[category] || category || '';
+  return normalizeProductCategory(product?.categoryId ?? product?.category);
 }
 
 const categoryIcons = {
@@ -78,7 +68,7 @@ export function ProductsSection({ featuredOnly = false, limit }) {
   const [error, setError] = useState(null);
   const [categories, setCategories] = useState([]);
   const [categoryNames, setCategoryNames] = useState({});
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(() => new URLSearchParams(window.location.search).get('category'));
 
   // Load products from backend
   useEffect(() => {
@@ -170,9 +160,9 @@ export function ProductsSection({ featuredOnly = false, limit }) {
     <section className="section-pad bg-brand-bg dark:bg-navy-950">
       <Container>
         <SectionHeading
-          label={t('products.label')}
-          title={getLocalizedSetting(settings, 'productsTitle', lang, t('products.title'))}
-          subtitle={getLocalizedSetting(settings, 'productsDescription', lang, t('products.subtitle'))}
+          label={featuredOnly ? t('products.featuredLabel') : t('products.label')}
+          title={featuredOnly ? t('products.featuredTitle') : getLocalizedSetting(settings, 'productsTitle', lang, t('products.title'))}
+          subtitle={featuredOnly ? t('products.featuredSubtitle') : getLocalizedSetting(settings, 'productsDescription', lang, t('products.subtitle'))}
         />
 
         {!featuredOnly && !selectedCategory && (
@@ -214,7 +204,7 @@ export function ProductsSection({ featuredOnly = false, limit }) {
                     <item.Icon size={27} strokeWidth={1.8} />
                   </span>
                 </div>
-                <h3 className="relative mt-7 text-xl font-bold text-navy-800 dark:text-white">{categoryNames[item.id]?.[lang] || categoryNames[item.id]?.en || item.id}</h3>
+                <h3 className="relative mt-7 text-xl font-bold text-navy-800 dark:text-white">{t(`products.categories.${item.id}`)}</h3>
                 <span className="relative mt-3 inline-flex items-center gap-2 text-sm font-semibold text-gold-600 transition-all group-hover:gap-3 dark:text-gold-300">
                   {t('products.viewDetails')} <ArrowRight size={16} className="rtl:rotate-180" />
                 </span>
@@ -257,7 +247,7 @@ export function ProductsSection({ featuredOnly = false, limit }) {
                     </div>
                     <div className="p-5">
                       <span className="text-xs font-medium uppercase tracking-wider text-gold-500 dark:text-gold-300">
-                        {categoryNames[product.category]?.[lang] || categoryNames[product.category]?.en || product.category}
+                        {t(`products.categories.${getProductCategory(product)}`)}
                       </span>
                       <h3 className="mt-1.5 text-base font-bold text-navy-800 dark:text-white">
                         {getLocalizedField(product.nameL10n, lang)}

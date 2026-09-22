@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { Extension } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
@@ -34,6 +34,7 @@ const FontSize = Extension.create({
 export default function RichTextEditor({ value, onChange, dir = 'ltr', onImageUpload }) {
   const fileInput = useRef(null);
   const fontSizeSelection = useRef(null);
+  const [imageError, setImageError] = useState('');
   const editor = useEditor({
     extensions: [StarterKit.configure({ link: false, underline: false }), Underline, TextStyle, FontSize, TextAlign.configure({ types: ['heading', 'paragraph'] }), Link.configure({ protocols: ['http', 'https'], openOnClick: false }), Image.configure({ allowBase64: false })],
     content: value || '',
@@ -69,8 +70,14 @@ export default function RichTextEditor({ value, onChange, dir = 'ltr', onImageUp
     const file = event.target.files?.[0];
     event.target.value = '';
     if (!file || !onImageUpload) return;
-    const url = await onImageUpload(file);
-    editor.chain().focus().setImage({ src: url }).run();
+    setImageError('');
+    try {
+      const url = await onImageUpload(file);
+      if (!url) throw new Error('The server did not return a usable image URL');
+      editor.chain().focus().setImage({ src: url }).run();
+    } catch (error) {
+      setImageError(error instanceof Error ? error.message : 'Image upload failed');
+    }
   };
 
   return <div className="overflow-hidden rounded-xl border border-slate-300 bg-white dark:border-slate-700 dark:bg-slate-800">
@@ -91,5 +98,6 @@ export default function RichTextEditor({ value, onChange, dir = 'ltr', onImageUp
       <input ref={fileInput} type="file" accept="image/jpeg,image/png,image/webp,image/avif" onChange={addImage} className="hidden" />
     </div>
     <EditorContent editor={editor} />
+    {imageError && <p className="border-t border-rose-200 px-3 py-2 text-sm text-rose-600">{imageError}</p>}
   </div>;
 }

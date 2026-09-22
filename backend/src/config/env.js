@@ -39,6 +39,7 @@ module.exports = {
   corsOrigins: frontendUrls,
   rateLimitWindowMs: Number(process.env.RATE_LIMIT_WINDOW_MS || 900000),
   rateLimitMaxRequests: Number(process.env.RATE_LIMIT_MAX_REQUESTS || 120),
+  trustProxy: process.env.TRUST_PROXY || 'loopback',
   uploadDir: process.env.UPLOAD_DIR || (isProduction ? '/home/admin/nafeiz-website/uploads' : path.resolve(__dirname, '../../uploads')),
   publicSiteUrl: (process.env.PUBLIC_SITE_URL || 'https://nafeiz.com').replace(/\/$/, ''),
 };

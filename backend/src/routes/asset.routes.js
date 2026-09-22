@@ -1,10 +1,10 @@
 const express = require('express');
-const multer = require('multer');
 const { protect, authorize } = require('../middlewares/auth.middleware');
+const { uploadImageFile } = require('../middlewares/upload.middleware');
 const { createAssetUpload } = require('../controllers/asset.controller');
 
 const router = express.Router();
-const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024, files: 1 } });
-router.post('/upload-url', protect, authorize('admin'), upload.single('file'), createAssetUpload);
+router.post('/upload', protect, authorize('admin'), uploadImageFile, createAssetUpload);
+router.post('/upload-url', protect, authorize('admin'), uploadImageFile, createAssetUpload);
 
 module.exports = router;

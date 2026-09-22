@@ -1,4 +1,4 @@
-import { productCategories, categoryNames } from '@/data/products';
+import { categoryNames, normalizeProductCategory, productCategories } from '@/data/products';
 
 const API_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
 
@@ -129,43 +129,55 @@ export async function getArticle(slug) {
   return apiGet(`/articles/${encodeURIComponent(slug)}`);
 }
 
-export async function getAdminArticles() {
-  return apiGet('/articles/admin');
-}
+export async function uploadImage(file, entity, onProgress, options = {}) {
+  if (!(file instanceof File)) throw new Error('Please choose a valid image file');
+  if (!['image/jpeg', 'image/png', 'image/webp', 'image/avif'].includes(file.type)) throw new Error('Only JPEG, PNG, WebP, and AVIF images are allowed');
+  if (file.size < 1 || file.size > 5 * 1024 * 1024) throw new Error('Image size must be between 1 byte and 5 MB');
+  if (!entity) throw new Error('Image upload category is required');
 
-export async function uploadImage(file, entity, onProgress, relatedId) {
   const dimensions = await new Promise((resolve, reject) => {
     const image = new Image();
-    image.onload = () => { URL.revokeObjectURL(image.src); resolve({ width: image.naturalWidth, height: image.naturalHeight }); };
-    image.onerror = () => reject(new Error('Unable to read image dimensions'));
-    image.src = URL.createObjectURL(file);
+    const objectUrl = URL.createObjectURL(file);
+    image.onload = () => { URL.revokeObjectURL(objectUrl); resolve({ width: image.naturalWidth, height: image.naturalHeight }); };
+    image.onerror = () => { URL.revokeObjectURL(objectUrl); reject(new Error('Unable to read image dimensions')); };
+    image.src = objectUrl;
   });
-  if (dimensions.width > 8000 || dimensions.height > 8000) throw new Error('Image dimensions must not exceed 8000 pixels');
+  if (!dimensions.width || !dimensions.height) throw new Error('Unable to read image dimensions');
+  if (dimensions.width > 8000 || dimensions.height > 8000) throw new Error('Image dimensions must be between 1 and 8000 pixels');
+
   const formData = new FormData();
   formData.append('file', file);
   formData.append('entity', entity);
-  formData.append('width', String(dimensions.width));
-  formData.append('height', String(dimensions.height));
-  let upload;
+  let uploadResponse;
   await new Promise((resolve, reject) => {
     const request = new XMLHttpRequest();
-    request.open('POST', `${API_URL}/assets/upload-url`);
+    const timeoutId = setTimeout(() => { request.abort(); reject(new Error('Image upload timed out. Please try again.')); }, options.timeoutMs || 60000);
+    request.open('POST', `${API_URL}/assets/upload`);
     request.withCredentials = true;
     request.setRequestHeader('Accept', 'application/json');
     request.upload.onprogress = (event) => { if (event.lengthComputable) onProgress?.(Math.round((event.loaded / event.total) * 100)); };
     request.onload = () => {
       if (request.status >= 200 && request.status < 300) {
-        try { upload = JSON.parse(request.responseText)?.data; } catch { return reject(new Error('Image upload failed')); }
+        try { uploadResponse = JSON.parse(request.responseText); } catch { clearTimeout(timeoutId); return reject(new Error('The server returned an invalid upload response')); }
+        clearTimeout(timeoutId);
         return resolve();
       }
-      let message = 'Image upload failed';
+      clearTimeout(timeoutId);
+      if (request.status === 401) window.dispatchEvent(new CustomEvent('auth:session-expired'));
+      let message = request.status === 401 ? 'Your admin session has expired. Please sign in again.' : 'Image upload failed';
       try { message = JSON.parse(request.responseText)?.message || message; } catch {}
       reject(new Error(message));
     };
-    request.onerror = () => reject(new Error('Image upload failed'));
+    request.onerror = () => { clearTimeout(timeoutId); reject(new Error('Unable to reach the server while uploading the image')); };
+    request.onabort = () => { clearTimeout(timeoutId); reject(new Error('Image upload was cancelled')); };
+    if (options.signal) {
+      if (options.signal.aborted) return request.abort();
+      options.signal.addEventListener('abort', () => request.abort(), { once: true });
+    }
     request.send(formData);
   });
-  if (!upload?.publicUrl) throw new Error('Image upload failed');
+  const upload = uploadResponse?.data;
+  if (!uploadResponse?.success || typeof upload?.publicUrl !== 'string' || !upload.publicUrl || typeof upload.storageKey !== 'string' || !upload.storageKey) throw new Error('The server did not return a usable image URL');
   return upload.publicUrl;
 }
 
@@ -197,7 +209,11 @@ export async function getProducts() {
       shortDescL10n: p.shortDescL10n ? (typeof p.shortDescL10n === 'string' ? JSON.parse(p.shortDescL10n) : p.shortDescL10n) : {},
     }));
     
-    return { ok: true, data: { products: parsedProducts, categories: productCategories, categoryNames } };
+    const representedCategories = [...new Set(parsedProducts.map((product) => normalizeProductCategory(product.category)).filter(Boolean))];
+    const categories = representedCategories
+      .map((id) => productCategories.find((category) => category.id === id) || { id, key: id })
+      .filter((category) => categoryNames[category.id]);
+    return { ok: true, data: { products: parsedProducts, categories, categoryNames } };
   } catch (error) {
     return { ok: false, status: error.status || 0, errorKey: getErrorMessageKey(error.status || 0), message: error.message };
   }

@@ -13,7 +13,7 @@ export function SectionHeading({ label, title, subtitle, align = 'center', light
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.5 }}
-          className={`mb-3 inline-block text-xs font-semibold uppercase tracking-[0.2em] ${
+          className={`mb-3 inline-block text-sm font-semibold uppercase tracking-[0.16em] ${
             light ? 'text-gold-300' : 'text-gold-500'
           }`}
         >

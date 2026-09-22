@@ -14,8 +14,6 @@ const NAV_LINKS = [
   { to: '/services', key: 'nav.services' },
   { to: '/products', key: 'nav.products' },
   { to: '/articles', key: 'nav.articles' },
-  { to: '/countries', key: 'nav.countries' },
-  { to: '/testimonials', key: 'nav.testimonials' },
   { to: '/contact', key: 'nav.contact' },
 ];
 

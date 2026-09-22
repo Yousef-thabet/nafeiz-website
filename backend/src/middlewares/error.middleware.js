@@ -7,8 +7,18 @@ const errorHandler = (err, req, res, next) => {
   let errors = {};
 
   if (err?.name === 'MulterError') {
-    statusCode = err.code === 'LIMIT_FILE_SIZE' ? 400 : 400;
+    statusCode = err.code === 'LIMIT_FILE_SIZE' ? 413 : 400;
     message = err.code === 'LIMIT_FILE_SIZE' ? 'Image size must be between 1 byte and 5 MB' : 'Invalid image upload';
+  }
+
+  if (/Origin not allowed/.test(err?.message || '')) {
+    statusCode = 403;
+    message = 'Origin not allowed';
+  }
+
+  if (err?.type === 'entity.too.large') {
+    statusCode = 413;
+    message = 'Request body is too large';
   }
 
   if (err instanceof Prisma.PrismaClientKnownRequestError) {

@@ -52,7 +52,7 @@
     "contact": "联系我们",
     "cta": "获取报价"
   },
-  "articles": { "title": "文章", "subtitle": "帮助您更好地开展对华贸易。", "readMore": "阅读更多" },
+  "articles": { "title": "文章", "subtitle": "帮助您更好地开展对华贸易。", "readMore": "阅读更多", "label": "贸易洞察", "insightsTitle": "更高效贸易的思路", "insightsSubtitle": "来自采购与国际贸易领域的实用观点。", "viewAll": "查看全部文章" },
   "hero": {
     "headline": "NAFEIZ不仅仅是一家运输和采购公司。我们是您的商业伙伴，也是您与中国贸易的窗口。",
     "subheadline": "从寻找可靠的供应商到将货物送到您家门口——NAFEIZ负责您与中国贸易旅程的每一步。",
@@ -171,7 +171,35 @@
     "breadcrumb": "产品",
     "requestQuoteText": "对此产品感兴趣？向我们发送请求，我们的团队将回复您报价和详情。",
     "error": "无法加载产品。请稍后重试。",
-    "retry": "重试"
+    "retry": "重试",
+    "featuredLabel": "精选供应",
+    "showcaseTitle": "服务国际贸易的产品",
+    "showcaseSubtitle": "了解NAFEIZ供应的产品类别，探索来自可靠制造商的精选产品。",
+    "featuredEmpty": "精选产品即将展示在这里",
+    "featuredEmptyText": "我们的团队正在为产品目录准备精选内容。",
+    "viewAllProducts": "查看全部产品",
+    "categoriesLabel": "我们供应的产品",
+    "categoriesTitle": "产品类别",
+    "categoriesSubtitle": "了解NAFEIZ从中国可靠制造商采购的产品领域。",
+    "categories": {
+      "electronics": "电子产品",
+      "production-lines": "生产线",
+      "food": "食品",
+      "medical-supplies": "医疗用品",
+      "health-supplies": "健康用品",
+      "stationery": "文具",
+      "toys": "儿童玩具",
+      "machinery-equipment": "机械设备",
+      "clothing-textiles": "服装和纺织品",
+      "building-materials": "建筑材料",
+      "footwear": "鞋类",
+      "agricultural-fertilizers": "农业肥料",
+      "bags-accessories": "箱包和配饰",
+      "home-supplies": "家居用品",
+      "lighting": "照明",
+      "household-tools": "家用工具",
+      "decor": "装饰品"
+    }
   },
   "countries": {
     "label": "我们服务的市场",

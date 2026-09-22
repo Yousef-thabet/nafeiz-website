@@ -21,7 +21,7 @@ This backend powers the public website contact form, admin dashboard, website se
 
 ## Image storage
 
-Admin image uploads use the protected `POST /api/assets/upload-url` endpoint with a multipart `file` field. The backend validates the image and stores it atomically under `UPLOAD_DIR`; public files are served at `/uploads`. Set `UPLOAD_DIR=/home/admin/nafeiz-website/uploads` in production (local development can use `./uploads`) and set `PUBLIC_SITE_URL` to the public site origin.
+Admin image uploads use the protected `POST /api/assets/upload` endpoint with a multipart `file` field and an `entity` field. The legacy `POST /api/assets/upload-url` and article-assets route remain aliases for compatibility. The backend validates the actual image with Sharp and stores it atomically under `UPLOAD_DIR`; public files are served at `/uploads`. Set `UPLOAD_DIR=/home/admin/nafeiz-website/uploads` in production (local development can use `./uploads`) and set `PUBLIC_SITE_URL` to the public site origin.
 
 The production Nginx server must map the public path to the same directory without exposing any other filesystem paths:
 
@@ -29,8 +29,13 @@ The production Nginx server must map the public path to the same directory witho
 location /uploads/ {
    alias /home/admin/nafeiz-website/uploads/;
    try_files $uri =404;
+   autoindex off;
+   expires 1d;
+   add_header Cache-Control "public, max-age=86400";
 }
 ```
+
+Ensure the PM2 process user can traverse `/home/admin/nafeiz-website` and write to the uploads directory, while uploaded files remain non-executable (`0644`) and directories remain non-writable to the public (`0755`). Verify the deployed Nginx configuration with `sudo nginx -t` and verify a known uploaded file with `curl -I https://nafeiz.com/uploads/<storage-key>`.
 
 Provision the production admin account through a secure administrative process. This project does not run a seed script in production.
 
