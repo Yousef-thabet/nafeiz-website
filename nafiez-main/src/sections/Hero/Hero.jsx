@@ -41,7 +41,7 @@ export function Hero() {
 
       <div className="container-base relative z-10 w-full py-16 sm:py-20">
         <div className="grid max-w-6xl items-center gap-12 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-16">
-          <div className="max-w-3xl border-s-2 border-gold-400/70 ps-5 sm:ps-7 lg:ps-8">
+          <div className="min-w-0 max-w-3xl border-s-2 border-gold-400/70 ps-5 sm:ps-7 lg:ps-8">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -56,7 +56,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="mt-6 max-w-3xl text-3xl font-bold leading-[1.12] text-white text-balance sm:text-4xl lg:text-5xl xl:text-[3.4rem]"
+            className="mt-6 w-full max-w-3xl break-words text-2xl font-bold leading-[1.2] text-white text-balance sm:text-4xl sm:leading-[1.12] lg:text-5xl xl:text-[3.4rem]"
           >
             {headline}
           </motion.h1>

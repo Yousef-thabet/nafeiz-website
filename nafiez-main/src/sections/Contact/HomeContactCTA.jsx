@@ -38,10 +38,10 @@ export function HomeContactCTA() {
     <section className="section-pad bg-brand-bg dark:bg-navy-950">
       <Container>
         <div className="overflow-hidden rounded-[1.5rem] bg-navy-800 shadow-navy dark:bg-navy-900">
-          <div className="grid gap-10 px-6 py-10 sm:px-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:px-14 lg:py-14">
-            <div>
+          <div className="grid grid-cols-1 gap-10 px-6 py-10 sm:px-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:px-14 lg:py-14">
+            <div className="min-w-0">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-300">{t('contact.home.eyebrow')}</p>
-              <h2 className="mt-4 max-w-2xl text-3xl font-bold leading-tight text-white sm:text-4xl">
+              <h2 className="mt-4 w-full max-w-2xl min-w-0 [overflow-wrap:anywhere] text-2xl font-bold leading-tight text-white sm:text-4xl">
                 {title}
               </h2>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-navy-200">
