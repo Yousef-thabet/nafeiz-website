@@ -4,6 +4,7 @@ import { useSettings } from '@/context/SettingsContext';
 import i18n, { SUPPORTED_LANGUAGES } from '@/lib/i18n';
 import { getApiErrorMessage, getApiFieldErrors } from '@/lib/formErrors';
 import ImageUploader from '@/components/common/ImageUploader';
+import { StickyFormActions } from '@/components/admin/StickyFormActions';
 
 const LOCALIZED_KEYS = [
   'heroTitle', 'heroDescription', 'aboutTitle', 'aboutDescription',
@@ -41,11 +42,12 @@ const LOCALE_PATHS = {
 };
 
 const groups = [
-  { title: 'Contact & company', fields: [['companyName', 'Company name'], ['phone', 'Phone'], ['email', 'Email'], ['whatsapp', 'WhatsApp'], ['address', 'Address'], ['workingHours', 'Working hours']] },
-  { title: 'Hero', fields: [['heroTitle', 'Title', true], ['heroDescription', 'Description', true], ['heroImageUrl', 'Hero image'], ['logoUrl', 'Logo'], ['faviconUrl', 'Favicon']] },
+  { title: 'Contact & company', fields: [['companyName', 'Company name'], ['phone', 'Phone'], ['email', 'Email'], ['whatsapp', 'WhatsApp'], ['headerCountry', 'Top header country'], ['address', 'Contact address', true], ['workingHours', 'Working hours']] },
+  { title: 'Contact QR codes', fields: [['whatsappQrEnabled', 'Enable WhatsApp QR'], ['whatsappQrImageUrl', 'WhatsApp QR image'], ['whatsappQrLabel', 'WhatsApp QR label'], ['whatsappQrDescription', 'WhatsApp QR description', true], ['wechatQrEnabled', 'Enable WeChat QR'], ['wechatQrImageUrl', 'WeChat QR image'], ['wechatQrLabel', 'WeChat QR label'], ['wechatQrDescription', 'WeChat QR description', true]] },
+  { title: 'Hero', fields: [['heroTitle', 'Title', true], ['heroDescription', 'Description', true], ['heroImageUrl', 'Hero image']] },
   { title: 'About & vision', fields: [['aboutTitle', 'About title', true], ['aboutDescription', 'About description', true], ['visionTitle', 'Vision title', true], ['visionDescription', 'Vision description', true], ['missionTitle', 'Mission title', true], ['missionDescription', 'Mission description', true]] },
   { title: 'Home sections', fields: [['servicesTitle', 'Services title', true], ['servicesDescription', 'Services description', true], ['productsTitle', 'Products title', true], ['productsDescription', 'Products description', true], ['countriesTitle', 'Countries title', true], ['countriesDescription', 'Countries description', true], ['whyTitle', 'Why NAFEIZ title', true], ['whyDescription', 'Why NAFEIZ description', true], ['howTitle', 'How it works title', true], ['howDescription', 'How it works description', true], ['testimonialsTitle', 'Testimonials title', true], ['testimonialsDescription', 'Testimonials description', true], ['contactTitle', 'Contact title', true], ['contactDescription', 'Contact description', true]] },
-  { title: 'Statistics', fields: [['statisticsClients', 'Clients'], ['statisticsCountries', 'Countries'], ['statisticsFactories', 'Suppliers / factories'], ['statisticsShipments', 'Shipments / orders'], ['statisticsYears', 'Years of experience']] },
+  { title: 'Statistics', fields: [['statisticsCountries', 'Countries'], ['statisticsFactories', 'Suppliers / factories'], ['statisticsShipments', 'Shipments / orders'], ['statisticsYears', 'Years of experience']] },
   { title: 'Footer', fields: [['footerDescription', 'Footer description', true]] },
 ];
 
@@ -89,18 +91,21 @@ function normalizeSettings(settings = {}) {
 function Field({ field, values, language, onChange }) {
   const [key, label, multiline] = field;
   const localized = LOCALIZED_KEYS.includes(key);
-  const technical = ['companyName', 'phone', 'email', 'whatsapp', 'address', 'workingHours', 'heroImageUrl', 'instagram', 'facebook', 'tiktok', 'wechat'].includes(key);
+  const technical = ['companyName', 'phone', 'email', 'whatsapp', 'headerCountry', 'address', 'workingHours', 'heroImageUrl', 'instagram', 'facebook', 'tiktok', 'wechat', 'whatsappQrEnabled', 'wechatQrEnabled', 'whatsappQrImageUrl', 'wechatQrImageUrl'].includes(key);
   const fieldDirection = technical ? 'ltr' : (language === 'ar' ? 'rtl' : 'ltr');
   const value = localized
     ? values[`${key}L10n`]?.[language] || (language === 'en' ? values[key] || '' : '')
     : values[key] || '';
   const update = (nextValue) => onChange(key, nextValue, localized);
-  const imageSetting = ['heroImageUrl', 'logoUrl', 'faviconUrl'].includes(key);
+  const imageSetting = ['heroImageUrl', 'whatsappQrImageUrl', 'wechatQrImageUrl'].includes(key);
+  const checkboxSetting = ['whatsappQrEnabled', 'wechatQrEnabled'].includes(key);
 
   return (
     <label className="block text-sm font-medium text-slate-700 dark:text-slate-200">
       <span className="mb-2 block">{label}{localized ? ` (${language})` : ''}</span>
-      {imageSetting ? (
+      {checkboxSetting ? (
+        <input type="checkbox" checked={value !== 'false'} onChange={(event) => update(event.target.checked ? 'true' : 'false')} className="mt-2 h-4 w-4 rounded border-slate-300 text-gold-500 focus:ring-gold-400" />
+      ) : imageSetting ? (
         <ImageUploader entity="settings" value={value} onChange={update} />
       ) : multiline ? (
         <textarea dir={fieldDirection} value={value} onChange={(event) => update(event.target.value)} rows={3} className="w-full resize-y rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none focus:border-gold-500 dark:border-slate-700 dark:bg-slate-800" />
@@ -212,12 +217,13 @@ export default function SettingsPage() {
             </div>
           </section>
 
-          <button type="submit" disabled={saving} className="w-full rounded-full bg-gold-400 px-4 py-3 font-semibold text-slate-900 transition hover:bg-gold-500 disabled:cursor-not-allowed disabled:opacity-60">
-            {saving ? 'Saving...' : `Save ${language} settings`}
-          </button>
+          <StickyFormActions>
+            <button type="submit" disabled={saving} className="w-full rounded-full bg-gold-400 px-4 py-3 font-semibold text-slate-900 transition hover:bg-gold-500 disabled:cursor-not-allowed disabled:opacity-60">
+              {saving ? 'Saving...' : `Save ${language} settings`}
+            </button>
+          </StickyFormActions>
         </form>
       )}
-
       {message && <p className="mt-4 text-sm text-emerald-600">{message}</p>}
       {error && <p className="mt-4 text-sm text-rose-600">{error}</p>}
     </div>

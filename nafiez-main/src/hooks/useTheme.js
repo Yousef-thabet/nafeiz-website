@@ -2,39 +2,61 @@ import { useEffect, useState, useCallback } from 'react';
 
 const THEME_KEY = 'nafeiz_theme';
 
-function getInitialTheme() {
-  if (typeof window === 'undefined') return 'light';
-  const stored = localStorage.getItem(THEME_KEY);
-  if (stored === 'light' || stored === 'dark') return stored;
+function isTheme(value) {
+  return value === 'light' || value === 'dark';
+}
+
+function getSystemTheme() {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
+function getInitialTheme() {
+  if (typeof window === 'undefined') return 'light';
+  const stored = localStorage.getItem(THEME_KEY);
+  return isTheme(stored) ? stored : getSystemTheme();
+}
+
 export function useTheme() {
-  const [theme, setTheme] = useState(getInitialTheme);
+  const [theme, setThemeState] = useState(getInitialTheme);
 
   useEffect(() => {
-    const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-    localStorage.setItem(THEME_KEY, theme);
+    document.documentElement.classList.toggle('dark', theme === 'dark');
     window.dispatchEvent(new CustomEvent('nafeiz-theme-change', { detail: theme }));
   }, [theme]);
 
   useEffect(() => {
     const handleThemeChange = (event) => {
-      if (event.detail === 'light' || event.detail === 'dark') {
-        setTheme(event.detail);
-      }
+      if (isTheme(event.detail)) setThemeState(event.detail);
     };
+    const handleSystemChange = (event) => {
+      if (!isTheme(localStorage.getItem(THEME_KEY))) setThemeState(event.matches ? 'dark' : 'light');
+    };
+    const handleStorageChange = (event) => {
+      if (event.key === THEME_KEY) setThemeState(isTheme(event.newValue) ? event.newValue : getSystemTheme());
+    };
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
     window.addEventListener('nafeiz-theme-change', handleThemeChange);
-    return () => window.removeEventListener('nafeiz-theme-change', handleThemeChange);
+    window.addEventListener('storage', handleStorageChange);
+    media.addEventListener('change', handleSystemChange);
+    return () => {
+      window.removeEventListener('nafeiz-theme-change', handleThemeChange);
+      window.removeEventListener('storage', handleStorageChange);
+      media.removeEventListener('change', handleSystemChange);
+    };
+  }, []);
+
+  const setTheme = useCallback((nextTheme) => {
+    if (!isTheme(nextTheme)) return;
+    localStorage.setItem(THEME_KEY, nextTheme);
+    setThemeState(nextTheme);
   }, []);
 
   const toggleTheme = useCallback(() => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    setThemeState((previousTheme) => {
+      const nextTheme = previousTheme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem(THEME_KEY, nextTheme);
+      return nextTheme;
+    });
   }, []);
 
   return { theme, toggleTheme, setTheme };

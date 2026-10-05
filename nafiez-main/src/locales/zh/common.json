@@ -12,6 +12,10 @@
       "title": "我们的服务 — NAFEIZ贸易有限公司",
       "description": "探索从采购、物流到质检和运输的14项全方位贸易服务。"
     },
+    "shipping": {
+      "title": "从中国发货 | NAFEIZ贸易有限公司",
+      "description": "为企业和个人提供从中国发往全球目的地的海运和空运解决方案。告诉我们您的目的地和运输要求。"
+    },
     "products": {
       "title": "产品目录 — NAFEIZ贸易有限公司",
       "description": "浏览我们从值得信赖的中国制造商采购的精选产品目录。"
@@ -45,12 +49,72 @@
     "home": "首页",
     "about": "关于我们",
     "services": "服务",
+    "shipping": "运输服务",
     "products": "产品",
     "articles": "文章",
     "countries": "国家",
     "testimonials": "客户评价",
     "contact": "联系我们",
     "cta": "获取报价"
+  },
+  "shipping": {
+    "label": "运输服务",
+    "title": "从中国发货",
+    "subtitle": "为您提供从中国运送货物到全球目的地的海运与空运解决方案。",
+    "requestQuote": "申请运费报价",
+    "contactUs": "联系我们",
+    "viewServices": "查看运输服务",
+    "homeTitle": "从中国运送您的货物",
+    "homeSubtitle": "为您的货物提供从中国发往目的地的海运与空运解决方案。",
+    "destinations": {
+      "label": "从中国出发",
+      "title": "运输目的地",
+      "description": "从中国提供灵活的运输解决方案，根据您的货物和目的地需求制定。",
+      "note": "这些目的地仅为示例，并非完整列表。请告知您的目的地，我们将根据您的货物和需求评估合适的运输方案。",
+      "compactNames": { "uae": "阿联酋", "saudi": "沙特", "libya": "利比亚" }
+    },
+    "overviewTitle": "运输方案",
+    "overviewSubtitle": "根据货物类型、数量和目的地要求，提供灵活的货运方案。",
+    "globalTitle": "从中国到您的目的地",
+    "globalSubtitle": "根据您的货物和目的地需求定制运输方案。",
+    "seaFreight": "海运",
+    "airFreight": "空运",
+    "seaDescription": "根据不同货量和运输要求，提供灵活的海运解决方案。",
+    "airDescription": "为需要从中国高效运输的客户提供空运方案。",
+    "origin": "中国",
+    "destination": "您的目的地",
+    "route": "路线",
+    "logistics": "海运 / 空运",
+    "globalDestination": "全球目的地",
+    "globalLabel": "运输路线",
+    "globalRoute": "海运或空运",
+    "processLabel": "如何申请",
+    "processTitle": "简单的运输流程",
+    "steps": {
+      "need": {
+        "title": "告诉我们您的需求",
+        "description": "提供货物详情和运输要求。"
+      },
+      "review": {
+        "title": "我们审核您的货物",
+        "description": "我们的团队将评估货物、目的地和运输方式。"
+      },
+      "quote": {
+        "title": "获取运输报价",
+        "description": "根据您的货物和目的地获取定制化报价。"
+      }
+    },
+    "ctaEyebrow": "需要从中国发货吗？",
+    "ctaTitle": "告诉我们您的货物和目的地。",
+    "ctaDescription": "请告诉我们货物来源、目的地、货物详情以及偏好的运输方式，我们的团队会协助您完成后续步骤。",
+    "airAvailable": "可提供",
+    "methods": {
+      "fcl": "整柜运输（FCL）",
+      "lcl": "拼箱运输（LCL）",
+      "containerShipping": "集装箱运输",
+      "airCargo": "空运货物",
+      "flexibleShipping": "灵活运输方案"
+    }
   },
   "articles": { "title": "文章", "subtitle": "帮助您更好地开展对华贸易。", "readMore": "阅读更多", "label": "贸易洞察", "insightsTitle": "更高效贸易的思路", "insightsSubtitle": "来自采购与国际贸易领域的实用观点。", "viewAll": "查看全部文章" },
   "hero": {
@@ -207,6 +271,7 @@
     "subtitle": "NAFEIZ服务于阿拉伯地区的企业，架起文化、语言和市场之间的桥梁。",
     "tradeInfo": "贸易信息",
     "viewMore": "了解更多",
+    "uae": { "name": "阿拉伯联合酋长国" },
     "egypt": {
       "name": "埃及",
       "description": "阿拉伯世界最大的市场之一，对中国纺织品、电子产品和工业用品的需求不断增长。",
@@ -291,8 +356,8 @@
   },
   "contact": {
     "label": "联系我们",
-    "title": "开启您的中国贸易之旅",
-    "subtitle": "告诉我们您的需求，我们的团队将在24小时内回复您。",
+    "title": "开启与中国的商业合作",
+    "subtitle": "告诉我们您的需求，我们的团队会与您联系。",
     "home": {
       "eyebrow": "与中国现场团队沟通",
       "title": "自信地推进您的下一批货物。",
@@ -311,6 +376,22 @@
     "emailPlaceholder": "you@example.com",
     "country": "国家",
     "countryPlaceholder": "选择您的国家",
+    "sections": {
+      "yourInformation": "您的信息",
+      "whatYouNeed": "您的需求",
+      "businessNeeds": "您的业务需求",
+      "additionalDetails": "补充说明"
+    },
+    "serviceType": "我们可以为您提供什么帮助？",
+    "serviceTypePlaceholder": "选择服务",
+    "serviceOptions": {
+      "sourcing": "产品采购",
+      "qualityInspection": "质量检验",
+      "shipping": "运输 / 物流",
+      "findingSuppliers": "寻找供应商",
+      "sourcingAndShipping": "产品采购与运输",
+      "other": "其他"
+    },
     "phone": {
       "title": "电话号码",
       "countryPlaceholder": "选择您的国家",
@@ -370,11 +451,11 @@
       }
     },
     "message": "留言",
-    "messagePlaceholder": "告诉我们您的产品需求、数量或任何问题...",
+    "messagePlaceholder": "请告诉我们您的需求、目的地、产品或运输要求...",
     "submit": "发送留言",
     "sending": "发送中...",
     "successTitle": "留言已发送！",
-    "successText": "感谢您联系我们。我们的团队将在24小时内回复您。",
+    "successText": "感谢您。您的留言已成功发送，我们的团队会尽快与您联系。",
     "sendAnother": "发送另一条留言",
     "errorTitle": "出错了",
     "errorText": "我们无法发送您的留言。请重试或直接联系我们。",
@@ -382,6 +463,7 @@
       "nameRequired": "请输入您的姓名",
       "emailRequired": "请输入您的邮箱",
       "emailInvalid": "请输入有效的邮箱地址",
+      "serviceRequired": "请选择您需要的服务",
       "countryRequired": "请选择您的国家",
       "phoneRequired": "请输入您的电话号码",
       "phoneInvalid": "请输入有效的电话号码",
@@ -404,10 +486,17 @@
       "phoneUnavailable": "暂无信息",
       "emailUnavailable": "暂无信息"
     },
+    "qr": {
+      "title": "与我们联系",
+      "scanText": "扫码联系我们",
+      "whatsapp": "WhatsApp",
+      "wechat": "微信"
+    },
     "countryOptions": {
       "egypt": "埃及",
       "libya": "利比亚",
       "saudi": "沙特阿拉伯",
+      "uae": "阿联酋",
       "algeria": "阿尔及利亚",
       "other": "其他"
     }

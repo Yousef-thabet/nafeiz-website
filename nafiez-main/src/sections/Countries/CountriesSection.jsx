@@ -86,30 +86,26 @@ export function CountriesSection({ limit }) {
           title={getLocalizedSetting(settings, 'countriesTitle', lang, t('countries.title'))}
           subtitle={getLocalizedSetting(settings, 'countriesDescription', lang, t('countries.subtitle'))}
         />
-        <Stagger className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <Stagger className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
           {list.map((country) => {
             const countryName = getLocalizedField(country.nameL10n, lang) || t(`countries.${country.key}.name`);
             const imageUrl = country.imageUrl || country.image || '';
 
             return (
               <StaggerItem key={country.id}>
-                <div className="group h-full overflow-hidden rounded-2xl border border-navy-100 bg-white shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-card dark:border-white/10 dark:bg-navy-900">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-navy-100 dark:bg-navy-800">
-                    {imageUrl ? (
+                <div className="group flex min-h-28 h-full flex-col items-center justify-center gap-2 rounded-lg border border-navy-100 bg-white px-3 py-3 text-center shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-gold-300 dark:border-white/10 dark:bg-navy-900">
+                  <div className="flex aspect-[3/2] w-16 items-center justify-center overflow-hidden rounded-sm border border-navy-100 bg-navy-50 dark:border-white/10 dark:bg-navy-800">
+                    {imageUrl && (
                       <img
                         src={imageUrl}
-                        alt={countryName}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        alt=""
+                        className="h-full w-full object-cover"
                         loading="lazy"
+                        onError={(event) => { event.currentTarget.hidden = true; }}
                       />
-                    ) : (
-                      <div className="flex h-full items-center justify-center text-sm text-navy-400">{country.code}</div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy-900/60 to-transparent" />
-                    <h3 className="absolute bottom-3 start-4 text-lg font-bold text-white">
-                      {countryName}
-                    </h3>
                   </div>
+                  <h3 className="line-clamp-2 min-h-10 text-sm font-semibold leading-5 text-navy-800 dark:text-white">{countryName}</h3>
                 </div>
               </StaggerItem>
             );

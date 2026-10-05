@@ -14,8 +14,13 @@ export const SUPPORTED_LANGUAGES = [
   { code: 'ru', name: 'Русский', dir: 'ltr', flag: '🇷🇺' },
 ];
 
+export function getSupportedLanguage(language) {
+  const languageCode = String(language || '').split(/[-_]/)[0].toLowerCase();
+  return SUPPORTED_LANGUAGES.some((item) => item.code === languageCode) ? languageCode : 'en';
+}
+
 export function getLanguageDir(code) {
-  const lang = SUPPORTED_LANGUAGES.find((l) => l.code === code);
+  const lang = SUPPORTED_LANGUAGES.find((item) => item.code === getSupportedLanguage(code));
   return lang ? lang.dir : 'ltr';
 }
 
@@ -33,9 +38,10 @@ export function getLocalizedPath(path, language) {
   const segments = pathname.split('/').filter(Boolean);
   const hasLocalePrefix = SUPPORTED_LANGUAGES.some((supportedLanguage) => supportedLanguage.code === segments[0]);
   const pageSegments = hasLocalePrefix ? segments.slice(1) : segments;
-  const localizedPath = `/${[language, ...pageSegments].join('/')}`;
+  const locale = getSupportedLanguage(language);
+  const localizedPath = `/${[locale, ...pageSegments].join('/')}`;
 
-  return `${localizedPath === `/${language}` ? localizedPath : localizedPath}${suffix}`;
+  return `${localizedPath}${suffix}`;
 }
 
 const initialPathLanguage = getLanguageFromPath();
@@ -50,9 +56,10 @@ i18n
       zh: { translation: zh },
       ru: { translation: ru },
     },
-    lng: initialPathLanguage || undefined,
+    ...(initialPathLanguage ? { lng: initialPathLanguage } : {}),
     fallbackLng: 'en',
     supportedLngs: ['ar', 'en', 'zh', 'ru'],
+    load: 'languageOnly',
     interpolation: {
       escapeValue: false,
     },
@@ -64,8 +71,9 @@ i18n
   });
 
 export function applyDocumentLanguage(lang) {
-  const dir = getLanguageDir(lang);
-  document.documentElement.lang = lang;
+  const language = getSupportedLanguage(lang);
+  const dir = getLanguageDir(language);
+  document.documentElement.lang = language;
   document.documentElement.dir = dir;
 }
 

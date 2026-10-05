@@ -22,8 +22,6 @@ export default function CountriesPage() {
     imageUrl: '',
     published: true,
     nameL10n: Object.fromEntries(SUPPORTED_LANGUAGES.map(l => [l.code, ''])),
-    descriptionL10n: Object.fromEntries(SUPPORTED_LANGUAGES.map(l => [l.code, ''])),
-    detailsL10n: Object.fromEntries(SUPPORTED_LANGUAGES.map(l => [l.code, ''])),
   });
 
   const loadCountries = async () => {
@@ -46,8 +44,6 @@ export default function CountriesPage() {
       imageUrl: '',
       published: true,
       nameL10n: Object.fromEntries(SUPPORTED_LANGUAGES.map(l => [l.code, ''])),
-      descriptionL10n: Object.fromEntries(SUPPORTED_LANGUAGES.map(l => [l.code, ''])),
-      detailsL10n: Object.fromEntries(SUPPORTED_LANGUAGES.map(l => [l.code, ''])),
     });
     setEditingId(null);
   };
@@ -57,7 +53,7 @@ export default function CountriesPage() {
     setError('');
     setMessage('');
     setFieldErrors({});
-    const validationErrors = getValidationErrors(form, ['code', 'slug', 'nameL10n.en', 'nameL10n.ar', 'nameL10n.zh']);
+    const validationErrors = getValidationErrors(form, ['code', 'slug', 'nameL10n.en', 'nameL10n.ar', 'nameL10n.zh', 'nameL10n.ru', 'imageUrl']);
     if (Object.keys(validationErrors).length) {
       setFieldErrors(validationErrors);
       return;
@@ -87,8 +83,6 @@ export default function CountriesPage() {
   const handleEdit = (country) => {
     // Parse JSON strings back to objects
     const nameL10n = typeof country.nameL10n === 'string' ? JSON.parse(country.nameL10n) : country.nameL10n;
-    const descriptionL10n = country.descriptionL10n ? (typeof country.descriptionL10n === 'string' ? JSON.parse(country.descriptionL10n) : country.descriptionL10n) : Object.fromEntries(SUPPORTED_LANGUAGES.map(l => [l.code, '']));
-    const detailsL10n = country.detailsL10n ? (typeof country.detailsL10n === 'string' ? JSON.parse(country.detailsL10n) : country.detailsL10n) : Object.fromEntries(SUPPORTED_LANGUAGES.map(l => [l.code, '']));
 
     setForm({
       code: country.code,
@@ -96,8 +90,6 @@ export default function CountriesPage() {
       imageUrl: country.imageUrl || '',
       published: country.published,
       nameL10n,
-      descriptionL10n,
-      detailsL10n,
     });
     setEditingId(country.id);
     setShowForm(true);
@@ -203,10 +195,11 @@ export default function CountriesPage() {
               {fieldErrors.slug && <p className="mt-1 text-xs text-rose-600">{fieldErrors.slug}</p>}
             </div>
 
-            {/* Country image */}
+            {/* Country flag */}
             <div>
-              <label className="block text-sm font-medium">Country image</label>
+              <label className="block text-sm font-medium">Country flag</label>
               <ImageUploader entity="countries" value={form.imageUrl} onChange={(imageUrl) => setForm({ ...form, imageUrl })} className="mt-2" />
+              {fieldErrors.imageUrl && <p className="mt-1 text-xs text-rose-600">{fieldErrors.imageUrl}</p>}
             </div>
 
             {/* Published Checkbox */}
@@ -228,8 +221,6 @@ export default function CountriesPage() {
               <h3 className="font-semibold">{SUPPORTED_LANGUAGES.find((item) => item.code === language)?.name}</h3>
               <input type="text" dir={language === 'ar' ? 'rtl' : 'ltr'} value={form.nameL10n[language] || ''} onChange={(e) => setForm({ ...form, nameL10n: { ...form.nameL10n, [language]: e.target.value } })} placeholder="Country name" className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800" required />
               {fieldErrors[`nameL10n.${language}`] && <p className="text-xs text-rose-600">{fieldErrors[`nameL10n.${language}`]}</p>}
-              <textarea dir={language === 'ar' ? 'rtl' : 'ltr'} value={form.descriptionL10n[language] || ''} onChange={(e) => setForm({ ...form, descriptionL10n: { ...form.descriptionL10n, [language]: e.target.value } })} placeholder="Short description" rows="2" className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800" />
-              <textarea dir={language === 'ar' ? 'rtl' : 'ltr'} value={form.detailsL10n[language] || ''} onChange={(e) => setForm({ ...form, detailsL10n: { ...form.detailsL10n, [language]: e.target.value } })} placeholder="Detailed information / Trade info" rows="3" className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800" />
             </div>
 
             <div className="flex gap-3">

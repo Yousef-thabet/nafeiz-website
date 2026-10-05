@@ -43,7 +43,7 @@ function generateStorageKey({ mimeType, entity }) {
   return `${entity}/${new Date().toISOString().slice(0, 10)}/${crypto.randomUUID()}.${extension}`;
 }
 
-async function saveImage({ buffer, mimeType, sizeBytes, filename, entity }) {
+async function saveImage({ buffer, mimeType, sizeBytes, filename, entity, publicUrlBase = publicSiteUrl }) {
   await validateImage({ buffer, mimeType, sizeBytes, filename, entity });
   const storageKey = generateStorageKey({ mimeType, entity });
   const destination = path.join(uploadDir, ...storageKey.split('/'));
@@ -56,7 +56,7 @@ async function saveImage({ buffer, mimeType, sizeBytes, filename, entity }) {
     await fs.rm(temporary, { force: true });
     throw error;
   }
-  return { storageKey, publicUrl: getPublicUrl(storageKey) };
+  return { storageKey, publicUrl: getPublicUrl(storageKey, publicUrlBase) };
 }
 
 async function deleteImage(storageKey) {
@@ -64,8 +64,8 @@ async function deleteImage(storageKey) {
   await fs.rm(path.join(uploadDir, ...storageKey.split('/')), { force: true });
 }
 
-function getPublicUrl(storageKey) {
-  return `${publicSiteUrl}/uploads/${storageKey.split('/').map(encodeURIComponent).join('/')}`;
+function getPublicUrl(storageKey, baseUrl = publicSiteUrl) {
+  return `${baseUrl}/uploads/${storageKey.split('/').map(encodeURIComponent).join('/')}`;
 }
 
 module.exports = { MAX_UPLOAD_BYTES, ALLOWED_MIME_TYPES, ALLOWED_ENTITIES, assertUploadAllowed, validateImage, generateStorageKey, saveImage, deleteImage, getPublicUrl };

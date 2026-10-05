@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Globe, Check, ChevronDown } from 'lucide-react';
-import { SUPPORTED_LANGUAGES } from '@/lib/i18n';
+import { getSupportedLanguage, SUPPORTED_LANGUAGES } from '@/lib/i18n';
 
 export function LanguageSwitcher({ compact = false, light = false, dropUp = false }) {
   const { t, i18n } = useTranslation();
@@ -10,7 +10,7 @@ export function LanguageSwitcher({ compact = false, light = false, dropUp = fals
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
-  const current = SUPPORTED_LANGUAGES.find((l) => l.code === i18n.language) || SUPPORTED_LANGUAGES[1];
+  const current = SUPPORTED_LANGUAGES.find((language) => language.code === getSupportedLanguage(i18n.resolvedLanguage || i18n.language)) || SUPPORTED_LANGUAGES[1];
 
   useEffect(() => {
     function handleClickOutside(e) {

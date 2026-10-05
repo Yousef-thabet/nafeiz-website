@@ -1,5 +1,6 @@
 import { useSEO } from '@/hooks/useSEO';
 import { Hero } from '@/sections/Hero/Hero';
+import { ShippingDestinations } from '@/sections/Shipping/ShippingDestinations';
 import { About } from '@/sections/About/About';
 import { Services } from '@/sections/Services/Services';
 import { ProductShowcase } from '@/sections/Products/ProductShowcase';
@@ -15,6 +16,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <ShippingDestinations compact />
       <About />
       <Services />
       <ProductShowcase />

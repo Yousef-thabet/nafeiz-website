@@ -114,7 +114,10 @@ app.get('/health', async (req, res) => {
     return res.status(503).json({ success: false, status: 'unavailable' });
   }
 });
-app.use('/uploads', express.static(uploadDir, { fallthrough: false, index: false, maxAge: '1d' }));
+app.use('/uploads', (req, res, next) => {
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+  next();
+}, express.static(uploadDir, { fallthrough: false, index: false, maxAge: '1d' }));
 app.use('/api/auth', authRoutes);
 app.use('/api/messages', contactRoutes);
 app.use('/api/settings', settingsRoutes);

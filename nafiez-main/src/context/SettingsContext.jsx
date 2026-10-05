@@ -8,6 +8,7 @@ const DEFAULT_SETTINGS = {
   email: '2102489451@qq.com',
   whatsapp: '+86 155 590 23404',
   address: 'China',
+  headerCountry: 'China',
   instagram: 'https://instagram.com',
   youtube: 'https://youtube.com',
 };

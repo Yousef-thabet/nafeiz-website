@@ -7,18 +7,7 @@ import { PageTransition } from '@/components/common/PageTransition';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import ProtectedRoute from '@/components/admin/ProtectedRoute';
 import AdminLayout from '@/components/admin/AdminLayout';
-import AdminLogin from '@/pages/AdminLogin';
-import DashboardPage from '@/pages/DashboardPage';
-import MessagesPage from '@/pages/MessagesPage';
-import EmployeesPage from '@/pages/EmployeesPage';
-import ProductsPage from '@/pages/ProductsPage';
-import CountriesPage from '@/pages/CountriesPage';
-import TestimonialsPage from '@/pages/TestimonialsPage';
-import SettingsPage from '@/pages/SettingsPage';
-import ProfilePage from '@/pages/ProfilePage';
-import ArticlesPage from '@/pages/ArticlesPage';
-import ServicesPage from '@/pages/ServicesPage';
-import i18n, { getLanguageFromPath, SUPPORTED_LANGUAGES } from '@/lib/i18n';
+import i18n, { getLanguageFromPath, getSupportedLanguage, SUPPORTED_LANGUAGES } from '@/lib/i18n';
 
 const Home = lazy(() => import('@/pages/Home'));
 const About = lazy(() => import('@/pages/About'));
@@ -27,9 +16,21 @@ const Products = lazy(() => import('@/pages/Products'));
 const ProductDetails = lazy(() => import('@/pages/ProductDetails'));
 const Testimonials = lazy(() => import('@/pages/Testimonials'));
 const Contact = lazy(() => import('@/pages/Contact'));
+const Shipping = lazy(() => import('@/pages/Shipping'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 const Articles = lazy(() => import('@/pages/Articles'));
 const ArticleDetails = lazy(() => import('@/pages/ArticleDetails'));
+const AdminLogin = lazy(() => import('@/pages/AdminLogin'));
+const DashboardPage = lazy(() => import('@/pages/DashboardPage'));
+const MessagesPage = lazy(() => import('@/pages/MessagesPage'));
+const EmployeesPage = lazy(() => import('@/pages/EmployeesPage'));
+const ProductsPage = lazy(() => import('@/pages/ProductsPage'));
+const CountriesPage = lazy(() => import('@/pages/CountriesPage'));
+const TestimonialsPage = lazy(() => import('@/pages/TestimonialsPage'));
+const SettingsPage = lazy(() => import('@/pages/SettingsPage'));
+const ProfilePage = lazy(() => import('@/pages/ProfilePage'));
+const ArticlesPage = lazy(() => import('@/pages/ArticlesPage'));
+const ServicesPage = lazy(() => import('@/pages/ServicesPage'));
 
 function PageFallback() {
   return (
@@ -39,12 +40,19 @@ function PageFallback() {
   );
 }
 
+function LocalizedRootRedirect() {
+  const location = useLocation();
+  const locale = getSupportedLanguage(i18n.resolvedLanguage || i18n.language);
+
+  return <Navigate to={{ pathname: `/${locale}`, search: location.search, hash: location.hash }} replace />;
+}
+
 function LocaleLayout() {
   const { locale } = useParams();
   const location = useLocation();
 
   useEffect(() => {
-    if (SUPPORTED_LANGUAGES.some((language) => language.code === locale) && getLanguageFromPath(location.pathname) !== locale) {
+    if (SUPPORTED_LANGUAGES.some((language) => language.code === locale) && i18n.language !== locale) {
       i18n.changeLanguage(locale);
     }
   }, [locale, location.pathname]);
@@ -71,7 +79,7 @@ function AppShell() {
       <PageTransition>
         <Suspense fallback={<PageFallback />}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<LocalizedRootRedirect />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/products" element={<Products />} />
@@ -79,6 +87,7 @@ function AppShell() {
             <Route path="/countries" element={<Navigate to="/#markets" replace />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/shipping" element={<Shipping />} />
             <Route path="/articles" element={<Articles />} />
             <Route path="/articles/:slug" element={<ArticleDetails />} />
 
@@ -91,6 +100,7 @@ function AppShell() {
               <Route path="countries" element={<LegacyCountriesRedirect />} />
               <Route path="testimonials" element={<Testimonials />} />
               <Route path="contact" element={<Contact />} />
+              <Route path="shipping" element={<Shipping />} />
               <Route path="articles" element={<Articles />} />
               <Route path="articles/:slug" element={<ArticleDetails />} />
             </Route>

@@ -1,5 +1,188 @@
 const prisma = require('../src/config/db');
 
+const countries = [
+  {
+    code: 'AE',
+    slug: 'united-arab-emirates',
+    imageUrl: null,
+    published: true,
+    nameL10n: {
+      ar: 'الإمارات العربية المتحدة',
+      en: 'United Arab Emirates',
+      zh: '阿拉伯联合酋长国',
+      ru: 'Объединённые Арабские Эмираты',
+    },
+    descriptionL10n: {
+      ar: 'أحد الأسواق الرئيسية في المنطقة لدعم الاستيراد والتوريد من الصين.',
+      en: 'A key regional market for sourcing and importing from China.',
+      zh: '中国采购与进口的关键区域市场之一。',
+      ru: 'Ключевой региональный рынок для закупок и импорта из Китая.',
+    },
+    detailsL10n: {
+      ar: {
+        shipping: {
+          supported: true,
+          seaFreight: true,
+          fcl: true,
+          lcl: true,
+          containerShipping: true,
+          airFreight: true,
+        },
+      },
+      en: {
+        shipping: {
+          supported: true,
+          seaFreight: true,
+          fcl: true,
+          lcl: true,
+          containerShipping: true,
+          airFreight: true,
+        },
+      },
+      zh: {
+        shipping: {
+          supported: true,
+          seaFreight: true,
+          fcl: true,
+          lcl: true,
+          containerShipping: true,
+          airFreight: true,
+        },
+      },
+      ru: {
+        shipping: {
+          supported: true,
+          seaFreight: true,
+          fcl: true,
+          lcl: true,
+          containerShipping: true,
+          airFreight: true,
+        },
+      },
+    },
+  },
+  {
+    code: 'SA',
+    slug: 'saudi-arabia',
+    imageUrl: null,
+    published: true,
+    nameL10n: {
+      ar: 'المملكة العربية السعودية',
+      en: 'Saudi Arabia',
+      zh: '沙特阿拉伯',
+      ru: 'Саудовская Аравия',
+    },
+    descriptionL10n: {
+      ar: 'سوق كبير للطلبات التجارية واللوجستية من الصين.',
+      en: 'A major market for trade and logistics shipments from China.',
+      zh: '中国贸易和物流出口的重要市场。',
+      ru: 'Крупный рынок для торговых и логистических поставок из Китая.',
+    },
+    detailsL10n: {
+      ar: {
+        shipping: {
+          supported: true,
+          seaFreight: true,
+          fcl: true,
+          lcl: true,
+          containerShipping: true,
+          airFreight: true,
+        },
+      },
+      en: {
+        shipping: {
+          supported: true,
+          seaFreight: true,
+          fcl: true,
+          lcl: true,
+          containerShipping: true,
+          airFreight: true,
+        },
+      },
+      zh: {
+        shipping: {
+          supported: true,
+          seaFreight: true,
+          fcl: true,
+          lcl: true,
+          containerShipping: true,
+          airFreight: true,
+        },
+      },
+      ru: {
+        shipping: {
+          supported: true,
+          seaFreight: true,
+          fcl: true,
+          lcl: true,
+          containerShipping: true,
+          airFreight: true,
+        },
+      },
+    },
+  },
+  {
+    code: 'LY',
+    slug: 'libya',
+    imageUrl: null,
+    published: true,
+    nameL10n: {
+      ar: 'ليبيا',
+      en: 'Libya',
+      zh: '利比亚',
+      ru: 'Ливия',
+    },
+    descriptionL10n: {
+      ar: 'وجهة تجارية مدعومة ضمن خدمات الشحن من الصين حسب متطلبات الشحنة.',
+      en: 'A supported shipping destination from China based on cargo and route requirements.',
+      zh: '根据货物和路线要求，支持从中国发往该目的地的运输服务。',
+      ru: 'Поддерживаемое направление по перевозкам из Китая в зависимости от типа груза и маршрута.',
+    },
+    detailsL10n: {
+      ar: {
+        shipping: {
+          supported: true,
+          seaFreight: true,
+          fcl: true,
+          lcl: true,
+          containerShipping: true,
+          airFreight: false,
+        },
+      },
+      en: {
+        shipping: {
+          supported: true,
+          seaFreight: true,
+          fcl: true,
+          lcl: true,
+          containerShipping: true,
+          airFreight: false,
+        },
+      },
+      zh: {
+        shipping: {
+          supported: true,
+          seaFreight: true,
+          fcl: true,
+          lcl: true,
+          containerShipping: true,
+          airFreight: false,
+        },
+      },
+      ru: {
+        shipping: {
+          supported: true,
+          seaFreight: true,
+          fcl: true,
+          lcl: true,
+          containerShipping: true,
+          airFreight: false,
+        },
+      },
+    },
+  },
+];
+
 const products = [
   {
     slug: 'smart-led-display',
@@ -165,6 +348,29 @@ const products = [
 ];
 
 async function main() {
+  for (const country of countries) {
+    await prisma.country.upsert({
+      where: { code: country.code },
+      update: {
+        slug: country.slug,
+        published: country.published,
+        imageUrl: country.imageUrl,
+        nameL10n: JSON.stringify(country.nameL10n),
+        descriptionL10n: JSON.stringify(country.descriptionL10n),
+        detailsL10n: JSON.stringify(country.detailsL10n),
+      },
+      create: {
+        code: country.code,
+        slug: country.slug,
+        published: country.published,
+        imageUrl: country.imageUrl,
+        nameL10n: JSON.stringify(country.nameL10n),
+        descriptionL10n: JSON.stringify(country.descriptionL10n),
+        detailsL10n: JSON.stringify(country.detailsL10n),
+      },
+    });
+  }
+
   for (const product of products) {
     await prisma.product.upsert({
       where: { slug: product.slug },
@@ -188,7 +394,7 @@ async function main() {
     });
   }
 
-  console.log(`Seeded ${products.length} products.`);
+  console.log(`Seeded ${countries.length} supported shipping destinations and ${products.length} products.`);
 }
 
 main()

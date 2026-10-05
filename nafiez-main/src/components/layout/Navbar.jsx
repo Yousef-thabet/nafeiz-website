@@ -17,6 +17,7 @@ const NAV_LINKS = [
   { to: '/about', key: 'nav.about' },
   { to: '/services', key: 'nav.services' },
   { to: '/products', key: 'nav.products' },
+  { to: '/shipping', key: 'nav.shipping' },
   { to: '/articles', key: 'nav.articles' },
   { to: '/contact', key: 'nav.contact' },
 ];
@@ -26,17 +27,11 @@ function settingValue(settings, key) {
   return typeof value === 'string' ? value.trim() : '';
 }
 
-function getCountryFromAddress(address) {
-  const parts = address.split(/[,،]/).map((part) => part.trim()).filter(Boolean);
-  return parts[parts.length - 1] || address;
-}
-
 function TopInfoBar({ settings, transparent }) {
   const { t } = useTranslation();
   const phone = settingValue(settings, 'phone');
   const email = settingValue(settings, 'email');
-  const address = settingValue(settings, 'address');
-  const country = getCountryFromAddress(address);
+  const country = settingValue(settings, 'headerCountry');
   const workingHours = settingValue(settings, 'workingHours');
 
   return (
@@ -109,19 +104,19 @@ export function Navbar() {
         }`}
       >
         {isHome && <TopInfoBar settings={settings} transparent={transparent} />}
-        <Container className="flex h-16 items-center justify-between lg:h-20">
-          <div className="transition-transform duration-300 hover:scale-[1.02]">
+        <Container className="flex h-16 items-center justify-between gap-2 lg:h-20 lg:justify-start lg:gap-2 lg:!px-4 xl:!px-12">
+          <div className="shrink-0 transition-transform duration-300 hover:scale-[1.02]">
             <Logo light={transparent} />
           </div>
 
-          <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
+          <nav className="hidden min-w-max items-center justify-center gap-0.5 lg:flex lg:flex-1 xl:gap-1" aria-label="Main navigation">
             {NAV_LINKS.map((link) => (
               <NavLink
                 key={link.to}
                 to={getLocalizedPath(link.to, i18n.language)}
                 end={link.to === '/'}
                 className={({ isActive }) =>
-                  `relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-200 ${
+                  `relative shrink-0 whitespace-nowrap rounded-full px-1 py-2 text-sm font-medium transition-colors duration-200 xl:px-2.5 ${
                     transparent
                       ? 'text-white/90 hover:text-white'
                       : 'text-navy-700 hover:text-navy-900 dark:text-navy-100 dark:hover:text-white'
@@ -144,8 +139,8 @@ export function Navbar() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-1">
-            <div className="hidden sm:block">
+          <div className="flex shrink-0 items-center gap-1">
+            <div className="hidden shrink-0 sm:block">
               <LanguageSwitcher light={transparent} />
             </div>
             <ThemeToggle light={transparent} />
@@ -153,7 +148,7 @@ export function Navbar() {
               to="/contact"
               variant="gold"
               size="sm"
-              className="hidden transition-transform duration-200 hover:scale-105 active:scale-95 lg:inline-flex"
+              className="hidden shrink-0 whitespace-nowrap transition-transform duration-200 hover:scale-105 active:scale-95 lg:inline-flex"
             >
               {t('nav.cta')}
             </Button>
@@ -189,7 +184,7 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: drawerStart }}
               transition={{ type: 'tween', duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed end-0 top-0 z-50 h-full w-[85%] max-w-sm overflow-y-auto bg-white shadow-navy dark:bg-navy-900 lg:hidden"
+              className="fixed end-0 top-0 z-50 h-full w-[85%] max-w-sm overflow-x-hidden overflow-y-auto bg-white shadow-navy dark:bg-navy-900 lg:hidden"
             >
               <div className="flex items-center justify-between border-b border-navy-100 p-5 dark:border-white/10">
                 <Logo />
@@ -226,6 +221,15 @@ export function Navbar() {
                   </motion.div>
                 ))}
               </nav>
+              <div className="flex justify-center px-5 pb-2 pt-5">
+                <SocialLinks
+                  settings={settings}
+                  keys={['instagram', 'facebook', 'tiktok']}
+                  order={['instagram', 'facebook', 'tiktok']}
+                  compact
+                  className="justify-center text-navy-600 dark:text-navy-300"
+                />
+              </div>
               <div className="sticky bottom-0 z-10 mt-4 flex items-center justify-between gap-2 border-t border-navy-100 bg-white/95 px-5 py-4 backdrop-blur-sm dark:border-white/10 dark:bg-navy-900/95">
                 <LanguageSwitcher dropUp />
                 <ThemeToggle />

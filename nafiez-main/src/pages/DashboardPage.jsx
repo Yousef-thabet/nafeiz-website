@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { apiGet } from '@/services/api';
+import { useAuth } from '@/context/AuthContext';
 
 export default function DashboardPage() {
+  const { user } = useAuth();
+  const isAdmin = user?.role === 'admin';
   const [stats, setStats] = useState({ messages: 0, newMessages: 0, employees: 0, testimonials: 0 });
   const [recentMessages, setRecentMessages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,13 +14,13 @@ export default function DashboardPage() {
   useEffect(() => {
     async function load() {
       try {
-        const [messagesResponse, newMessagesResponse, employeesResponse, testimonialsResponse] = await Promise.all([
+        const responses = await Promise.all([
           apiGet('/messages?page=1&limit=5'),
           apiGet('/messages?page=1&limit=1&status=new'),
-          apiGet('/auth/employees'),
-          apiGet('/testimonials/admin/all'),
+          ...(isAdmin ? [apiGet('/auth/employees'), apiGet('/testimonials/admin/all')] : []),
         ]);
 
+        const [messagesResponse, newMessagesResponse, employeesResponse, testimonialsResponse] = responses;
         const messages = messagesResponse?.data?.contacts || [];
         setStats({
           messages: messagesResponse?.data?.pagination?.total || 0,
@@ -34,17 +37,18 @@ export default function DashboardPage() {
     }
 
     load();
-  }, []);
+  }, [isAdmin]);
+
+  const statCards = [
+    ['Total Messages', stats.messages],
+    ['New Messages', stats.newMessages],
+    ...(isAdmin ? [['Employees', stats.employees], ['Testimonials', stats.testimonials]] : []),
+  ];
 
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {[
-          ['Total Messages', stats.messages],
-          ['New Messages', stats.newMessages],
-          ['Employees', stats.employees],
-          ['Testimonials', stats.testimonials],
-        ].map(([label, value]) => (
+        {statCards.map(([label, value]) => (
           <div key={label} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
             <p className="text-sm text-slate-500 dark:text-slate-400">{label}</p>
             <p className="mt-3 text-3xl font-semibold">{loading ? '—' : value}</p>

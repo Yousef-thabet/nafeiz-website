@@ -8,7 +8,7 @@ import { SocialLinks } from '@/components/common/SocialLinks';
 import { useSettings } from '@/context/SettingsContext';
 import { getStatistics } from '@/data/statistics';
 import { getLocalizedSetting } from '@/lib/utils';
-import heroBackground from '@/assets/hero-bg.jpg';
+import heroBackground from '@/assets/hero-bg.webp';
 
 const HERO_IMAGE = heroBackground;
 
@@ -34,6 +34,7 @@ export function Hero() {
           alt={t('hero.imageAlt')}
           className="h-full w-full object-cover object-[58%_center]"
           loading="eager"
+          fetchPriority="high"
           onError={() => setHeroImage(HERO_IMAGE)}
         />
         <div className="absolute inset-0 bg-hero-overlay" />

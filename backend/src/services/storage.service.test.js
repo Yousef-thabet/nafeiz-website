@@ -9,7 +9,7 @@ const testUploadDir = path.join(os.tmpdir(), `nafeiz-upload-${process.pid}-${Dat
 process.env.UPLOAD_DIR = testUploadDir;
 process.env.PUBLIC_SITE_URL = 'https://nafeiz.com';
 
-const { MAX_UPLOAD_BYTES, saveImage, deleteImage } = require('./storage.service');
+const { MAX_UPLOAD_BYTES, getPublicUrl, saveImage, deleteImage } = require('./storage.service');
 
 async function makeImage(format, width = 2, height = 2) {
   return sharp({
@@ -30,6 +30,10 @@ test('accepts supported image formats and stores them under the entity directory
     assert.equal((await fs.stat(path.join(testUploadDir, ...result.storageKey.split('/')))).isFile(), true);
     await deleteImage(result.storageKey);
   }
+});
+
+test('builds upload URLs from a supplied public origin', () => {
+  assert.equal(getPublicUrl('countries/2026-10-02/test.png', 'http://localhost:5000'), 'http://localhost:5000/uploads/countries/2026-10-02/test.png');
 });
 
 test('rejects a file with a spoofed image MIME type', async () => {

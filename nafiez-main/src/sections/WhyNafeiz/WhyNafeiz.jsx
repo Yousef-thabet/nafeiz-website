@@ -7,7 +7,7 @@ import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
 import { getStatistics } from '@/data/statistics';
 import { getLocalizedSetting } from '@/lib/utils';
 import { useSettings } from '@/context/SettingsContext';
-import logisticsImage from '@/assets/hero-bg.jpg';
+import logisticsImage from '@/assets/hero-bg.webp';
 
 const FEATURES = [
   { icon: MapPin, titleKey: 'feature1Title', textKey: 'feature1Text' },

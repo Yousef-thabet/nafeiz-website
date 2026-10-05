@@ -13,6 +13,7 @@ import { getProducts } from '@/services/api';
 import { getLocalizedField } from '@/lib/utils';
 import { getLocalizedSetting } from '@/lib/utils';
 import { useSettings } from '@/context/SettingsContext';
+import { normalizeProductCategory } from '@/data/products';
 
 function normalizeSearchText(value) {
   return String(value || '')
@@ -147,42 +148,46 @@ export function ProductsSection({ featuredOnly = false, limit }) {
             <EmptyState title={t('products.noResults')} description={t('products.noResultsText')} />
           </div>
         ) : (
-          <Stagger className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <Stagger className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-5">
             {filtered.map((product) => {
               const firstImage = product.images?.[0]?.url || product.images?.[0] || '';
+              const category = normalizeProductCategory(product.category);
               return (
                 <StaggerItem key={product.id}>
-                  <div className="group h-full overflow-hidden rounded-2xl border border-navy-100 bg-white shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-card dark:border-white/10 dark:bg-navy-900">
-                    <div className="relative aspect-[4/3] overflow-hidden bg-navy-100 dark:bg-navy-800">
+                  <div className="group flex h-full flex-col overflow-hidden rounded-xl border border-navy-100 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-gold-300 hover:shadow-soft dark:border-white/10 dark:bg-navy-900">
+                    <div className="relative aspect-[16/10] overflow-hidden bg-navy-100 dark:bg-navy-800">
                       {firstImage ? (
                         <img
                           src={firstImage}
                           alt={getLocalizedField(product.nameL10n, lang)}
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                           loading="lazy"
+                          onError={(event) => {
+                            event.currentTarget.hidden = true;
+                            event.currentTarget.nextElementSibling?.removeAttribute('hidden');
+                          }}
                         />
-                      ) : (
-                        <div className="flex h-full items-center justify-center text-sm text-navy-400">{t('products.noImage')}</div>
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-navy-900/30 to-transparent" />
+                      ) : null}
+                      <div hidden={Boolean(firstImage)} className="flex h-full items-center justify-center text-sm text-navy-400">{t('products.noImage')}</div>
                       {product.featured && (
                         <span className="absolute start-3 top-3 rounded-full bg-gold-400 px-2.5 py-1 text-xs font-semibold text-navy-900">
                           {t('products.featured')}
                         </span>
                       )}
                     </div>
-                    <div className="p-5">
-                      <h3 className="mt-1.5 text-base font-bold text-navy-800 dark:text-white">
+                    <div className="flex flex-1 flex-col p-4">
+                      <p className="text-xs font-semibold text-gold-700 dark:text-gold-300">{t(`products.categories.${category}`)}</p>
+                      <h3 className="mt-1 line-clamp-2 min-h-12 text-base font-bold leading-6 text-navy-800 dark:text-white">
                         {getLocalizedField(product.nameL10n, lang)}
                       </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-navy-500 dark:text-navy-300 line-clamp-2">
+                      <p className="mt-1 line-clamp-2 min-h-10 text-[13px] leading-5 text-navy-500 dark:text-navy-300">
                         {getLocalizedField(product.shortDescL10n, lang)}
                       </p>
                       <Button
                         to={`/products/${product.slug}`}
                         variant="ghost"
                         size="sm"
-                        className="mt-4 p-0 hover:bg-transparent"
+                        className="mt-auto p-0 pt-3 hover:bg-transparent"
                       >
                         {t('products.viewDetails')}
                         <ArrowRight size={16} className="rtl:rotate-180" />

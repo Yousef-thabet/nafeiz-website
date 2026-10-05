@@ -67,7 +67,7 @@ export function Footer() {
               {t('footer.contact')}
             </h3>
             <ul className="space-y-3.5 text-sm">
-              <li className="flex items-center gap-3 text-navy-300">
+              <li className="flex items-start gap-3 whitespace-pre-line text-navy-300">
                 <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5">
                   <MapPin size={16} className="text-gold-400" />
                 </span>

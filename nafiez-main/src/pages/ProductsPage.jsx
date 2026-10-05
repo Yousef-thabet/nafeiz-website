@@ -99,7 +99,7 @@ export default function ProductsPage() {
     setError('');
     setMessage('');
     setFieldErrors({});
-    const validationErrors = getValidationErrors(form, ['slug', 'nameL10n.en', 'nameL10n.ar', 'nameL10n.zh', 'descriptionL10n.en', 'descriptionL10n.ar', 'descriptionL10n.zh']);
+    const validationErrors = getValidationErrors(form, ['slug', 'nameL10n.en', 'nameL10n.ar', 'nameL10n.zh', 'nameL10n.ru', 'shortDescL10n.en', 'shortDescL10n.ar', 'shortDescL10n.zh', 'shortDescL10n.ru', 'descriptionL10n.en', 'descriptionL10n.ar', 'descriptionL10n.zh', 'descriptionL10n.ru']);
     if (Object.keys(validationErrors).length) {
       setFieldErrors(validationErrors);
       return;
@@ -308,6 +308,7 @@ export default function ProductsPage() {
               <input type="text" dir={language === 'ar' ? 'rtl' : 'ltr'} value={form.nameL10n[language] || ''} onChange={(e) => setForm({ ...form, nameL10n: { ...form.nameL10n, [language]: e.target.value } })} placeholder="Product name" className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800" required />
               {fieldErrors[`nameL10n.${language}`] && <p className="text-xs text-rose-600">{fieldErrors[`nameL10n.${language}`]}</p>}
               <input type="text" dir={language === 'ar' ? 'rtl' : 'ltr'} value={form.shortDescL10n[language] || ''} onChange={(e) => setForm({ ...form, shortDescL10n: { ...form.shortDescL10n, [language]: e.target.value } })} placeholder="Short description" className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800" />
+              {fieldErrors[`shortDescL10n.${language}`] && <p className="text-xs text-rose-600">{fieldErrors[`shortDescL10n.${language}`]}</p>}
               <textarea dir={language === 'ar' ? 'rtl' : 'ltr'} value={form.descriptionL10n[language] || ''} onChange={(e) => setForm({ ...form, descriptionL10n: { ...form.descriptionL10n, [language]: e.target.value } })} placeholder="Full description" rows="4" className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 outline-none focus:border-gold-400 dark:border-slate-600 dark:bg-slate-800" required />
               {fieldErrors[`descriptionL10n.${language}`] && <p className="text-xs text-rose-600">{fieldErrors[`descriptionL10n.${language}`]}</p>}
             </div>

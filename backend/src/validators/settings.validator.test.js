@@ -34,3 +34,28 @@ test('accepts localized section settings and statistics', () => {
   assert.equal(sanitized.contactDescriptionL10n, JSON.stringify({ ru: 'Описание' }));
   assert.equal(sanitized.statisticsYears, '9');
 });
+
+test('accepts contact QR settings and validates image URLs', () => {
+  const sanitized = sanitizeSettingsPayload({
+    whatsappQrEnabled: 'false',
+    whatsappQrImageUrl: 'https://example.com/whatsapp-qr.png',
+    whatsappQrLabel: 'WhatsApp',
+    whatsappQrDescription: 'Scan to message our team.',
+    wechatQrEnabled: 'true',
+    wechatQrImageUrl: '',
+  });
+
+  assert.equal(sanitized.whatsappQrEnabled, 'false');
+  assert.equal(sanitized.whatsappQrImageUrl, 'https://example.com/whatsapp-qr.png');
+  assert.equal(sanitized.whatsappQrLabel, 'WhatsApp');
+  assert.equal(sanitized.wechatQrEnabled, 'true');
+  assert.throws(() => sanitizeSettingsPayload({ whatsappQrImageUrl: 'javascript:alert(1)' }), /Invalid URL/);
+});
+
+test('accepts a separate header country and multiline contact address', () => {
+  const address = 'Building 8, Room 402\nNanshan District\nShenzhen, China';
+  const sanitized = sanitizeSettingsPayload({ headerCountry: 'China', address });
+
+  assert.equal(sanitized.headerCountry, 'China');
+  assert.equal(sanitized.address, address);
+});

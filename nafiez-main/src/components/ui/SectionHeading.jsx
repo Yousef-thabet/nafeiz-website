@@ -17,6 +17,10 @@ export function SectionHeading({ label, title, subtitle, align = 'center', light
             light ? 'text-gold-300' : 'text-gold-500'
           }`}
         >
+          <span
+            aria-hidden="true"
+            className="me-2 inline-block h-[5px] w-12 rounded-[3px] bg-[#d2a343] align-middle"
+          />
           {t(label) !== label ? t(label) : label}
         </motion.span>
       )}

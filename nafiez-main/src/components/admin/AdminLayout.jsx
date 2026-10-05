@@ -3,17 +3,37 @@ import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, LogOut, MessageSquareText, Settings, Star, Users, UserCircle, Menu, X, Package, Globe, Newspaper, Wrench } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
-const adminLinks = [
-  { to: '/admin', label: 'Overview', icon: LayoutDashboard },
-  { to: '/admin/messages', label: 'Messages', icon: MessageSquareText },
-  { to: '/admin/products', label: 'Products', icon: Package },
-  { to: '/admin/articles', label: 'Articles', icon: Newspaper },
-  { to: '/admin/services', label: 'Services', icon: Wrench },
-  { to: '/admin/countries', label: 'Countries', icon: Globe },
-  { to: '/admin/testimonials', label: 'Testimonials', icon: Star },
-  { to: '/admin/employees', label: 'Employees', icon: Users },
-  { to: '/admin/settings', label: 'Settings', icon: Settings },
-  { to: '/admin/profile', label: 'Profile', icon: UserCircle },
+const adminGroups = [
+  { label: null, links: [{ to: '/admin', label: 'Overview', icon: LayoutDashboard }] },
+  { label: 'Inbox', links: [{ to: '/admin/messages', label: 'Messages', icon: MessageSquareText }] },
+  {
+    label: 'Website Content',
+    links: [
+      { to: '/admin/settings', label: 'Settings', icon: Settings },
+      { to: '/admin/services', label: 'Services', icon: Wrench },
+    ],
+  },
+  {
+    label: 'Catalog',
+    links: [
+      { to: '/admin/products', label: 'Products', icon: Package },
+      { to: '/admin/countries', label: 'Countries', icon: Globe },
+    ],
+  },
+  {
+    label: 'Publishing',
+    links: [
+      { to: '/admin/articles', label: 'Articles', icon: Newspaper },
+      { to: '/admin/testimonials', label: 'Testimonials', icon: Star },
+    ],
+  },
+  {
+    label: 'Team',
+    links: [
+      { to: '/admin/employees', label: 'Employees', icon: Users },
+      { to: '/admin/profile', label: 'Profile', icon: UserCircle },
+    ],
+  },
 ];
 
 export default function AdminLayout() {
@@ -21,7 +41,12 @@ export default function AdminLayout() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const visibleLinks = user?.role === 'admin' ? adminLinks : adminLinks.filter((link) => ['Overview', 'Messages', 'Profile'].includes(link.label));
+  const visibleGroups = adminGroups
+    .map((group) => ({
+      ...group,
+      links: group.links.filter((link) => user?.role === 'admin' || ['Overview', 'Messages', 'Profile'].includes(link.label)),
+    }))
+    .filter((group) => group.links.length > 0);
 
   const handleLogout = async () => {
     await logout();
@@ -47,21 +72,28 @@ export default function AdminLayout() {
             </button>
           </div>
 
-          <nav className={`${mobileOpen ? 'block' : 'hidden'} space-y-1 px-3 py-4 lg:block`}>
-            {visibleLinks.map(({ to, label, icon: Icon }) => (
-              <NavLink
-                key={to}
-                to={to}
-                end={to === '/admin'}
-                className={({ isActive }) =>
-                  `flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${
-                    isActive ? 'bg-gold-400/20 text-white' : 'text-slate-300 hover:bg-slate-800'
-                  }`
-                }
-              >
-                <Icon size={18} />
-                {label}
-              </NavLink>
+          <nav className={`${mobileOpen ? 'block' : 'hidden'} space-y-4 px-3 py-4 lg:block`}>
+            {visibleGroups.map(({ label: groupLabel, links }) => (
+              <div key={groupLabel || 'overview'}>
+                {groupLabel && <p className="px-4 pb-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">{groupLabel}</p>}
+                <div className="space-y-1">
+                  {links.map(({ to, label, icon: Icon }) => (
+                    <NavLink
+                      key={to}
+                      to={to}
+                      end={to === '/admin'}
+                      className={({ isActive }) =>
+                        `flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${
+                          isActive ? 'bg-gold-400/20 text-white' : 'text-slate-300 hover:bg-slate-800'
+                        }`
+                      }
+                    >
+                      <Icon size={18} />
+                      {label}
+                    </NavLink>
+                  ))}
+                </div>
+              </div>
             ))}
 
             <button

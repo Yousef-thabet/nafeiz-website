@@ -61,7 +61,7 @@ export default function RichTextEditor({ value, onChange, dir = 'ltr', onImageUp
     else chain.unsetMark('textStyle').run();
     fontSizeSelection.current = null;
   };
-  const toolbarButton = (label, action, active = false) => <button type="button" onMouseDown={keepSelection} onClick={action} className={`rounded px-2 py-1 text-sm font-medium transition ${active ? 'bg-gold-400 text-slate-900' : 'hover:bg-slate-100 dark:hover:bg-slate-700'}`}>{label}</button>;
+  const toolbarButton = (label, action, active = false, key) => <button key={key} type="button" onMouseDown={keepSelection} onClick={action} className={`rounded px-2 py-1 text-sm font-medium transition ${active ? 'bg-gold-400 text-slate-900' : 'hover:bg-slate-100 dark:hover:bg-slate-700'}`}>{label}</button>;
   const addLink = () => {
     const url = window.prompt('Link URL');
     if (url) editor.chain().focus().setLink({ href: url }).run();
@@ -85,12 +85,12 @@ export default function RichTextEditor({ value, onChange, dir = 'ltr', onImageUp
       {toolbarButton('B', () => editor.chain().focus().toggleBold().run(), editor.isActive('bold'))}
       {toolbarButton('I', () => editor.chain().focus().toggleItalic().run(), editor.isActive('italic'))}
       {toolbarButton('U', () => editor.chain().focus().toggleUnderline().run(), editor.isActive('underline'))}
-      {[1, 2, 3].map((level) => toolbarButton(`H${level}`, () => editor.chain().focus().toggleHeading({ level }).run(), editor.isActive('heading', { level })))}
+      {[1, 2, 3].map((level) => toolbarButton(`H${level}`, () => editor.chain().focus().toggleHeading({ level }).run(), editor.isActive('heading', { level }), `heading-${level}`))}
       <select aria-label="Font size" defaultValue="" onMouseDown={rememberFontSizeSelection} onChange={changeFontSize} className="rounded border px-1 py-1 text-sm"><option value="">Size</option><option value="0.875rem">Small</option><option value="1rem">Normal</option><option value="1.25rem">Large</option><option value="1.5rem">XL</option></select>
       {toolbarButton('• List', () => editor.chain().focus().toggleBulletList().run(), editor.isActive('bulletList'))}
       {toolbarButton('1. List', () => editor.chain().focus().toggleOrderedList().run(), editor.isActive('orderedList'))}
       {toolbarButton('Quote', () => editor.chain().focus().toggleBlockquote().run(), editor.isActive('blockquote'))}
-      {['left', 'center', 'right'].map((align) => toolbarButton(align[0].toUpperCase(), () => editor.chain().focus().setTextAlign(align).run(), editor.isActive({ textAlign: align })))}
+      {['left', 'center', 'right'].map((align) => toolbarButton(align[0].toUpperCase(), () => editor.chain().focus().setTextAlign(align).run(), editor.isActive({ textAlign: align }), `align-${align}`))}
       {toolbarButton('Link', addLink, editor.isActive('link'))}
       {toolbarButton('Image', () => fileInput.current?.click())}
       {toolbarButton('Undo', () => editor.chain().focus().undo().run())}

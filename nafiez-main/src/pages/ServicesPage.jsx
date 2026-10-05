@@ -5,6 +5,7 @@ import { useSettings } from '@/context/SettingsContext';
 import i18n, { SUPPORTED_LANGUAGES } from '@/lib/i18n';
 import { services } from '@/data/services';
 import { getApiErrorMessage, getApiFieldErrors } from '@/lib/formErrors';
+import { StickyFormActions } from '@/components/admin/StickyFormActions';
 
 const emptyLocalized = () => Object.fromEntries(SUPPORTED_LANGUAGES.map(({ code }) => [code, '']));
 
@@ -62,7 +63,7 @@ export default function ServicesPage() {
   };
 
   return <div className="space-y-6">
-    <div><h1 className="text-2xl font-semibold">Services Management</h1><p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Edit service titles and descriptions for each website language.</p></div>
+    <div><h1 className="text-2xl font-semibold">Services Management</h1><p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Edit the website service titles and descriptions for each language. Service count, order, and icons follow the existing site configuration.</p></div>
     {message && <p className="rounded-lg bg-emerald-50 p-3 text-emerald-700">{message}</p>}
     {error && <p className="rounded-lg bg-rose-50 p-3 text-rose-700">{error}</p>}
     <form onSubmit={save} className="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
@@ -79,7 +80,9 @@ export default function ServicesPage() {
           {fieldErrors[`service${service.id}TitleL10n`] && <p className="mt-1 text-xs text-rose-600">{fieldErrors[`service${service.id}TitleL10n`]}</p>}
         </section>)}
       </div>
-      <button type="submit" disabled={saving} className="flex w-full items-center justify-center gap-2 rounded-full bg-gold-400 px-4 py-3 font-semibold text-slate-900 disabled:opacity-60"><Save size={17} />{saving ? 'Saving...' : `Save ${language} services`}</button>
+      <StickyFormActions>
+        <button type="submit" disabled={saving} className="flex w-full items-center justify-center gap-2 rounded-full bg-gold-400 px-4 py-3 font-semibold text-slate-900 disabled:opacity-60"><Save size={17} />{saving ? 'Saving...' : `Save ${language} services`}</button>
+      </StickyFormActions>
     </form>
   </div>;
 }
